@@ -4,8 +4,12 @@ import { useEffect, useRef, useState } from "react";
 
 export default function HeroSection() {
   const bgRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLDivElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
   const [videoError, setVideoError] = useState(false);
 
+  // Parallax on scroll
   useEffect(() => {
     const onScroll = () => {
       if (bgRef.current) {
@@ -16,14 +20,50 @@ export default function HeroSection() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // GSAP word animation
+  useEffect(() => {
+    import("gsap").then(({ gsap }) => {
+      if (!headlineRef.current) return;
+      const words = headlineRef.current.querySelectorAll(".hero-word");
+      gsap.fromTo(
+        words,
+        { y: 80, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.08,
+          ease: "cubic-bezier(0.16, 1, 0.3, 1)",
+          delay: 0.2,
+        }
+      );
+      if (subtitleRef.current) {
+        gsap.fromTo(
+          subtitleRef.current,
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, ease: "cubic-bezier(0.16, 1, 0.3, 1)", delay: 0.6 }
+        );
+      }
+      if (ctaRef.current) {
+        gsap.fromTo(
+          ctaRef.current,
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, ease: "cubic-bezier(0.16, 1, 0.3, 1)", delay: 0.85 }
+        );
+      }
+    });
+  }, []);
+
   const scrollToBooking = () =>
     document.querySelector("#boeken")?.scrollIntoView({ behavior: "smooth" });
   const scrollToAbout = () =>
     document.querySelector("#over")?.scrollIntoView({ behavior: "smooth" });
 
+  const headline = ["Royal", "Massia", "Resort"];
+
   return (
     <section className="relative h-screen min-h-[620px] overflow-hidden flex items-center justify-center">
-      {/* Background: video with image fallback */}
+      {/* Background video */}
       <div ref={bgRef} className="absolute inset-0 will-change-transform">
         {!videoError ? (
           <video
@@ -42,53 +82,83 @@ export default function HeroSection() {
             src="/images/outlook.jpg"
             alt="Royal Massia Resort"
             className="absolute inset-0 w-full h-full object-cover animate-ken-burns"
+            loading="lazy"
           />
         )}
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0e1e12]/65 via-[#0e1e12]/35 to-[#0e1e12]/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/25 to-black/45" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+        {/* Label */}
         <p
-          className="section-label text-[#b83428] mb-4 opacity-0 animate-fade-up animate-delay-100"
-          style={{ animationFillMode: "forwards" }}
+          className="section-label text-[#b83428] mb-6"
+          style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200, letterSpacing: "0.25em" }}
         >
           Suriname &bull; Natuur &bull; Rust
         </p>
 
-        <h1
-          style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive", animationFillMode: "forwards" }}
-          className="text-white text-6xl sm:text-8xl lg:text-[9rem] font-normal leading-none tracking-wider mb-6 opacity-0 animate-fade-up animate-delay-200"
+        {/* Headline — word-by-word GSAP */}
+        <div
+          ref={headlineRef}
+          className="overflow-hidden"
+          style={{ fontFamily: "Cormorant Garamond, Georgia, serif" }}
         >
-          Royal Massia
-          <span className="block italic text-[#b83428]">Resort</span>
-        </h1>
+          <h1
+            className="text-white leading-none tracking-wide"
+            style={{
+              fontFamily: "Cormorant Garamond, Georgia, serif",
+              fontStyle: "italic",
+              fontWeight: 300,
+              fontSize: "clamp(3.5rem, 9vw, 8.5rem)",
+              letterSpacing: "0.04em",
+            }}
+          >
+            {headline.map((word, i) => (
+              <span
+                key={i}
+                className="hero-word inline-block opacity-0"
+                style={{ marginRight: i < headline.length - 1 ? "0.3em" : 0 }}
+              >
+                {word === "Resort" ? (
+                  <em style={{ color: "var(--color-accent)", fontStyle: "italic" }}>{word}</em>
+                ) : (
+                  word
+                )}
+              </span>
+            ))}
+          </h1>
+        </div>
 
+        {/* Subtitle */}
         <p
-          style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif", animationFillMode: "forwards" }}
-          className="text-white/80 text-lg sm:text-xl font-light tracking-wide mb-10 max-w-xl mx-auto opacity-0 animate-fade-up animate-delay-300"
+          ref={subtitleRef}
+          className="text-white/75 mt-6 mb-10 max-w-xl mx-auto opacity-0"
+          style={{
+            fontFamily: "Inter, system-ui, sans-serif",
+            fontWeight: 300,
+            fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)",
+            lineHeight: 1.8,
+            letterSpacing: "0.02em",
+          }}
         >
           Ontsnap naar de wildernis van Suriname. Verblijf in een cabana aan het water,
           vaar in een kano en beleef de ongerepte natuur.
         </p>
 
-        <div
-          className="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-fade-up animate-delay-400"
-          style={{ animationFillMode: "forwards" }}
-        >
+        {/* CTA buttons */}
+        <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center opacity-0">
           <button onClick={scrollToBooking} className="btn-gold text-sm">
             Boek uw verblijf
           </button>
-          <button onClick={scrollToAbout} className="btn-outline text-sm">
+          <button onClick={scrollToAbout} className="btn-hero text-sm">
             Ontdek meer
           </button>
         </div>
 
-        <div
-          className="mt-16 flex items-center justify-center gap-8 sm:gap-16 opacity-0 animate-fade-up animate-delay-500"
-          style={{ animationFillMode: "forwards" }}
-        >
+        {/* Stats */}
+        <div className="mt-16 flex items-center justify-center gap-8 sm:gap-16">
           {[
             { value: "2", label: "Cabana's" },
             { value: "€30", label: "p.p.p.n." },
@@ -96,14 +166,19 @@ export default function HeroSection() {
           ].map((s) => (
             <div key={s.label} className="text-center">
               <p
-                style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }}
-                className="text-[#b83428] text-3xl sm:text-4xl font-light"
+                className="text-[#b83428]"
+                style={{
+                  fontFamily: "Cormorant Garamond, Georgia, serif",
+                  fontStyle: "italic",
+                  fontWeight: 300,
+                  fontSize: "clamp(2rem, 4vw, 3.2rem)",
+                }}
               >
                 {s.value}
               </p>
               <p
-                style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-                className="text-white/60 text-xs tracking-widest uppercase mt-1"
+                className="text-white/50 text-xs tracking-widest uppercase mt-1"
+                style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
               >
                 {s.label}
               </p>
@@ -113,21 +188,21 @@ export default function HeroSection() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
         <span
-          style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-          className="text-white text-[0.65rem] tracking-[0.25em] uppercase"
+          className="text-white text-[0.6rem] tracking-[0.3em] uppercase"
+          style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
         >
           Scroll
         </span>
-        <div className="w-px h-12 bg-white/40 relative overflow-hidden">
+        <div className="w-px h-12 bg-white/30 relative overflow-hidden">
           <div className="w-full h-1/2 bg-[#b83428] absolute top-0 animate-[scrollLine_1.8s_ease-in-out_infinite]" />
         </div>
       </div>
 
       <style jsx>{`
         @keyframes scrollLine {
-          0% { top: -50%; }
+          0%   { top: -50%; }
           100% { top: 100%; }
         }
       `}</style>

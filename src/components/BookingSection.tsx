@@ -127,11 +127,11 @@ export default function BookingSection() {
       <div className="container-wide">
         <div className="grid lg:grid-cols-5 gap-12 items-start">
           {/* Left info */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2" data-reveal>
             <span className="gold-line" />
             <p className="section-label mb-3">Reservering</p>
             <h2
-              style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }}
+              style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300 }}
               className="text-white text-4xl sm:text-5xl font-light mb-6"
             >
               Boek uw<br />
@@ -197,12 +197,12 @@ export default function BookingSection() {
           </div>
 
           {/* Form */}
-          <div className="lg:col-span-3 bg-[#f5ede4] p-8 sm:p-10">
+          <div className="lg:col-span-3 bg-[#f5ede4] p-8 sm:p-10" data-reveal data-delay="0.15">
             {status === "success" ? (
               <div className="text-center py-12">
                 <div className="text-6xl mb-4">🌿</div>
                 <h3
-                  style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }}
+                  style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300 }}
                   className="text-[#1a3a22] text-3xl font-light mb-3"
                 >
                   Aanvraag ontvangen!
@@ -373,7 +373,7 @@ export default function BookingSection() {
                       )}
                     </div>
                     <p
-                      style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }}
+                      style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300 }}
                       className="text-[#1a3a22] text-2xl font-light"
                     >
                       €{basis}

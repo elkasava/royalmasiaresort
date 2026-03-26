@@ -4,18 +4,18 @@ export default function ContactSection() {
       <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left */}
-          <div>
+          <div data-reveal>
             <span className="gold-line" />
             <p className="section-label mb-3">Contact</p>
             <h2
-              style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }}
-              className="text-[#1a3a22] text-4xl sm:text-5xl font-light mb-6"
+              style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300, fontSize: "clamp(2.2rem, 5vw, 4rem)" }}
+              className="text-[#1a3a22] mb-6"
             >
               We zijn er<br />
-              <span className="italic text-[#b83428]">voor u</span>
+              <span className="text-[#b83428]">voor u</span>
             </h2>
             <p
-              style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
+              style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
               className="text-[#6b7280] text-base leading-relaxed mb-10"
             >
               Neem contact op voor reserveringen, vragen of meer informatie over Royal Massia Resort.
@@ -52,7 +52,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <p
-                      style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
+                      style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
                       className="text-[#6b7280] text-xs tracking-widest uppercase"
                     >
                       {c.label}
@@ -62,21 +62,21 @@ export default function ContactSection() {
                         href={c.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-                        className="text-[#1a3a22] font-medium hover:text-[#b83428] transition-colors"
+                        style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 400 }}
+                        className="text-[#1a3a22] hover:text-[#b83428] transition-colors"
                       >
                         {c.value}
                       </a>
                     ) : (
                       <p
-                        style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-                        className="text-[#1a3a22] font-medium"
+                        style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 400 }}
+                        className="text-[#1a3a22]"
                       >
                         {c.value}
                       </p>
                     )}
                     <p
-                      style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
+                      style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
                       className="text-[#6b7280] text-sm mt-0.5"
                     >
                       {c.sub}
@@ -113,17 +113,17 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Right: map placeholder + image */}
-          <div className="space-y-4">
+          {/* Right: info card + WhatsApp CTA */}
+          <div className="space-y-4" data-reveal data-delay="0.15">
             <div className="bg-[#1a3a22] p-10 text-white">
               <p
-                style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }}
-                className="text-[#b83428] text-2xl font-light italic mb-4"
+                style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300, fontSize: "1.5rem" }}
+                className="text-[#b83428] mb-4"
               >
                 &ldquo;De natuur wacht op u&rdquo;
               </p>
               <p
-                style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
+                style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
                 className="text-white/60 text-sm leading-relaxed mb-6"
               >
                 Royal Massia Resort ligt in het prachtige Suriname, een van de meest ongerepte
@@ -138,13 +138,13 @@ export default function ContactSection() {
                 ].map((i) => (
                   <div key={i.label}>
                     <p
-                      style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
+                      style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
                       className="text-[#b83428] text-xs tracking-widest uppercase"
                     >
                       {i.label}
                     </p>
                     <p
-                      style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
+                      style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
                       className="text-white text-sm mt-1"
                     >
                       {i.value}
@@ -163,13 +163,13 @@ export default function ContactSection() {
             >
               <div>
                 <p
-                  style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-                  className="text-white font-semibold text-sm"
+                  style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 500 }}
+                  className="text-white text-sm"
                 >
                   Direct via WhatsApp
                 </p>
                 <p
-                  style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
+                  style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
                   className="text-white/80 text-xs mt-0.5"
                 >
                   Klik hier om direct te chatten

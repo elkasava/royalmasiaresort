@@ -7,7 +7,7 @@ export default function AboutSection() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
 
           {/* Images with blob shapes */}
-          <div className="relative">
+          <div className="relative" data-reveal>
             {/* Main video — blob shape */}
             <div className="relative">
               <div
@@ -56,24 +56,24 @@ export default function AboutSection() {
 
             {/* Floating badge */}
             <div className="absolute -bottom-2 left-4 bg-[#1a3a22] text-white p-5 hidden sm:block z-10">
-              <p style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }} className="text-4xl font-light text-[#b83428]">Est.</p>
-              <p style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }} className="text-3xl font-light">2024</p>
+              <p style={{ fontFamily: "var(--font-cormorant)" }} className="text-4xl font-light text-[#b83428] italic">Est.</p>
+              <p style={{ fontFamily: "var(--font-cormorant)" }} className="text-3xl font-light italic">2024</p>
             </div>
           </div>
 
           {/* Text */}
-          <div className="lg:pl-8">
+          <div className="lg:pl-8" data-reveal data-delay="0.15">
             <span className="gold-line" />
             <p className="section-label mb-3">Over het Resort</p>
             <h2
-              style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }}
-              className="text-[#1a3a22] text-4xl sm:text-5xl font-light mb-6 leading-tight"
+              style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300, fontSize: "clamp(2.2rem, 5vw, 4rem)" }}
+              className="text-[#1a3a22] mb-6 leading-tight"
             >
               Waar de jungle<br />
-              <span className="italic text-[#b83428]">het water ontmoet</span>
+              <span className="text-[#b83428]">het water ontmoet</span>
             </h2>
             <p
-              style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
+              style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
               className="text-[#4a5568] text-base leading-relaxed mb-5"
             >
               Royal Massia Resort ligt verscholen in het hart van Suriname, omringd door weelderig
@@ -81,15 +81,15 @@ export default function AboutSection() {
               los te komen van de dagelijkse drukte en op te gaan in de ongerepte natuur.
             </p>
             <p
-              style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
+              style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
               className="text-[#4a5568] text-base leading-relaxed mb-8"
             >
-              Verblijf in onze sfeervolle cabana's, vernoemd naar Amsterdamse wijken — elk met een
-              eigen karakter. Geniet van de pier, de hangmatten, de kajaks en kano's terwijl u
+              Verblijf in onze sfeervolle cabana&apos;s, vernoemd naar Amsterdamse wijken — elk met een
+              eigen karakter. Geniet van de pier, de hangmatten, de kajaks en kano&apos;s terwijl u
               het geluid van de rivier om u heen hoort.
             </p>
 
-            <div className="grid grid-cols-2 gap-6 border-t border-[#dfc0b0] pt-8">
+            <div className="grid grid-cols-2 gap-6 border-t border-[#dfc0b0] pt-8" data-reveal-stagger>
               {[
                 { icon: "🌿", label: "Tropische natuur", desc: "Direct omringd door jungle" },
                 { icon: "💧", label: "Aan de rivier", desc: "Pier, kajaks & kano's" },
@@ -99,10 +99,10 @@ export default function AboutSection() {
                 <div key={f.label} className="flex gap-3 items-start">
                   <span className="text-2xl mt-0.5">{f.icon}</span>
                   <div>
-                    <p style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }} className="font-semibold text-[#1a3a22] text-sm">
+                    <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 500 }} className="text-[#1a3a22] text-sm">
                       {f.label}
                     </p>
-                    <p style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }} className="text-[#6b7280] text-xs mt-0.5">
+                    <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }} className="text-[#6b7280] text-xs mt-0.5">
                       {f.desc}
                     </p>
                   </div>

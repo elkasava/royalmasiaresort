@@ -8,8 +8,10 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#0a1f14] text-white">
-      {/* Main footer */}
+    <footer style={{ background: "var(--color-secondary)", color: "white", paddingBottom: "5rem" }}>
+      {/* Accent divider top */}
+      <div style={{ height: 1, background: "rgba(184,52,40,0.4)" }} />
+
       <div className="container-wide py-16">
         <div className="grid md:grid-cols-4 gap-10">
           {/* Brand */}
@@ -19,46 +21,78 @@ export default function Footer() {
               className="text-left mb-4"
             >
               <p
-                style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }}
-                className="text-white text-2xl font-light tracking-widest uppercase"
+                className="text-white text-2xl tracking-widest uppercase"
+                style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontStyle: "italic", fontWeight: 300 }}
               >
                 Royal Massia
               </p>
               <p
-                style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
                 className="text-[#b83428] text-[0.6rem] tracking-[0.35em] uppercase mt-0.5"
+                style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
               >
                 Resort &amp; Nature Retreat
               </p>
             </button>
             <p
-              style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-              className="text-white/50 text-sm leading-relaxed max-w-xs mt-4"
+              className="text-white/45 text-sm leading-relaxed max-w-xs mt-4"
+              style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
             >
-              Ontsnap naar de ongerepte natuur van Suriname. Verblijf in een cabana, verken watervallen en laad uw batterijen op in het hart van het regenwoud.
+              Ontsnap naar de ongerepte natuur van Suriname. Verblijf in een cabana, verken
+              watervallen en laad uw batterijen op in het hart van het regenwoud.
             </p>
+            {/* Social icons using Ionicons */}
             <div className="flex gap-3 mt-6">
               <a
-                href="https://wa.me/5978900286"
+                href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 bg-white/10 hover:bg-[#25D366] flex items-center justify-center transition-colors"
-                aria-label="WhatsApp"
+                aria-label="Instagram"
+                className="w-10 h-10 flex items-center justify-center transition-all duration-300"
+                style={{ background: "rgba(255,255,255,0.08)", color: "var(--color-accent)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-accent)")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.08)")}
               >
-                <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                </svg>
+                {/* @ts-ignore */}
+                <ion-icon name="logo-instagram" style={{ fontSize: "1.2rem", color: "inherit" }} />
               </a>
               <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 bg-white/10 hover:bg-[#1877F2] flex items-center justify-center transition-colors"
                 aria-label="Facebook"
+                className="w-10 h-10 flex items-center justify-center transition-all duration-300"
+                style={{ background: "rgba(255,255,255,0.08)", color: "var(--color-accent)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-accent)")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.08)")}
               >
-                <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg>
+                {/* @ts-ignore */}
+                <ion-icon name="logo-facebook" style={{ fontSize: "1.2rem", color: "inherit" }} />
+              </a>
+              <a
+                href="https://tiktok.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+                className="w-10 h-10 flex items-center justify-center transition-all duration-300"
+                style={{ background: "rgba(255,255,255,0.08)", color: "var(--color-accent)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--color-accent)")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.08)")}
+              >
+                {/* @ts-ignore */}
+                <ion-icon name="logo-tiktok" style={{ fontSize: "1.2rem", color: "inherit" }} />
+              </a>
+              <a
+                href="https://wa.me/5978900286"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="w-10 h-10 flex items-center justify-center transition-all duration-300"
+                style={{ background: "rgba(255,255,255,0.08)", color: "var(--color-accent)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "#25D366")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.08)")}
+              >
+                {/* @ts-ignore */}
+                <ion-icon name="logo-whatsapp" style={{ fontSize: "1.2rem", color: "inherit" }} />
               </a>
             </div>
           </div>
@@ -66,8 +100,8 @@ export default function Footer() {
           {/* Nav links */}
           <div>
             <p
-              style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
               className="text-[#b83428] text-xs tracking-[0.2em] uppercase mb-5"
+              style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
             >
               Navigatie
             </p>
@@ -83,8 +117,8 @@ export default function Footer() {
                 <li key={l.id}>
                   <button
                     onClick={() => scrollTo(l.id)}
-                    style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-                    className="text-white/50 hover:text-[#b83428] text-sm transition-colors"
+                    className="text-white/45 hover:text-[#b83428] text-sm transition-colors duration-300"
+                    style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200, background: "none", border: "none" }}
                   >
                     {l.label}
                   </button>
@@ -96,76 +130,60 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <p
-              style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
               className="text-[#b83428] text-xs tracking-[0.2em] uppercase mb-5"
+              style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
             >
               Contact
             </p>
             <ul className="space-y-4">
-              <li>
-                <p
-                  style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-                  className="text-white/30 text-xs tracking-widest uppercase"
-                >
-                  WhatsApp
-                </p>
-                <a
-                  href="https://wa.me/5978900286"
-                  style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-                  className="text-white/70 hover:text-[#b83428] text-sm transition-colors"
-                >
-                  8900286
-                </a>
+              <li className="flex items-start gap-3">
+                {/* @ts-ignore */}
+                <ion-icon name="call-outline" style={{ fontSize: "1rem", color: "var(--color-accent)", marginTop: "2px", flexShrink: 0 }} />
+                <div>
+                  <p className="text-white/30 text-xs tracking-widest uppercase" style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}>WhatsApp</p>
+                  <a href="https://wa.me/5978900286" className="text-white/60 hover:text-[#b83428] text-sm transition-colors" style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}>
+                    8900286
+                  </a>
+                </div>
               </li>
-              <li>
-                <p
-                  style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-                  className="text-white/30 text-xs tracking-widest uppercase"
-                >
-                  Land
-                </p>
-                <p
-                  style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-                  className="text-white/70 text-sm"
-                >
-                  Suriname
-                </p>
+              <li className="flex items-start gap-3">
+                {/* @ts-ignore */}
+                <ion-icon name="location-outline" style={{ fontSize: "1rem", color: "var(--color-accent)", marginTop: "2px", flexShrink: 0 }} />
+                <div>
+                  <p className="text-white/30 text-xs tracking-widest uppercase" style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}>Land</p>
+                  <p className="text-white/60 text-sm" style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}>Suriname</p>
+                </div>
               </li>
-              <li>
-                <p
-                  style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-                  className="text-white/30 text-xs tracking-widest uppercase"
-                >
-                  Open
-                </p>
-                <p
-                  style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-                  className="text-white/70 text-sm"
-                >
-                  Het hele jaar
-                </p>
+              <li className="flex items-start gap-3">
+                {/* @ts-ignore */}
+                <ion-icon name="sunny-outline" style={{ fontSize: "1rem", color: "var(--color-accent)", marginTop: "2px", flexShrink: 0 }} />
+                <div>
+                  <p className="text-white/30 text-xs tracking-widest uppercase" style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}>Open</p>
+                  <p className="text-white/60 text-sm" style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}>Het hele jaar</p>
+                </div>
               </li>
             </ul>
           </div>
         </div>
       </div>
 
+      {/* Accent divider */}
+      <div style={{ height: 1, background: "rgba(184,52,40,0.4)" }} />
+
       {/* Bottom bar */}
-      <div className="border-t border-white/5">
-        <div className="container-wide py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p
-            style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-            className="text-white/25 text-xs"
-          >
-            &copy; {year} Royal Massia Resort. Alle rechten voorbehouden.
-          </p>
-          <p
-            style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-            className="text-white/20 text-xs"
-          >
-            Suriname &bull; Natuur &bull; Beleving
-          </p>
-        </div>
+      <div className="container-wide py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p
+          className="text-white/20 text-xs"
+          style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
+        >
+          &copy; {year} Royal Massia Resort. Alle rechten voorbehouden.
+        </p>
+        <p
+          className="text-white/15 text-xs"
+          style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
+        >
+          Suriname &bull; Natuur &bull; Beleving
+        </p>
       </div>
     </footer>
   );

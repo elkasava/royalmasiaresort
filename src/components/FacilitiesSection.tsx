@@ -12,28 +12,28 @@ export default function FacilitiesSection() {
     <section id="faciliteiten" className="section-padding bg-[#f5ede4] overflow-hidden">
       <div className="container-wide">
         {/* Header */}
-        <div className="max-w-xl mb-16">
+        <div className="max-w-xl mb-16" data-reveal>
           <span className="gold-line" />
           <p className="section-label mb-3">Faciliteiten</p>
           <h2
-            style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }}
-            className="text-[#1a3a22] text-4xl sm:text-5xl font-light"
+            style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300, fontSize: "clamp(2.2rem, 5vw, 4rem)" }}
+            className="text-[#1a3a22]"
           >
             Alles wat u<br />
-            <span className="italic text-[#b83428]">nodig heeft</span>
+            <span className="text-[#b83428]">nodig heeft</span>
           </h2>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Cards grid */}
-          <div className="grid sm:grid-cols-2 gap-5">
+          <div className="grid sm:grid-cols-2 gap-5" data-reveal-stagger>
             {facilities.map((f, i) => (
               <div key={f.title} className="group p-7 bg-white border border-[#dfc0b0] card-hover" style={{ animationDelay: `${i * 80}ms` }}>
                 <div className="text-3xl mb-4">{f.icon}</div>
-                <h3 style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }} className="text-[#1a3a22] text-lg font-medium mb-2 group-hover:text-[#b83428] transition-colors">
+                <h3 style={{ fontFamily: "var(--font-cormorant)", fontWeight: 400, fontSize: "1.2rem" }} className="text-[#1a3a22] mb-2 group-hover:text-[#b83428] transition-colors">
                   {f.title}
                 </h3>
-                <p style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }} className="text-[#6b7280] text-sm leading-relaxed">
+                <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }} className="text-[#6b7280] text-sm leading-relaxed">
                   {f.desc}
                 </p>
                 <div className="mt-4 w-8 h-0.5 bg-[#b83428] group-hover:w-14 transition-all duration-300" />
@@ -41,8 +41,8 @@ export default function FacilitiesSection() {
             ))}
           </div>
 
-          {/* Right side: echte foto's met blob vormen */}
-          <div className="relative flex justify-center items-center h-[480px]">
+          {/* Right side: blob images */}
+          <div className="relative flex justify-center items-center h-[480px]" data-reveal data-delay="0.2">
             {/* Grote blob foto — rivier */}
             <div
               className="absolute w-72 h-80 overflow-hidden"

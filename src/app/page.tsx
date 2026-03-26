@@ -8,10 +8,17 @@ import PricingSection from "@/components/PricingSection";
 import BookingSection from "@/components/BookingSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import SmoothScroll from "@/components/SmoothScroll";
+import CustomCursor from "@/components/CustomCursor";
+import BookingWidget from "@/components/BookingWidget";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function Home() {
   return (
     <>
+      <SmoothScroll />
+      <CustomCursor />
+      <ScrollReveal />
       <Navbar />
       <main>
         <HeroSection />
@@ -24,6 +31,7 @@ export default function Home() {
         <ContactSection />
       </main>
       <Footer />
+      <BookingWidget />
     </>
   );
 }

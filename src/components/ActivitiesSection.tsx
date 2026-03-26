@@ -39,17 +39,17 @@ export default function ActivitiesSection() {
     <section id="activiteiten" className="section-padding bg-[#1a3a22] overflow-hidden">
       <div className="container-wide">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16" data-reveal>
           <span className="gold-line mx-auto" />
           <p className="section-label mb-3">Belevenissen</p>
           <h2
-            style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }}
-            className="text-white text-4xl sm:text-5xl font-light"
+            style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300, fontSize: "clamp(2.2rem, 5vw, 4rem)" }}
+            className="text-white"
           >
             Activiteiten &amp; Uitstapjes
           </h2>
           <p
-            style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
+            style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
             className="text-white/60 mt-4 max-w-lg mx-auto"
           >
             Ontdek de omgeving met onze curated ervaringen. Van avontuurlijke treks tot culturele wandelingen.
@@ -61,6 +61,8 @@ export default function ActivitiesSection() {
           {activities.map((a, i) => (
             <div
               key={a.id}
+              data-reveal
+              data-delay={`${i * 0.1}`}
               className={`group grid md:grid-cols-2 gap-0 overflow-hidden bg-[#0e1e12] ${
                 i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
               }`}
@@ -82,8 +84,8 @@ export default function ActivitiesSection() {
 
                 <div className="absolute top-4 left-4 bg-[#b83428] text-white px-3 py-1">
                   <span
-                    style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-                    className="text-xs font-semibold tracking-widest uppercase"
+                    style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
+                    className="text-xs tracking-widest uppercase"
                   >
                     {a.highlight}
                   </span>
@@ -93,31 +95,31 @@ export default function ActivitiesSection() {
               {/* Content */}
               <div className="p-10 flex flex-col justify-center">
                 <p
-                  style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
+                  style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
                   className="text-[#b83428] text-xs tracking-[0.2em] uppercase mb-2"
                 >
                   {a.subtitle}
                 </p>
                 <h3
-                  style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }}
-                  className="text-white text-3xl font-light mb-4"
+                  style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300, fontSize: "clamp(1.6rem, 3vw, 2.2rem)" }}
+                  className="text-white mb-4"
                 >
                   {a.title}
                 </h3>
                 <p
-                  style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
+                  style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
                   className="text-white/60 text-sm leading-relaxed mb-6"
                 >
                   {a.description}
                 </p>
                 <div className="flex gap-6">
                   <div>
-                    <p style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }} className="text-[#b83428] text-xs tracking-widest uppercase">Duur</p>
-                    <p style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }} className="text-white/80 text-sm mt-1">{a.duration}</p>
+                    <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }} className="text-[#b83428] text-xs tracking-widest uppercase">Duur</p>
+                    <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }} className="text-white/80 text-sm mt-1">{a.duration}</p>
                   </div>
                   <div>
-                    <p style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }} className="text-[#b83428] text-xs tracking-widest uppercase">Niveau</p>
-                    <p style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }} className="text-white/80 text-sm mt-1">{a.difficulty}</p>
+                    <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }} className="text-[#b83428] text-xs tracking-widest uppercase">Niveau</p>
+                    <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }} className="text-white/80 text-sm mt-1">{a.difficulty}</p>
                   </div>
                 </div>
               </div>
@@ -125,8 +127,8 @@ export default function ActivitiesSection() {
           ))}
         </div>
 
-        {/* Full-width nature photo strip with blob masking */}
-        <div className="mt-16 relative">
+        {/* Full-width nature photo strip */}
+        <div className="mt-16 relative" data-reveal>
           <div
             className="w-full h-64 overflow-hidden"
             style={{ borderRadius: "0 0 50% 50% / 0 0 30% 30%" }}
@@ -138,7 +140,7 @@ export default function ActivitiesSection() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1a3a22]/60 to-transparent" />
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center">
-              <p style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }} className="text-white text-2xl font-light italic">
+              <p style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300, fontSize: "1.5rem" }} className="text-white">
                 Ongerepte natuur, direct voor uw deur
               </p>
             </div>

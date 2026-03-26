@@ -4,38 +4,53 @@
   --color-background: #f5ede4;
   --color-foreground: #1c1008;
 
-  /* Brand palette — gebaseerd op resortfoto: rood gebouw, mahonie hout, tropisch groen */
   --color-forest: #1a3a22;
   --color-forest-light: #2d5c3f;
   --color-forest-dark: #0e1e12;
-
-  /* Accent: warm koraalrood van het gebouw, subtiel verrijkt */
   --color-gold: #b83428;
   --color-gold-light: #d4574a;
   --color-gold-dark: #8b1e16;
-
-  /* Achtergronden: warm crème met rode/aarden ondertoon */
   --color-cream: #f5ede4;
   --color-cream-dark: #ead8cc;
   --color-sand: #dfc0b0;
-
-  /* Mahonie hout toon — voor accenten en borders */
   --color-wood: #3c1a0a;
   --color-wood-light: #6b3520;
-
   --color-text: #1c0e08;
   --color-muted: #7a6058;
   --color-white: #fdf8f5;
 
-  /* Fonts — aliassen voor gebruik in components */
   --font-serif: "Abril Fatface", cursive;
   --font-sans: "Raleway", system-ui, sans-serif;
 }
 
-/* ── Font variabelen direct beschikbaar als CSS custom properties ── */
+/* ── ORIGINELE SITE KLEUREN (volledig palet gescand) ── */
 :root {
-  --font-serif: var(--font-abril, "Abril Fatface"), cursive;
-  --font-sans: var(--font-raleway, "Raleway"), system-ui, sans-serif;
+  --color-primary:       #1a3a22;
+  --color-secondary:     #0e1e12;
+  --color-accent:        #b83428;
+  --color-bg:            #f5ede4;
+  --color-text:          #1c0e08;
+  --color-cta:           #b83428;
+  --color-forest:        #1a3a22;
+  --color-forest-light:  #2d5c3f;
+  --color-forest-dark:   #0e1e12;
+  --color-gold:          #b83428;
+  --color-gold-light:    #d4574a;
+  --color-gold-dark:     #8b1e16;
+  --color-cream:         #f5ede4;
+  --color-cream-dark:    #ead8cc;
+  --color-sand:          #dfc0b0;
+  --color-wood:          #3c1a0a;
+  --color-wood-light:    #6b3520;
+  --color-muted:         #7a6058;
+  --color-white:         #fdf8f5;
+
+  --font-serif:    var(--font-abril, "Abril Fatface"), cursive;
+  --font-sans:     var(--font-raleway, "Raleway"), system-ui, sans-serif;
+  --font-cormorant: "Cormorant Garamond", Georgia, serif;
+  --font-inter:     "Inter", system-ui, sans-serif;
+
+  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 *,
@@ -53,117 +68,100 @@ html {
 body {
   background-color: var(--color-cream);
   color: var(--color-text);
-  font-family: var(--font-raleway), "Raleway", system-ui, sans-serif;
-  line-height: 1.6;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.8;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: none;
 }
 
-/* ── Typography ── */
+/* ── Selection ── */
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* ── Typography — Cormorant Garamond ── */
 h1,
-h2,
+h2 {
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(3rem, 7vw, 7rem);
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+}
+
 h3,
 h4 {
-  font-family: var(--font-abril), "Abril Fatface", cursive;
-  line-height: 1.15;
+  font-family: var(--font-cormorant);
+  font-style: normal;
   font-weight: 400;
-  letter-spacing: 0.01em;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
 }
 
-h1 {
-  font-size: clamp(3rem, 8vw, 7rem);
-}
+h1 { font-size: clamp(3rem, 7vw, 7rem); }
+h2 { font-size: clamp(2.2rem, 5vw, 4.5rem); }
+h3 { font-size: clamp(1.5rem, 3vw, 2.4rem); }
+h4 { font-size: clamp(1.2rem, 2vw, 1.8rem); }
 
-h2 {
-  font-size: clamp(2.2rem, 5vw, 4rem);
-}
-
-h3 {
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
+/* ── Accent labels ── */
+.accent-label,
+.section-label {
+  font-family: "Raleway", var(--font-sans);
+  font-weight: 200;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold);
 }
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-cream);
+  background: var(--color-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-wood-light);
-  border-radius: 3px;
+  background: var(--color-accent);
 }
 
 /* ── Animations ── */
 @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(32px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
-
 @keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
 }
-
 @keyframes slideRight {
-  from {
-    opacity: 0;
-    transform: translateX(-24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
-
 @keyframes kenBurns {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.08);
-  }
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
 }
 
-.animate-fade-up {
-  animation: fadeUp 0.8s ease forwards;
-}
-
-.animate-fade-in {
-  animation: fadeIn 1s ease forwards;
-}
-
-.animate-scale-in {
-  animation: scaleIn 0.7s ease forwards;
-}
-
-.animate-slide-right {
-  animation: slideRight 0.7s ease forwards;
-}
-
-.animate-ken-burns {
-  animation: kenBurns 12s ease-in-out infinite alternate;
-}
+.animate-fade-up    { animation: fadeUp 0.8s var(--ease-apple) forwards; }
+.animate-fade-in    { animation: fadeIn 1s var(--ease-apple) forwards; }
+.animate-scale-in   { animation: scaleIn 0.7s var(--ease-apple) forwards; }
+.animate-slide-right{ animation: slideRight 0.7s var(--ease-apple) forwards; }
+.animate-ken-burns  { animation: kenBurns 12s ease-in-out infinite alternate; }
+.animate-slide-up   { animation: slideUp 0.45s var(--ease-apple) forwards; }
 
 .animate-delay-100 { animation-delay: 100ms; }
 .animate-delay-200 { animation-delay: 200ms; }
@@ -172,12 +170,11 @@ h3 {
 .animate-delay-500 { animation-delay: 500ms; }
 .animate-delay-600 { animation-delay: 600ms; }
 
-/* ── Utility classes ── */
+/* ── Utilities ── */
 .section-padding {
   padding-top: 6rem;
   padding-bottom: 6rem;
 }
-
 .container-wide {
   max-width: 1280px;
   margin-left: auto;
@@ -185,7 +182,6 @@ h3 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
-
 .gold-line {
   display: block;
   width: 60px;
@@ -194,40 +190,31 @@ h3 {
   margin-bottom: 1rem;
 }
 
-.section-label {
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--color-gold);
-}
-
 /* ── Card hover ── */
 .card-hover {
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition: transform 0.35s var(--ease-apple), box-shadow 0.35s var(--ease-apple);
 }
 .card-hover:hover {
   transform: translateY(-6px);
   box-shadow: 0 20px 40px rgba(26, 61, 43, 0.15);
 }
 
-/* ── Btn styles ── */
+/* ── Buttons ── */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: var(--color-forest);
+  background-color: var(--color-primary);
   color: white;
   padding: 0.85rem 2rem;
-  font-family: var(--font-sans);
+  font-family: "Raleway", var(--font-sans);
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   border: none;
-  cursor: pointer;
-  transition: background-color 0.25s ease, transform 0.2s ease;
+  cursor: none;
+  transition: background-color 0.25s var(--ease-apple), transform 0.2s var(--ease-apple);
 }
 .btn-primary:hover {
   background-color: var(--color-forest-light);
@@ -238,17 +225,17 @@ h3 {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: var(--color-gold);
+  background-color: var(--color-cta);
   color: white;
   padding: 0.85rem 2rem;
-  font-family: var(--font-sans);
+  font-family: "Raleway", var(--font-sans);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   border: none;
-  cursor: pointer;
-  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  cursor: none;
+  transition: background-color 0.25s var(--ease-apple), transform 0.2s var(--ease-apple), box-shadow 0.25s var(--ease-apple);
 }
 .btn-gold:hover {
   background-color: var(--color-gold-dark);
@@ -263,18 +250,41 @@ h3 {
   background-color: transparent;
   color: white;
   padding: 0.85rem 2rem;
-  font-family: var(--font-sans);
+  font-family: "Raleway", var(--font-sans);
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  border: 1.5px solid white;
-  cursor: pointer;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  border: 1px solid currentColor;
+  cursor: none;
+  transition: background-color 0.25s var(--ease-apple), color 0.25s var(--ease-apple);
 }
 .btn-outline:hover {
   background-color: white;
-  color: var(--color-forest);
+  color: var(--color-primary);
+}
+
+/* ── Hero CTA outline style ── */
+.btn-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: white;
+  padding: 0.85rem 2rem;
+  font-family: "Raleway", var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  cursor: none;
+  transition: background-color 0.3s var(--ease-apple), color 0.3s var(--ease-apple);
+}
+.btn-hero:hover {
+  background-color: var(--color-cta);
+  border-color: var(--color-cta);
+  color: white;
 }
 
 /* ── Form inputs ── */
@@ -283,11 +293,12 @@ h3 {
   padding: 0.75rem 1rem;
   border: 1px solid #d1c4a8;
   background: white;
-  font-family: var(--font-sans);
+  font-family: "Inter", var(--font-sans);
   font-size: 0.95rem;
   color: var(--color-text);
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s var(--ease-apple), box-shadow 0.2s var(--ease-apple);
+  cursor: none;
 }
 .form-input:focus {
   border-color: var(--color-forest-light);
@@ -296,12 +307,12 @@ h3 {
 
 .form-label {
   display: block;
-  font-family: var(--font-sans);
+  font-family: "Raleway", var(--font-sans);
   font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-weight: 200;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-forest);
+  color: var(--color-primary);
   margin-bottom: 0.4rem;
 }
 
@@ -311,4 +322,98 @@ h3 {
   height: 1px;
   background: linear-gradient(to right, transparent, var(--color-sand), transparent);
   margin: 4rem 0;
+}
+
+/* ── Booking widget ── */
+.booking-widget-bar {
+  background-color: var(--color-primary);
+}
+.booking-label {
+  font-family: "Raleway", var(--font-sans);
+  font-weight: 200;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 0.25rem;
+}
+.booking-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-bg);
+  font-family: var(--font-cormorant);
+  font-size: 1rem;
+  font-weight: 300;
+  width: 100%;
+  cursor: none;
+}
+.booking-input::-webkit-calendar-picker-indicator {
+  filter: invert(0.7);
+  cursor: none;
+}
+.booking-value {
+  font-family: var(--font-cormorant);
+  font-size: 1.1rem;
+  color: var(--color-bg);
+  min-width: 2rem;
+  text-align: center;
+}
+.booking-stepper {
+  color: rgba(255,255,255,0.6);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.2s var(--ease-apple);
+  cursor: none;
+}
+.booking-stepper:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.booking-cta {
+  background-color: var(--color-cta);
+  color: white;
+  font-family: "Raleway", var(--font-sans);
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  cursor: none;
+  transition: background-color 0.25s var(--ease-apple);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.booking-cta:hover {
+  background-color: var(--color-gold-dark);
+}
+
+/* ── Ionicons ── */
+ion-icon {
+  font-size: 1.5rem;
+  vertical-align: middle;
+  color: var(--color-accent);
+  transition: color 0.3s var(--ease-apple);
+}
+ion-icon:hover {
+  color: var(--color-primary);
+}
+
+/* ── Custom cursor fix ── */
+a, button, input, select, textarea, label, [role="button"] {
+  cursor: none;
+}
+
+/* ── GSAP reveal init ── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(60px);
 }

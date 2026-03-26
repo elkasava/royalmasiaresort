@@ -34,17 +34,17 @@ export default function CabanasSection() {
     <section id="cabanas" className="section-padding bg-[#0e1e12] overflow-hidden">
       <div className="container-wide">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16" data-reveal>
           <span className="gold-line mx-auto" />
           <p className="section-label mb-3">Verblijf</p>
           <h2
-            style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }}
-            className="text-white text-4xl sm:text-5xl font-light"
+            style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300, fontSize: "clamp(2.2rem, 5vw, 4rem)" }}
+            className="text-white"
           >
             Onze Cabana&apos;s
           </h2>
           <p
-            style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
+            style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
             className="text-white/60 mt-4 max-w-lg mx-auto text-base"
           >
             Elke cabana heeft een eigen karakter, vernoemd naar een Amsterdamse wijk.
@@ -53,7 +53,7 @@ export default function CabanasSection() {
         </div>
 
         {/* Cards */}
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-8" data-reveal-stagger>
           {cabanas.map((c) => (
             <div key={c.id} className="group bg-[#1a3a22] card-hover overflow-hidden">
               {/* Image with blob overlay accent */}
@@ -73,14 +73,14 @@ export default function CabanasSection() {
 
                 <div className="absolute top-4 left-4 bg-[#b83428] text-white px-3 py-1">
                   <span
-                    style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-                    className="text-xs font-semibold tracking-widest uppercase"
+                    style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
+                    className="text-xs tracking-widest uppercase"
                   >
                     {c.badge}
                   </span>
                 </div>
                 <div className="absolute bottom-4 right-4 bg-black/40 backdrop-blur-sm text-white px-3 py-1.5">
-                  <span style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }} className="text-xs tracking-wider">
+                  <span style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }} className="text-xs tracking-wider">
                     {c.floor}
                   </span>
                 </div>
@@ -89,19 +89,19 @@ export default function CabanasSection() {
               {/* Content */}
               <div className="p-8">
                 <p
-                  style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
+                  style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
                   className="text-[#b83428] text-xs tracking-[0.2em] uppercase mb-2"
                 >
                   {c.subtitle}
                 </p>
                 <h3
-                  style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }}
-                  className="text-white text-3xl font-light mb-4"
+                  style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300, fontSize: "clamp(1.6rem, 3vw, 2.2rem)" }}
+                  className="text-white mb-4"
                 >
                   Cabana {c.name}
                 </h3>
                 <p
-                  style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
+                  style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
                   className="text-white/60 text-sm leading-relaxed mb-6"
                 >
                   {c.description}
@@ -110,7 +110,7 @@ export default function CabanasSection() {
                   {c.features.map((f) => (
                     <li key={f} className="flex items-center gap-3">
                       <span className="w-4 h-px bg-[#b83428] flex-shrink-0" />
-                      <span style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }} className="text-white/70 text-sm">
+                      <span style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }} className="text-white/70 text-sm">
                         {f}
                       </span>
                     </li>
@@ -118,12 +118,12 @@ export default function CabanasSection() {
                 </ul>
                 <div className="flex items-end justify-between border-t border-white/10 pt-6">
                   <div>
-                    <p style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }} className="text-white/40 text-xs tracking-widest uppercase">
+                    <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }} className="text-white/40 text-xs tracking-widest uppercase">
                       Vanaf
                     </p>
-                    <p style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }} className="text-[#b83428] text-3xl font-light">
+                    <p style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300, fontSize: "2rem" }} className="text-[#b83428]">
                       €30
-                      <span style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }} className="text-white/40 text-sm ml-1">
+                      <span style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }} className="text-white/40 text-sm ml-1">
                         p.p.p.n.
                       </span>
                     </p>
@@ -137,8 +137,8 @@ export default function CabanasSection() {
           ))}
         </div>
 
-        {/* Photo strip — echte resort foto's */}
-        <div className="mt-16 grid grid-cols-3 gap-3 h-40 sm:h-56">
+        {/* Photo strip */}
+        <div className="mt-16 grid grid-cols-3 gap-3 h-40 sm:h-56" data-reveal>
           {["/images/river1.jpg", "/images/resort1.jpg", "/images/nature1.jpg"].map((src, i) => (
             <div key={i} className="overflow-hidden">
               <img src={src} alt="" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
@@ -147,7 +147,7 @@ export default function CabanasSection() {
         </div>
 
         <p
-          style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
+          style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
           className="text-center text-white/40 text-xs tracking-wide mt-8"
         >
           Keuken huur beschikbaar voor 1.000 SRD per dag &bull; Prijs in SRD op dagkoers

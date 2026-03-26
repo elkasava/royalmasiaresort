@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 
 const navLinks = [
   { label: "Over ons", href: "#over" },
@@ -22,11 +21,18 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Lock body scroll when menu open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
   const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMenuOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => {
+      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    }, menuOpen ? 400 : 0);
   };
 
   return (
@@ -34,9 +40,19 @@ export default function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-[#1a3a22]/95 backdrop-blur-md shadow-lg py-3"
+            ? "py-3"
             : "bg-transparent py-5"
         }`}
+        style={
+          scrolled
+            ? {
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                background: "rgba(26, 58, 34, 0.85)",
+                boxShadow: "0 1px 0 rgba(255,255,255,0.05)",
+              }
+            : undefined
+        }
       >
         <div className="container-wide flex items-center justify-between">
           {/* Logo */}
@@ -46,14 +62,14 @@ export default function Navbar() {
             className="flex flex-col leading-none"
           >
             <span
-              style={{ fontFamily: "var(--font-abril), Abril Fatface, cursive" }}
-              className="text-white text-2xl font-light tracking-widest uppercase"
+              className="text-white text-2xl tracking-widest uppercase"
+              style={{ fontFamily: "Cormorant Garamond, Georgia, serif", fontStyle: "italic", fontWeight: 300 }}
             >
               Royal Massia
             </span>
             <span
-              style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
               className="text-[#b83428] text-[0.6rem] tracking-[0.35em] uppercase mt-0.5"
+              style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
             >
               Resort &amp; Nature Retreat
             </span>
@@ -66,8 +82,8 @@ export default function Navbar() {
                 key={l.href}
                 href={l.href}
                 onClick={(e) => handleNav(e, l.href)}
-                style={{ fontFamily: "var(--font-raleway), Raleway, sans-serif" }}
-                className="text-white/80 hover:text-[#b83428] text-[0.78rem] font-medium tracking-[0.12em] uppercase transition-colors duration-200"
+                className="text-white/75 hover:text-white text-[0.72rem] tracking-[0.15em] uppercase transition-colors duration-300"
+                style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
               >
                 {l.label}
               </a>
@@ -75,7 +91,7 @@ export default function Navbar() {
             <a
               href="#boeken"
               onClick={(e) => handleNav(e, "#boeken")}
-              className="btn-gold text-xs py-2.5 px-5"
+              className="btn-hero text-xs py-2.5 px-5"
             >
               Boek nu
             </a>
@@ -84,37 +100,58 @@ export default function Navbar() {
           {/* Hamburger */}
           <button
             onClick={() => setMenuOpen((o) => !o)}
-            className="lg:hidden flex flex-col gap-1.5 p-2 group"
+            className="lg:hidden flex flex-col gap-[5px] p-2"
             aria-label="Menu openen"
           >
-            <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-            <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-            <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+            <span
+              className="block w-6 h-px bg-white transition-all duration-500"
+              style={{ transform: menuOpen ? "rotate(45deg) translateY(6px)" : "none" }}
+            />
+            <span
+              className="block w-6 h-px bg-white transition-all duration-300"
+              style={{ opacity: menuOpen ? 0 : 1 }}
+            />
+            <span
+              className="block w-6 h-px bg-white transition-all duration-500"
+              style={{ transform: menuOpen ? "rotate(-45deg) translateY(-6px)" : "none" }}
+            />
           </button>
         </div>
       </header>
 
-      {/* Mobile menu */}
+      {/* Full-screen overlay menu */}
       <div
-        className={`fixed inset-0 z-40 transition-all duration-500 lg:hidden ${
-          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
+        className="fixed inset-0 z-40 lg:hidden"
+        style={{
+          opacity: menuOpen ? 1 : 0,
+          pointerEvents: menuOpen ? "auto" : "none",
+          transition: "opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+        }}
       >
         <div
-          className="absolute inset-0 bg-[#0e1e12]/96 backdrop-blur-md flex flex-col items-center justify-center gap-8"
+          className="absolute inset-0 flex flex-col items-center justify-center gap-8"
+          style={{
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            background: "rgba(14, 30, 18, 0.97)",
+          }}
         >
           {navLinks.map((l, i) => (
             <a
               key={l.href}
               href={l.href}
               onClick={(e) => handleNav(e, l.href)}
+              className="text-white/80 hover:text-[#b83428] transition-colors"
               style={{
-                fontFamily: "var(--font-abril), Abril Fatface, cursive",
-                animationDelay: `${i * 60}ms`,
+                fontFamily: "Cormorant Garamond, Georgia, serif",
+                fontStyle: "italic",
+                fontWeight: 300,
+                fontSize: "clamp(2rem, 6vw, 3.5rem)",
+                letterSpacing: "0.05em",
+                transform: menuOpen ? "translateY(0)" : "translateY(30px)",
+                opacity: menuOpen ? 1 : 0,
+                transition: `transform 0.6s cubic-bezier(0.16,1,0.3,1) ${i * 0.06}s, opacity 0.6s ease ${i * 0.06}s, color 0.2s`,
               }}
-              className={`text-white text-3xl font-light tracking-widest uppercase hover:text-[#b83428] transition-colors ${
-                menuOpen ? "animate-fade-up" : ""
-              }`}
             >
               {l.label}
             </a>
@@ -123,6 +160,11 @@ export default function Navbar() {
             href="#boeken"
             onClick={(e) => handleNav(e, "#boeken")}
             className="btn-gold mt-4 text-sm"
+            style={{
+              transform: menuOpen ? "translateY(0)" : "translateY(30px)",
+              opacity: menuOpen ? 1 : 0,
+              transition: `transform 0.6s cubic-bezier(0.16,1,0.3,1) ${navLinks.length * 0.06}s, opacity 0.6s ease ${navLinks.length * 0.06}s`,
+            }}
           >
             Boek nu
           </a>
