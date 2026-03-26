@@ -1,3 +1,5 @@
+"use client";
+
 export default function AboutSection() {
   return (
     <section id="over" className="section-padding bg-[#f5ede4] overflow-hidden">
@@ -6,7 +8,7 @@ export default function AboutSection() {
 
           {/* Images with blob shapes */}
           <div className="relative">
-            {/* Main image — blob shape */}
+            {/* Main video — blob shape */}
             <div className="relative">
               <div
                 className="overflow-hidden w-full h-80 sm:h-96"
@@ -15,14 +17,18 @@ export default function AboutSection() {
                   boxShadow: "0 24px 60px rgba(26,61,43,0.18)",
                 }}
               >
-                <img
-                  src="/images/cabanas.jpg"
-                  alt="Cabana's van Royal Massia Resort"
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                />
+                >
+                  <source src="/images/vid1.mp4" type="video/mp4" />
+                </video>
               </div>
 
-              {/* Floating secondary image — blob shape */}
+              {/* Floating secondary video — blob shape */}
               <div
                 className="absolute -bottom-10 -right-6 w-44 h-44 sm:w-56 sm:h-56 overflow-hidden border-4 border-[#f5ede4]"
                 style={{
@@ -30,11 +36,15 @@ export default function AboutSection() {
                   boxShadow: "0 12px 30px rgba(26,61,43,0.2)",
                 }}
               >
-                <img
-                  src="/images/flags.jpg"
-                  alt="Resort sfeer"
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                />
+                >
+                  <source src="/images/vid2.mp4" type="video/mp4" />
+                </video>
               </div>
 
               {/* Blob decoratie achtergrond */}

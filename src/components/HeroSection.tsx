@@ -35,7 +35,7 @@ export default function HeroSection() {
             onError={() => setVideoError(true)}
             poster="/images/outlook.jpg"
           >
-            <source src="/images/hero.mp4" type="video/mp4" />
+            <source src="/images/royal.mp4" type="video/mp4" />
           </video>
         ) : (
           <img
