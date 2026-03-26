@@ -91,13 +91,16 @@ export default function AboutSection() {
 
             <div className="grid grid-cols-2 gap-6 border-t border-[#dfc0b0] pt-8" data-reveal-stagger>
               {[
-                { icon: "🌿", label: "Tropische natuur", desc: "Direct omringd door jungle" },
-                { icon: "💧", label: "Aan de rivier", desc: "Pier, kajaks & kano's" },
-                { icon: "🏡", label: "Open concept", desc: "Authentieke cabana ervaring" },
-                { icon: "📶", label: "Verbonden", desc: "WiFi beschikbaar" },
+                { icon: "leaf-outline", label: "Tropische natuur", desc: "Direct omringd door jungle" },
+                { icon: "water-outline", label: "Aan de rivier", desc: "Pier, kajaks & kano's" },
+                { icon: "home-outline", label: "Open concept", desc: "Authentieke cabana ervaring" },
+                { icon: "wifi-outline", label: "Verbonden", desc: "WiFi beschikbaar" },
               ].map((f) => (
                 <div key={f.label} className="flex gap-3 items-start">
-                  <span className="text-2xl mt-0.5">{f.icon}</span>
+                  <span className="text-2xl mt-0.5 text-[#b83428]">
+                    {/* @ts-ignore */}
+                    <ion-icon name={f.icon} style={{ fontSize: "1.5rem", color: "#b83428" }} />
+                  </span>
                   <div>
                     <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 500 }} className="text-[#1a3a22] text-sm">
                       {f.label}

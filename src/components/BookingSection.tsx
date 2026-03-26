@@ -125,7 +125,7 @@ export default function BookingSection() {
   return (
     <section id="boeken" className="section-padding bg-[#0e1e12]">
       <div className="container-wide">
-        <div className="grid lg:grid-cols-5 gap-12 items-start">
+        <div className="grid lg:grid-cols-5 gap-16 items-start">
           {/* Left info */}
           <div className="lg:col-span-2" data-reveal>
             <span className="gold-line" />
@@ -153,8 +153,9 @@ export default function BookingSection() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 group"
               >
-                <div className="w-12 h-12 bg-[#25D366] flex items-center justify-center text-white text-xl flex-shrink-0">
-                  📱
+                <div className="w-12 h-12 bg-[#25D366] flex items-center justify-center text-white flex-shrink-0">
+                  {/* @ts-ignore */}
+                  <ion-icon name="logo-whatsapp" style={{ fontSize: "1.4rem", color: "white" }} />
                 </div>
                 <div>
                   <p
@@ -175,8 +176,9 @@ export default function BookingSection() {
                 href="mailto:info@royalmassia.sr"
                 className="flex items-center gap-4 group"
               >
-                <div className="w-12 h-12 bg-[#1a3a22] flex items-center justify-center text-white text-xl flex-shrink-0">
-                  ✉️
+                <div className="w-12 h-12 bg-[#1a3a22] flex items-center justify-center text-white flex-shrink-0">
+                  {/* @ts-ignore */}
+                  <ion-icon name="mail-outline" style={{ fontSize: "1.4rem", color: "white" }} />
                 </div>
                 <div>
                   <p
@@ -197,10 +199,13 @@ export default function BookingSection() {
           </div>
 
           {/* Form */}
-          <div className="lg:col-span-3 bg-[#f5ede4] p-8 sm:p-10" data-reveal data-delay="0.15">
+          <div className="lg:col-span-3" data-reveal data-delay="0.15" style={{ maxWidth: "760px" }}>
             {status === "success" ? (
-              <div className="text-center py-12">
-                <div className="text-6xl mb-4">🌿</div>
+              <div className="text-center py-20">
+                <div className="text-6xl mb-4 text-[#1a3a22]">
+                  {/* @ts-ignore */}
+                  <ion-icon name="leaf-outline" style={{ fontSize: "4rem", color: "#1a3a22" }} />
+                </div>
                 <h3
                   style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300 }}
                   className="text-[#1a3a22] text-3xl font-light mb-3"
@@ -222,9 +227,9 @@ export default function BookingSection() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-0">
                 {/* Row 1 */}
-                <div className="grid sm:grid-cols-2 gap-5">
+                <div className="grid sm:grid-cols-2 gap-8" style={{ marginBottom: "48px" }}>
                   <div>
                     <label className="form-label">Naam *</label>
                     <input
@@ -249,7 +254,7 @@ export default function BookingSection() {
                 </div>
 
                 {/* Email */}
-                <div>
+                <div style={{ marginBottom: "48px" }}>
                   <label className="form-label">E-mailadres</label>
                   <input
                     className="form-input"
@@ -261,7 +266,7 @@ export default function BookingSection() {
                 </div>
 
                 {/* Cabana */}
-                <div>
+                <div style={{ marginBottom: "48px" }}>
                   <label className="form-label">Cabana *</label>
                   <select
                     className="form-input"
@@ -277,7 +282,7 @@ export default function BookingSection() {
                 </div>
 
                 {/* Dates + persons */}
-                <div className="grid sm:grid-cols-3 gap-5">
+                <div className="grid sm:grid-cols-3 gap-8" style={{ marginBottom: "48px" }}>
                   <div>
                     <label className="form-label">Aankomst *</label>
                     <input
@@ -314,7 +319,7 @@ export default function BookingSection() {
                 </div>
 
                 {/* Kitchen rental */}
-                <label className="flex items-center gap-3 cursor-pointer">
+                <label className="flex items-center gap-3 cursor-pointer" style={{ marginBottom: "48px" }}>
                   <div className="relative">
                     <input
                       type="checkbox"
@@ -342,7 +347,7 @@ export default function BookingSection() {
                 </label>
 
                 {/* Remarks */}
-                <div>
+                <div style={{ marginBottom: "48px" }}>
                   <label className="form-label">Opmerkingen</label>
                   <textarea
                     className="form-input resize-none"
@@ -395,7 +400,7 @@ export default function BookingSection() {
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="btn-primary w-full justify-center text-sm py-4 disabled:opacity-60"
+                  className="btn-primary w-full justify-center text-sm py-4 disabled:opacity-60" style={{ letterSpacing: "0.22em" }}
                 >
                   {status === "loading" ? (
                     "Versturen..."

@@ -25,21 +25,21 @@ export default function ContactSection() {
             <div className="space-y-6">
               {[
                 {
-                  icon: "📱",
+                  icon: "logo-whatsapp",
                   label: "WhatsApp / Mobiel",
                   value: "8900286",
                   href: "https://wa.me/5978900286",
                   sub: "+597 890 0286 (Suriname)",
                 },
                 {
-                  icon: "📍",
+                  icon: "location-outline",
                   label: "Locatie",
                   value: "Suriname",
                   href: undefined,
                   sub: "Exacte locatie op aanvraag",
                 },
                 {
-                  icon: "🕐",
+                  icon: "time-outline",
                   label: "Bereikbaar",
                   value: "Elke dag",
                   href: undefined,
@@ -47,8 +47,9 @@ export default function ContactSection() {
                 },
               ].map((c) => (
                 <div key={c.label} className="flex gap-5 items-start">
-                  <div className="w-12 h-12 bg-[#1a3a22] flex items-center justify-center text-xl flex-shrink-0">
-                    {c.icon}
+                  <div className="w-12 h-12 bg-[#1a3a22] flex items-center justify-center flex-shrink-0">
+                    {/* @ts-ignore */}
+                    <ion-icon name={c.icon} style={{ fontSize: "1.4rem", color: "white" }} />
                   </div>
                   <div>
                     <p

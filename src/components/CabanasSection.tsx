@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 const cabanas = [
   {
     id: "amsterdam",
@@ -7,7 +9,7 @@ const cabanas = [
     subtitle: "Benedenverdieping",
     description:
       "Cabana Amsterdam ligt op de begane grond, direct aan het water. Het open concept geeft u het gevoel volledig in de natuur te zijn, met een prachtig uitzicht op de rivier en het omringende regenwoud.",
-    features: ["Open concept", "Wateruitzicht", "Directe toegang tot pier", "Prive sfeer"],
+    features: ["Open concept", "Wateruitzicht", "Directe toegang tot pier", "Privé sfeer"],
     image: "/images/cabanas.jpg",
     badge: "Populair",
     floor: "Beneden",
@@ -26,133 +28,203 @@ const cabanas = [
 ];
 
 export default function CabanasSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let ctx: { revert: () => void } | null = null;
+
+    import("gsap").then(({ gsap }) => {
+      import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const track = trackRef.current;
+        const section = sectionRef.current;
+        if (!track || !section) return;
+
+        ctx = gsap.context(() => {
+          const travelDistance = track.scrollWidth - window.innerWidth;
+          gsap.to(track, {
+            x: -travelDistance,
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top top",
+              end: () => "+=" + travelDistance,
+              scrub: 1,
+              pin: true,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+            },
+          });
+        }, section);
+      });
+    });
+
+    return () => {
+      ctx?.revert();
+    };
+  }, []);
+
   const scrollToBooking = () => {
     document.querySelector("#boeken")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section id="cabanas" className="section-padding bg-[#0e1e12] overflow-hidden">
-      <div className="container-wide">
-        {/* Header */}
-        <div className="text-center mb-16" data-reveal>
-          <span className="gold-line mx-auto" />
-          <p className="section-label mb-3">Verblijf</p>
-          <h2
-            style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300, fontSize: "clamp(2.2rem, 5vw, 4rem)" }}
-            className="text-white"
-          >
-            Onze Cabana&apos;s
-          </h2>
+    <section
+      ref={sectionRef}
+      id="cabanas"
+      className="bg-[#0e1e12] overflow-hidden"
+      style={{ height: "100vh" }}
+    >
+      {/* Fixed header */}
+      <div className="relative z-10 pt-16 pb-6 px-[8vw]" data-reveal>
+        <span className="gold-line" />
+        <div className="flex items-end justify-between">
+          <div>
+            <p className="section-label mb-2">Verblijf</p>
+            <h2
+              style={{
+                fontFamily: "var(--font-cormorant)",
+                fontStyle: "italic",
+                fontWeight: 300,
+                fontSize: "clamp(2rem, 4vw, 3.2rem)",
+              }}
+              className="text-white"
+            >
+              Onze Cabana&apos;s
+            </h2>
+          </div>
           <p
-            style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
-            className="text-white/60 mt-4 max-w-lg mx-auto text-base"
+            style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
+            className="text-white/30 text-xs tracking-widest uppercase hidden md:block"
           >
-            Elke cabana heeft een eigen karakter, vernoemd naar een Amsterdamse wijk.
-            Open concept — een authentieke verbinding met de natuur.
+            scroll om te ontdekken →
           </p>
         </div>
-
-        {/* Cards */}
-        <div className="grid md:grid-cols-2 gap-8" data-reveal-stagger>
-          {cabanas.map((c) => (
-            <div key={c.id} className="group bg-[#1a3a22] card-hover overflow-hidden">
-              {/* Image with blob overlay accent */}
-              <div className="relative h-72 overflow-hidden">
-                <img
-                  src={c.image}
-                  alt={`Cabana ${c.name}`}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1a3a22]/80 to-transparent" />
-
-                {/* Blob decoratie */}
-                <div
-                  className="absolute -top-8 -right-8 w-32 h-32 bg-[#b83428]/20"
-                  style={{ borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%" }}
-                />
-
-                <div className="absolute top-4 left-4 bg-[#b83428] text-white px-3 py-1">
-                  <span
-                    style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
-                    className="text-xs tracking-widest uppercase"
-                  >
-                    {c.badge}
-                  </span>
-                </div>
-                <div className="absolute bottom-4 right-4 bg-black/40 backdrop-blur-sm text-white px-3 py-1.5">
-                  <span style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }} className="text-xs tracking-wider">
-                    {c.floor}
-                  </span>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-8">
-                <p
-                  style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
-                  className="text-[#b83428] text-xs tracking-[0.2em] uppercase mb-2"
-                >
-                  {c.subtitle}
-                </p>
-                <h3
-                  style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300, fontSize: "clamp(1.6rem, 3vw, 2.2rem)" }}
-                  className="text-white mb-4"
-                >
-                  Cabana {c.name}
-                </h3>
-                <p
-                  style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
-                  className="text-white/60 text-sm leading-relaxed mb-6"
-                >
-                  {c.description}
-                </p>
-                <ul className="space-y-2 mb-8">
-                  {c.features.map((f) => (
-                    <li key={f} className="flex items-center gap-3">
-                      <span className="w-4 h-px bg-[#b83428] flex-shrink-0" />
-                      <span style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }} className="text-white/70 text-sm">
-                        {f}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex items-end justify-between border-t border-white/10 pt-6">
-                  <div>
-                    <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }} className="text-white/40 text-xs tracking-widest uppercase">
-                      Vanaf
-                    </p>
-                    <p style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300, fontSize: "2rem" }} className="text-[#b83428]">
-                      €30
-                      <span style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }} className="text-white/40 text-sm ml-1">
-                        p.p.p.n.
-                      </span>
-                    </p>
-                  </div>
-                  <button onClick={scrollToBooking} className="btn-gold text-xs py-3">
-                    Reserveer
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Photo strip */}
-        <div className="mt-16 grid grid-cols-3 gap-3 h-40 sm:h-56" data-reveal>
-          {["/images/river1.jpg", "/images/resort1.jpg", "/images/nature1.jpg"].map((src, i) => (
-            <div key={i} className="overflow-hidden">
-              <img src={src} alt="" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-            </div>
-          ))}
-        </div>
-
-        <p
-          style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
-          className="text-center text-white/40 text-xs tracking-wide mt-8"
-        >
-          Keuken huur beschikbaar voor 1.000 SRD per dag &bull; Prijs in SRD op dagkoers
-        </p>
       </div>
+
+      {/* Horizontal track */}
+      <div
+        ref={trackRef}
+        className="flex will-change-transform"
+        style={{ height: "calc(100vh - 180px)" }}
+      >
+        {cabanas.map((c, i) => (
+          <div
+            key={c.id}
+            className="flex items-center gap-16 flex-shrink-0 px-[8vw]"
+            style={{ width: "100vw" }}
+          >
+            {/* Image */}
+            <div
+              className={`relative flex-shrink-0 overflow-hidden ${i % 2 === 1 ? "order-2" : ""}`}
+              style={{ width: "42vw", height: "62vh" }}
+            >
+              <img
+                src={c.image}
+                alt={`Cabana ${c.name}`}
+                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0e1e12]/70 to-transparent" />
+              <div className="absolute top-6 left-6 bg-[#b83428] text-white px-4 py-1.5">
+                <span
+                  style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
+                  className="text-xs tracking-widest uppercase"
+                >
+                  {c.badge}
+                </span>
+              </div>
+              <div className="absolute bottom-6 right-6 bg-black/40 backdrop-blur-sm text-white px-3 py-1.5">
+                <span
+                  style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
+                  className="text-xs tracking-wider"
+                >
+                  {c.floor}
+                </span>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="flex-1" style={{ maxWidth: "420px" }}>
+              <p
+                style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
+                className="text-[#b83428] text-xs tracking-[0.2em] uppercase mb-3"
+              >
+                {c.subtitle}
+              </p>
+              <h3
+                style={{
+                  fontFamily: "var(--font-cormorant)",
+                  fontStyle: "italic",
+                  fontWeight: 300,
+                  fontSize: "clamp(2.5rem, 4vw, 3.8rem)",
+                }}
+                className="text-white mb-5"
+              >
+                Cabana {c.name}
+              </h3>
+              <p
+                style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
+                className="text-white/60 text-sm leading-relaxed mb-8"
+              >
+                {c.description}
+              </p>
+              <ul className="space-y-3 mb-10">
+                {c.features.map((f) => (
+                  <li key={f} className="flex items-center gap-3">
+                    <span className="w-6 h-px bg-[#b83428] flex-shrink-0" />
+                    <span
+                      style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
+                      className="text-white/70 text-sm"
+                    >
+                      {f}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex items-center gap-8">
+                <div>
+                  <p
+                    style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
+                    className="text-white/40 text-xs tracking-widest uppercase"
+                  >
+                    Vanaf
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-cormorant)",
+                      fontStyle: "italic",
+                      fontWeight: 300,
+                      fontSize: "2.5rem",
+                    }}
+                    className="text-[#b83428]"
+                  >
+                    €30
+                    <span
+                      style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
+                      className="text-white/40 text-sm ml-1"
+                    >
+                      p.p.p.n.
+                    </span>
+                  </p>
+                </div>
+                <button onClick={scrollToBooking} className="btn-gold text-xs py-3.5 px-7">
+                  Reserveer
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Progress hint */}
+      <p
+        style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/25 text-xs tracking-widest uppercase"
+      >
+        Keuken huur beschikbaar · 1.000 SRD/dag
+      </p>
     </section>
   );
 }
