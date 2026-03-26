@@ -1,7 +1,8 @@
 /* ============================================================
    ROYAL MASIA RESORT — Suriname
-   Natuur · Tropisch · Authentiek · Puur
-   Palet: Diep jungroen + warm zand + rivier-blauw + goud
+   Natuur · Tropisch · Authentiek · Luxe
+   Palet: Luchtig Luxe — afgeleid van de echte cabana-fotografie
+   Coraal terracotta · Espresso mahonie · Ivoor crème · Tropisch groen · Goud
    ============================================================ */
 
 /* ---------- TOKENS ---------- */
@@ -37,77 +38,100 @@
   /* Transitions */
   --transition: 240ms cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Shadows */
-  --shadow-sm: 0 2px 6px oklch(0.2 0.08 145 / 0.08);
-  --shadow-md: 0 6px 24px oklch(0.2 0.08 145 / 0.14);
-  --shadow-lg: 0 16px 48px oklch(0.2 0.08 145 / 0.2);
-
   /* Fonts */
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body:    'Switzer', 'Helvetica Neue', Arial, sans-serif;
 
-  /* PALETTE — Light */
-  --color-bg:             #f5f2ea;
-  --color-surface:        #eeeadf;
-  --color-surface-2:      #faf9f5;
-  --color-divider:        #ddd8cc;
-  --color-border:         #ccc7bb;
-  --color-ivory:          #f8f5ec;
+  /* ─── LUCHTIG LUXE PALETTE — Light Mode ───────────────────
+     Gebaseerd op de echte Royal Masia Resort foto:
+     · Coraal terracotta (verfijnd vanuit de levendige rode muren)
+     · Ivoor crème (van de witte balkons & tegels)
+     · Espresso mahonie (van het donkere tropische hout)
+     · Warm champagne goud (luxe accent)
+     · Tropisch groen (palm & vegetatie — subtiel)
+     · Hemelsblauw (lucht boven de cabana's — accent)
+  ─────────────────────────────────────────────────────────── */
 
-  /* Text */
-  --color-text:           #1a1d14;
-  --color-text-muted:     #5a5e4a;
-  --color-text-faint:     #9a9e8c;
-  --color-text-inverse:   #f5f2ea;
+  /* Achtergronden — luchtig ivoor/crème */
+  --color-bg:             #faf8f5;   /* warm ivoor — ademt, luchtig */
+  --color-surface:        #f5f1ec;   /* iets warmer ivoor voor kaarten */
+  --color-surface-2:      #fdfcfa;   /* bijna wit — formulieren & modals */
+  --color-divider:        #e8e2da;   /* zacht zandbeige scheidingslijn */
+  --color-border:         #dbd4ca;   /* warme beige rand */
+  --color-ivory:          #fdfbf8;   /* puur ivoor — hero overlay base */
 
-  /* Jungroen (primair) */
-  --color-primary:        #1a4a28;
-  --color-primary-hover:  #123319;
-  --color-primary-light:  #c8ddd0;
-  --color-primary-pale:   #e8f0eb;
+  /* Tekst — espresso mahonie van het hout */
+  --color-text:           #2c1810;   /* donker espresso — warm, niet koud zwart */
+  --color-text-muted:     #6b4c3b;   /* medium mahonie voor subtekst */
+  --color-text-faint:     #a8897a;   /* lichte terracotta tint voor placeholders */
+  --color-text-inverse:   #faf8f5;   /* ivoor op donkere achtergronden */
 
-  /* Warm zand / goud */
-  --color-gold:           #c4882a;
-  --color-gold-hover:     #a56e1a;
-  --color-gold-light:     #f0e0c0;
+  /* Coraal Terracotta (primair) — verfijnd van de rode cabana muren */
+  --color-primary:        #c45a3a;   /* warm terracotta — edel, niet schreeuwend */
+  --color-primary-hover:  #a84428;   /* dieper terracotta op hover */
+  --color-primary-light:  #f0d8d0;   /* bleke coraal tint — highlights */
+  --color-primary-pale:   #faf0ec;   /* haast witte coraal waas — achtergronden */
 
-  /* Rivier-blauw */
-  --color-water:          #3b7a9e;
-  --color-water-light:    #cce0ec;
+  /* Champagne Goud — luxe accent */
+  --color-gold:           #b8892a;   /* warm champagne goud */
+  --color-gold-hover:     #9a7020;   /* dieper goud op hover */
+  --color-gold-light:     #f2e5c8;   /* pale goud glans */
+
+  /* Tropisch Groen — palm & vegetatie, subtiel accent */
+  --color-nature:         #3d6b45;   /* donker tropisch groen */
+  --color-nature-light:   #d4e8d8;   /* pale groen voor icoon achtergronden */
+
+  /* Hemelsblauw — van de lucht boven de cabana's */
+  --color-sky:            #5b8fb5;   /* zacht cerulean blauw */
+  --color-sky-light:      #daeaf5;   /* pale hemelsblauw */
+
+  /* Schaduw — warm getint passend bij ivoor achtergronden */
+  --shadow-sm: 0 2px 6px oklch(0.35 0.06 30 / 0.08);
+  --shadow-md: 0 6px 24px oklch(0.35 0.06 30 / 0.12);
+  --shadow-lg: 0 16px 48px oklch(0.35 0.06 30 / 0.18);
 }
 
-/* Dark mode */
+/* Dark mode — rijke tropische nacht */
 [data-theme="dark"] {
-  --color-bg:             #101610;
-  --color-surface:        #161e14;
-  --color-surface-2:      #1c2619;
-  --color-divider:        #253020;
-  --color-border:         #30402a;
-  --color-ivory:          #161e14;
-  --color-text:           #dde8d8;
-  --color-text-muted:     #88a07a;
-  --color-text-faint:     #506044;
-  --color-text-inverse:   #161e14;
-  --color-primary:        #5aaa72;
-  --color-primary-hover:  #40885a;
-  --color-primary-light:  #1e3828;
-  --color-primary-pale:   #192a1e;
-  --color-gold:           #dda040;
-  --color-gold-hover:     #f0b850;
-  --color-gold-light:     #2e2010;
-  --color-water:          #5ea8cc;
-  --color-water-light:    #1c3040;
+  --color-bg:             #1a0f0a;   /* donker espresso hout */
+  --color-surface:        #231510;   /* iets lichter mahonie */
+  --color-surface-2:      #2a1c14;   /* kaart achtergrond */
+  --color-divider:        #3d2820;   /* subtiele scheidingslijn */
+  --color-border:         #4a3328;   /* warme mahonie rand */
+  --color-ivory:          #231510;   /* donkere versie van ivory */
+  --color-text:           #f0e6de;   /* warm crème tekst */
+  --color-text-muted:     #c4a090;   /* middel terracotta voor muted tekst */
+  --color-text-faint:     #7a5848;   /* faint mahonie */
+  --color-text-inverse:   #1a0f0a;   /* espresso op lichte elementen */
+  --color-primary:        #e07558;   /* lichtere terracotta voor dark mode */
+  --color-primary-hover:  #f08870;   /* hover terracotta */
+  --color-primary-light:  #3a2018;   /* donkere coraal highlight */
+  --color-primary-pale:   #2a1510;   /* zeer donkere coraal waas */
+  --color-gold:           #d4a840;   /* warmer goud in dark mode */
+  --color-gold-hover:     #e8c060;   /* helderer goud op hover */
+  --color-gold-light:     #30200a;   /* donkere goud highlight */
+  --color-nature:         #5a9460;   /* lichter groen voor dark mode */
+  --color-nature-light:   #1a2e1c;   /* donkere groen highlight */
+  --color-sky:            #78aed0;   /* lichter blauw voor dark mode */
+  --color-sky-light:      #1a2a38;   /* donkere blauw highlight */
+  --shadow-sm: 0 2px 6px oklch(0.05 0.04 30 / 0.25);
+  --shadow-md: 0 6px 24px oklch(0.05 0.04 30 / 0.35);
+  --shadow-lg: 0 16px 48px oklch(0.05 0.04 30 / 0.5);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --color-bg: #101610; --color-surface: #161e14; --color-surface-2: #1c2619;
-    --color-divider: #253020; --color-border: #30402a; --color-ivory: #161e14;
-    --color-text: #dde8d8; --color-text-muted: #88a07a; --color-text-faint: #506044;
-    --color-text-inverse: #161e14; --color-primary: #5aaa72; --color-primary-hover: #40885a;
-    --color-primary-light: #1e3828; --color-primary-pale: #192a1e;
-    --color-gold: #dda040; --color-gold-hover: #f0b850; --color-gold-light: #2e2010;
-    --color-water: #5ea8cc; --color-water-light: #1c3040;
+    --color-bg: #1a0f0a; --color-surface: #231510; --color-surface-2: #2a1c14;
+    --color-divider: #3d2820; --color-border: #4a3328; --color-ivory: #231510;
+    --color-text: #f0e6de; --color-text-muted: #c4a090; --color-text-faint: #7a5848;
+    --color-text-inverse: #1a0f0a; --color-primary: #e07558; --color-primary-hover: #f08870;
+    --color-primary-light: #3a2018; --color-primary-pale: #2a1510;
+    --color-gold: #d4a840; --color-gold-hover: #e8c060; --color-gold-light: #30200a;
+    --color-nature: #5a9460; --color-nature-light: #1a2e1c;
+    --color-sky: #78aed0; --color-sky-light: #1a2a38;
+    --shadow-sm: 0 2px 6px oklch(0.05 0.04 30 / 0.25);
+    --shadow-md: 0 6px 24px oklch(0.05 0.04 30 / 0.35);
+    --shadow-lg: 0 16px 48px oklch(0.05 0.04 30 / 0.5);
   }
 }
 
@@ -244,9 +268,9 @@ a, button, [role="button"], input, textarea, select {
   position: absolute; inset: 0;
   background: linear-gradient(
     to bottom,
-    oklch(0.12 0.06 145 / 0.05) 0%,
-    oklch(0.12 0.06 145 / 0.2) 50%,
-    oklch(0.08 0.04 145 / 0.72) 100%
+    oklch(0.22 0.08 30 / 0.05) 0%,
+    oklch(0.22 0.08 30 / 0.2) 50%,
+    oklch(0.12 0.06 30 / 0.72) 100%
   );
 }
 .hero__content {
@@ -437,6 +461,8 @@ a, button, [role="button"], input, textarea, select {
   background: var(--color-primary-pale); color: var(--color-primary);
   display: flex; align-items: center; justify-content: center;
 }
+/* Gebruik nature groen voor faciliteiten iconen — afwisseling */
+.faciliteit-item:nth-child(2n) .faciliteit-item__icon { background: var(--color-nature-light); color: var(--color-nature); }
 .faciliteit-item__naam {
   font-size: var(--text-sm); font-weight: 600; color: var(--color-text);
 }
@@ -456,7 +482,7 @@ a, button, [role="button"], input, textarea, select {
 .activiteit-card:hover img { transform: scale(1.06); }
 .activiteit-card__overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to top, oklch(0.1 0.06 145 / 0.85) 0%, transparent 55%);
+  background: linear-gradient(to top, oklch(0.15 0.07 30 / 0.85) 0%, transparent 55%);
 }
 .activiteit-card__content {
   position: absolute; bottom: 0; left: 0; right: 0; padding: var(--space-6); color: #fff;
@@ -481,7 +507,7 @@ a, button, [role="button"], input, textarea, select {
 .tarief-card:hover { box-shadow: var(--shadow-md); border-color: var(--color-primary-light); }
 .tarief-card--featured {
   background: var(--color-primary); border-color: var(--color-primary);
-  color: #fff;
+  color: #fff; box-shadow: var(--shadow-lg);
 }
 .tarief-card--featured .tarief-card__label { color: var(--color-gold); }
 .tarief-card--featured .tarief-card__desc { color: rgba(255,255,255,0.75); }
@@ -541,6 +567,7 @@ a, button, [role="button"], input, textarea, select {
   padding: var(--space-5); border-radius: var(--radius-md);
   background: var(--color-primary-pale); border-left: 3px solid var(--color-primary);
 }
+.boek-info__block:nth-child(2) { background: color-mix(in oklab, var(--color-nature-light) 80%, transparent); border-left-color: var(--color-nature); }
 .boek-info__title {
   font-family: var(--font-display); font-size: var(--text-lg); font-weight: 400;
   margin-bottom: var(--space-2);
@@ -601,7 +628,7 @@ a, button, [role="button"], input, textarea, select {
   justify-content: center; text-align: center; color: #fff;
 }
 .full-bleed__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.full-bleed__overlay { position: absolute; inset: 0; background: oklch(0.1 0.06 145 / 0.52); }
+.full-bleed__overlay { position: absolute; inset: 0; background: oklch(0.18 0.07 30 / 0.52); }
 .full-bleed__content { position: relative; z-index: 2; max-width: 560px; padding-inline: var(--space-5); }
 .full-bleed__title {
   font-family: var(--font-display); font-size: var(--text-3xl);
