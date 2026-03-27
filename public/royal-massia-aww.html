@@ -848,13 +848,13 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
 /* ═══════════════════════════════════════════════
    BOOKING
    ═══════════════════════════════════════════════ */
-#boeken { background: var(--c-dark); }
-#boeken h2 { color: #fff; margin: 1rem 0 3rem; }
+#boeken { background: var(--c-bg); }
+#boeken h2 { color: var(--c-dark); margin: 1rem 0 3rem; }
 .booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
 @media (max-width: 900px) { .booking-grid { grid-template-columns: 1fr; gap: 3rem; } }
 .booking-intro p {
   font-family: var(--f-ui); font-weight: 300;
-  font-size: 0.9rem; color: rgba(255,255,255,0.55);
+  font-size: 0.9rem; color: var(--c-text-light);
   line-height: 1.9; margin-bottom: 1.5rem;
 }
 .booking-perks { list-style: none; margin-top: 2rem; }
@@ -862,7 +862,7 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
   display: flex; align-items: center; gap: 0.75rem;
   padding: 0.5rem 0;
   font-family: var(--f-ui); font-weight: 300;
-  font-size: 0.85rem; color: rgba(255,255,255,0.6);
+  font-size: 0.85rem; color: var(--c-text-light);
 }
 .booking-perks li::before {
   content: ''; width: 16px; height: 1px;
@@ -876,12 +876,12 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
   display: block;
   font-family: var(--f-ui); font-weight: 200;
   font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
-  color: rgba(255,255,255,0.4); margin-bottom: 0.5rem;
+  color: var(--c-text-light); margin-bottom: 0.5rem;
 }
 .form-input-el {
   width: 100%; background: transparent;
-  border: none; border-bottom: 1px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.9);
+  border: none; border-bottom: 1px solid var(--c-border);
+  color: var(--c-text);
   font-family: var(--f-display);
   font-size: 1rem; font-weight: 300;
   padding: 0.65rem 0;
@@ -890,10 +890,46 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
   border-radius: 0;
   -webkit-appearance: none;
 }
-.form-input-el::-webkit-calendar-picker-indicator { filter: invert(0.6); cursor: none; }
+.form-input-el::-webkit-calendar-picker-indicator { filter: invert(0); cursor: none; }
 .form-input-el:focus { border-bottom-color: var(--c-accent); }
-.form-input-el::placeholder { color: rgba(255,255,255,0.25); font-size: 0.875rem; font-family: var(--f-ui); }
-select.form-input-el option { background: var(--c-dark2); color: var(--c-white); }
+.form-input-el::placeholder { color: var(--c-sand); font-size: 0.875rem; font-family: var(--f-ui); }
+select.form-input-el option { background: var(--c-white); color: var(--c-text); }
+/* Kitchen toggle */
+.kitchen-toggle {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 0; cursor: none;
+}
+.kitchen-toggle input[type="checkbox"] {
+  appearance: none; -webkit-appearance: none;
+  width: 18px; height: 18px; flex-shrink: 0;
+  border: 1px solid var(--c-border);
+  background: transparent;
+  position: relative; cursor: none;
+  transition: border-color 0.25s, background 0.25s;
+}
+.kitchen-toggle input[type="checkbox"]:checked {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+}
+.kitchen-toggle input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute; top: 2px; left: 5px;
+  width: 5px; height: 9px;
+  border: 2px solid #fff; border-top: none; border-left: none;
+  transform: rotate(45deg);
+}
+.kitchen-toggle-label {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.85rem; color: var(--c-text);
+  line-height: 1.5;
+}
+.kitchen-toggle-label strong {
+  display: block; font-weight: 500;
+  font-size: 0.8rem; color: var(--c-dark);
+}
+.kitchen-toggle-label span {
+  color: var(--c-text-light); font-size: 0.78rem;
+}
 .form-status {
   font-family: var(--f-ui); font-weight: 300;
   font-size: 0.8rem; color: var(--c-accent);
@@ -1455,7 +1491,7 @@ footer {
     <div data-reveal style="margin-bottom: 0.5rem">
       <span class="gold-line"></span>
       <p class="label">Reservering</p>
-      <h2 class="display-lg" style="color:#fff; margin-top: 0.75rem">
+      <h2 class="display-lg" style="color:var(--c-dark); margin-top: 0.75rem">
         Boek uw verblijf
       </h2>
     </div>
@@ -1463,7 +1499,7 @@ footer {
     <div class="booking-grid" style="margin-top: 3rem">
       <div class="booking-intro" data-reveal-left>
         <p>Wij maken uw verblijf bij Royal Massia Resort onvergetelijk. Vul het formulier in en wij bevestigen uw reservering zo spoedig mogelijk.</p>
-        <p>Voor directe hulp kunt u ook altijd via WhatsApp contact met ons opnemen.</p>
+        <p style="color:var(--c-text-light)">Voor directe hulp kunt u ook altijd via WhatsApp contact met ons opnemen.</p>
         <ul class="booking-perks">
           <li>Geen reserveringskosten</li>
           <li>Directe bevestiging via WhatsApp</li>
@@ -1510,6 +1546,13 @@ footer {
         <div class="form-group">
           <label class="form-label-el" for="book-message">Bericht (optioneel)</label>
           <textarea class="form-input-el" id="book-message" name="message" rows="3" placeholder="Bijzondere wensen of vragen..." style="resize:vertical; min-height:80px"></textarea>
+        </div>
+        <div class="kitchen-toggle">
+          <input type="checkbox" id="book-keuken" name="keuken" />
+          <label class="kitchen-toggle-label" for="book-keuken">
+            <strong>Keuken huur toevoegen</strong>
+            <span>+ 1.000 SRD / dag &mdash; volledig uitgerust</span>
+          </label>
         </div>
         <div style="margin-top: 0.5rem">
           <button type="submit" class="btn-cta" style="width:100%; justify-content:center">
@@ -1923,6 +1966,7 @@ footer {
       const guests = document.getElementById('book-guests').value;
       const cabana = document.getElementById('book-cabana').value || 'Geen voorkeur';
       const message = document.getElementById('book-message').value;
+      const keuken = document.getElementById('book-keuken').checked;
 
       const waMsg = encodeURIComponent(
         `Hallo Royal Massia Resort!\n\n` +
@@ -1932,7 +1976,8 @@ footer {
         `Aankomst: ${checkin}\n` +
         `Vertrek: ${checkout}\n` +
         `Gasten: ${guests}\n` +
-        `Cabana: ${cabana}` +
+        `Cabana: ${cabana}\n` +
+        `Keuken huur: ${keuken ? 'Ja (+1.000 SRD/dag)' : 'Nee'}` +
         (message ? `\nBericht: ${message}` : '')
       );
 
