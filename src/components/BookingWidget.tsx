@@ -59,7 +59,7 @@ export default function BookingWidget() {
           </div>
           {/* CTA */}
           <button onClick={handleBook} className="booking-cta px-12 py-5">
-            Book Now &nbsp;→
+            Boek nu &nbsp;→
           </button>
         </div>
       </div>
@@ -123,7 +123,7 @@ export default function BookingWidget() {
               </div>
             </div>
             <button onClick={handleBook} className="booking-cta w-full py-4">
-              Book Now →
+              Boek nu →
             </button>
           </div>
         </div>
