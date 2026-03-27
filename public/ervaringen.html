@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ervaringen — Royal Masia Resort</title>
+<meta name="description" content="Lees wat onze gasten beleefden bij Royal Masia Resort in Suriname. Deel ook uw eigen ervaring!" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231a3a22'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='20' fill='%23b83428'>M</text></svg>" />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Raleway:wght@200;300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<!-- GSAP CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<!-- Lenis smooth scroll -->
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+<!-- Ionicons -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+<style>
+/* ═══════════════════════════════════════════════
+   CSS CUSTOM PROPERTIES
+   ═══════════════════════════════════════════════ */
+:root {
+  --c-bg:          #f5ede4;
+  --c-bg-rgb:      245, 237, 228;
+  --c-dark:        #1a3a22;
+  --c-dark2:       #0e1e12;
+  --c-accent:      #b83428;
+  --c-accent-light:#d4574a;
+  --c-accent-dark: #8b1e16;
+  --c-text:        #1c0e08;
+  --c-text-light:  #7a6058;
+  --c-cta:         #b83428;
+  --c-border:      #dfc0b0;
+  --c-white:       #fdf8f5;
+  --c-cream:       #f5ede4;
+  --c-forest:      #1a3a22;
+  --c-stone:       #7a6058;
+
+  --f-display: 'Cormorant Garamond', Georgia, serif;
+  --f-ui:      'Raleway', system-ui, sans-serif;
+  --f-body:    'Inter', system-ui, sans-serif;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ═══════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: auto; font-size: 17.5px; }
+body {
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--f-body);
+  font-weight: 300;
+  line-height: 1.8;
+  overflow-x: hidden;
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+button { border: none; background: none; font: inherit; cursor: none; }
+::selection { background: var(--c-accent); color: var(--c-bg); }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--c-bg); }
+::-webkit-scrollbar-thumb { background: var(--c-accent); }
+a, button, input, select, textarea, label, [role="button"] { cursor: none; }
+
+/* ═══════════════════════════════════════════════
+   PAGE LOADER
+   ═══════════════════════════════════════════════ */
+#loader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--c-dark2);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 2rem;
+}
+#loader-logo {
+  font-family: var(--f-display);
+  font-style: italic; font-weight: 400;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--c-white); letter-spacing: 0.06em;
+  opacity: 0;
+}
+#loader-logo span { color: var(--c-accent); }
+#loader-bar-wrap {
+  width: 200px; height: 1px;
+  background: rgba(255,255,255,0.12);
+  position: relative; overflow: hidden;
+}
+#loader-bar {
+  position: absolute; top: 0; left: 0;
+  height: 100%; width: 0%;
+  background: var(--c-accent);
+  transition: width 0.1s linear;
+}
+#loader-pct {
+  font-family: var(--f-ui); font-weight: 200;
+  font-size: 0.65rem; letter-spacing: 0.3em;
+  color: rgba(255,255,255,0.4);
+}
+
+/* ═══════════════════════════════════════════════
+   CUSTOM CURSOR
+   ═══════════════════════════════════════════════ */
+#cursor-dot {
+  position: fixed; top: 0; left: 0;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--c-accent); pointer-events: none;
+  z-index: 9998; mix-blend-mode: multiply;
+  transform: translate(-50%, -50%); will-change: transform;
+}
+#cursor-ring {
+  position: fixed; top: 0; left: 0;
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--c-accent); opacity: 0.6;
+  pointer-events: none; z-index: 9997;
+  transform: translate(-50%, -50%); will-change: transform;
+  transition: width 0.3s var(--ease), height 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+#cursor-ring.hovering { width: 56px; height: 56px; opacity: 0.9; }
+#cursor-dot.hovering { transform: translate(-50%, -50%) scale(0); }
+
+/* ═══════════════════════════════════════════════
+   LAYOUT UTILITIES
+   ═══════════════════════════════════════════════ */
+.section-pad { padding: 130px 8vw; }
+@media (max-width: 768px) { .section-pad { padding: 80px 6vw; } }
+.container { max-width: 1280px; margin: 0 auto; }
+
+/* ═══════════════════════════════════════════════
+   TYPOGRAPHY
+   ═══════════════════════════════════════════════ */
+.label {
+  font-family: var(--f-ui); font-weight: 200;
+  font-size: 0.7rem; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--c-accent);
+}
+.gold-line {
+  display: block; width: 60px; height: 2px;
+  background: var(--c-accent); margin-bottom: 1rem;
+}
+
+/* ═══════════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════════ */
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: transparent; color: #fff;
+  padding: 0.85rem 2rem;
+  font-family: var(--f-ui); font-size: 0.8rem; font-weight: 400;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.6);
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.btn-outline:hover { background: var(--c-cta); border-color: var(--c-cta); }
+.btn-cta {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--c-cta); color: #fff;
+  padding: 0.85rem 2rem;
+  font-family: var(--f-ui); font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  transition: background 0.25s var(--ease), transform 0.2s var(--ease);
+}
+.btn-cta:hover { background: var(--c-accent-dark); transform: translateY(-2px); }
+
+/* ═══════════════════════════════════════════════
+   NAVBAR
+   ═══════════════════════════════════════════════ */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  padding: 1.5rem 8vw;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(var(--c-bg-rgb), 0.92);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 var(--c-border);
+  transition: padding 0.4s var(--ease);
+}
+#navbar.scrolled { padding-top: 1rem; padding-bottom: 1rem; }
+.nav-logo {
+  font-family: var(--f-display); font-style: italic; font-weight: 500;
+  font-size: 1.35rem; letter-spacing: 0.04em;
+  color: var(--c-dark); transition: color 0.3s;
+}
+.nav-logo span { color: var(--c-accent); }
+.nav-links {
+  display: flex; align-items: center; gap: 2.5rem; list-style: none;
+}
+.nav-links a {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.75rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--c-text-light);
+  position: relative; transition: color 0.3s;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px; background: var(--c-accent);
+  transition: width 0.3s var(--ease);
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--c-accent) !important; }
+/* Highlighted Ervaringen link */
+.nav-links .nav-ervaringen {
+  color: var(--c-accent) !important;
+  border: 1px solid rgba(184,52,40,0.45);
+  padding: 0.35rem 0.9rem;
+  border-radius: 2rem;
+  background: rgba(184,52,40,0.08);
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+}
+.nav-links .nav-ervaringen::after { display: none; }
+.nav-cta {
+  font-family: var(--f-ui); font-weight: 500;
+  font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #fff; background: var(--c-cta);
+  padding: 0.6rem 1.4rem;
+  transition: background 0.25s, transform 0.2s;
+}
+.nav-cta:hover { background: var(--c-accent-dark); transform: translateY(-1px); }
+.nav-hamburger {
+  display: none; flex-direction: column; gap: 5px; width: 28px;
+  background: none; border: none; padding: 4px;
+}
+.nav-hamburger span {
+  display: block; height: 1px; background: var(--c-dark);
+  transition: transform 0.35s var(--ease), opacity 0.25s;
+  transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+@media (max-width: 900px) {
+  .nav-links, .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+}
+
+/* Mobile overlay */
+#nav-overlay {
+  position: fixed; inset: 0; z-index: 850;
+  background: var(--c-dark2);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2.5rem;
+  transform: translateY(-100%);
+  transition: transform 0.55s var(--ease);
+}
+#nav-overlay.open { transform: translateY(0); }
+#nav-overlay a {
+  font-family: var(--f-display); font-style: italic; font-weight: 400;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  color: rgba(255,255,255,0.8); letter-spacing: 0.04em; transition: color 0.3s;
+}
+#nav-overlay a:hover { color: var(--c-accent); }
+#nav-overlay .nav-overlay-ervaringen { color: var(--c-accent) !important; }
+#nav-overlay .nav-overlay-cta {
+  margin-top: 1rem;
+  font-family: var(--f-ui); font-size: 0.75rem;
+  font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--c-accent); border: 1px solid var(--c-accent);
+  padding: 0.75rem 2rem;
+}
+
+/* ═══════════════════════════════════════════════
+   PAGE HERO — ERVARINGEN
+   ═══════════════════════════════════════════════ */
+.page-hero {
+  background: var(--c-dark2);
+  padding: 160px 8vw 80px;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: url('/images/outlook.jpg') center/cover no-repeat;
+  opacity: 0.12;
+  pointer-events: none;
+}
+.page-hero-inner {
+  position: relative; z-index: 1;
+  max-width: 680px;
+}
+.page-hero .label { color: rgba(255,255,255,0.5); }
+.page-hero h1 {
+  font-family: var(--f-display); font-style: italic; font-weight: 400;
+  font-size: clamp(3rem, 7vw, 6rem);
+  color: #fff; line-height: 1.05;
+  margin: 0.75rem 0 1.25rem;
+}
+.page-hero h1 span { color: var(--c-accent); }
+.page-hero p {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 1rem; color: rgba(255,255,255,0.5);
+  line-height: 1.8; max-width: 480px;
+}
+
+/* ═══════════════════════════════════════════════
+   SCROLL REVEAL INIT
+   ═══════════════════════════════════════════════ */
+[data-reveal] { opacity: 0; transform: translateY(30px); }
+[data-reveal-left] { opacity: 0; transform: translateX(-40px); }
+[data-reveal-right] { opacity: 0; transform: translateX(40px); }
+[data-reveal-scale] { opacity: 0; transform: scale(0.94); }
+
+/* ═══════════════════════════════════════════════
+   REVIEWS SECTION
+   ═══════════════════════════════════════════════ */
+#ervaringen { background: var(--c-cream); }
+#ervaringen .section-header { text-align: center; margin-bottom: 4rem; }
+#ervaringen h2 { color: var(--c-dark); margin: 1rem 0;
+  font-family: var(--f-display); font-style: italic; font-weight: 400;
+  font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.1;
+}
+#ervaringen h2 span { color: var(--c-accent); }
+#ervaringen .section-header p {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 1rem; color: var(--c-stone);
+  max-width: 540px; margin: 0 auto; line-height: 1.8;
+}
+.reviews-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2rem; max-width: 1100px; margin: 0 auto 4rem;
+}
+@media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+@media (min-width: 600px) and (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr 1fr; } }
+.review-card {
+  background: #fff; border-radius: 1.5rem;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 8px 32px rgba(26,58,34,0.08);
+  display: flex; flex-direction: column; gap: 1rem;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.review-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(26,58,34,0.14); }
+.review-stars { display: flex; gap: 4px; }
+.review-stars span { color: #e8a020; font-size: 1.1rem; }
+.review-text {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.92rem; line-height: 1.85;
+  color: var(--c-stone); flex: 1; font-style: italic;
+}
+.review-author {
+  display: flex; align-items: center; gap: 0.75rem;
+  border-top: 1px solid rgba(26,58,34,0.08);
+  padding-top: 1rem; margin-top: auto;
+}
+.review-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--c-forest);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-family: var(--f-display);
+  font-size: 1rem; font-style: italic; flex-shrink: 0;
+}
+.review-name {
+  font-family: var(--f-ui); font-weight: 600;
+  font-size: 0.88rem; color: var(--c-dark);
+}
+.review-date {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.78rem; color: var(--c-stone);
+}
+
+/* Facebook video */
+.reviews-fb-wrap { max-width: 680px; margin: 0 auto 4rem; }
+.reviews-fb-label {
+  font-family: var(--f-display); font-style: italic; font-weight: 400;
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  color: var(--c-dark); text-align: center; margin-bottom: 1.5rem;
+}
+.reviews-fb-label span { color: var(--c-accent); }
+.reviews-fb-video {
+  position: relative; padding-bottom: 56.25%; height: 0;
+  overflow: hidden; border-radius: 1.5rem;
+  box-shadow: 0 16px 48px rgba(26,58,34,0.14);
+}
+.reviews-fb-video iframe {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%; border: 0;
+}
+
+/* Share CTA */
+.reviews-cta {
+  text-align: center; padding: 3rem 2rem;
+  background: var(--c-forest); border-radius: 2rem;
+  max-width: 680px; margin: 0 auto;
+}
+.reviews-cta h3 {
+  font-family: var(--f-display); font-style: italic; font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: #fff; margin-bottom: 0.75rem;
+}
+.reviews-cta p {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.92rem; color: rgba(255,255,255,0.65);
+  margin-bottom: 2rem; line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════ */
+footer {
+  background: var(--c-dark2);
+  padding: 5rem 8vw 2.5rem;
+}
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 4rem; padding-bottom: 4rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 2.5rem;
+}
+@media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
+@media (max-width: 550px) { .footer-top { grid-template-columns: 1fr; } }
+.footer-logo {
+  font-family: var(--f-display); font-style: italic; font-weight: 500;
+  font-size: 1.6rem; letter-spacing: 0.04em; margin-bottom: 1rem; color: #fff;
+}
+.footer-logo span { color: var(--c-accent); }
+.footer-tagline {
+  font-family: var(--f-ui); font-weight: 200;
+  font-size: 0.8rem; color: rgba(255,255,255,0.35); line-height: 1.7;
+}
+.footer-col-title {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 1.25rem;
+}
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 0.65rem; }
+.footer-col ul li a {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.825rem; color: rgba(255,255,255,0.5); transition: color 0.25s;
+}
+.footer-col ul li a:hover { color: var(--c-accent); }
+.footer-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-copy {
+  font-family: var(--f-ui); font-weight: 200;
+  font-size: 0.7rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.2);
+}
+.footer-socials { display: flex; gap: 1.25rem; }
+.footer-socials a {
+  width: 34px; height: 34px;
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.35); transition: border-color 0.3s, color 0.3s;
+}
+.footer-socials a:hover { border-color: var(--c-accent); color: var(--c-accent); }
+
+/* ═══════════════════════════════════════════════
+   BACK TO TOP
+   ═══════════════════════════════════════════════ */
+#back-top {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 800;
+  width: 48px; height: 48px; background: var(--c-dark);
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.6);
+  opacity: 0; pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease), background 0.25s;
+}
+#back-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+#back-top:hover { background: var(--c-accent); color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- PAGE LOADER -->
+<div id="loader" aria-hidden="true">
+  <p id="loader-logo">Royal <span>Masia</span></p>
+  <div id="loader-bar-wrap"><div id="loader-bar"></div></div>
+  <p id="loader-pct">0%</p>
+</div>
+
+<!-- CUSTOM CURSOR -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar" aria-label="Hoofdnavigatie">
+  <a href="/royal-massia-aww.html" class="nav-logo" aria-label="Royal Masia Resort home">Royal <span>Masia</span></a>
+
+  <ul class="nav-links" role="list">
+    <li><a href="/royal-massia-aww.html#over">Over</a></li>
+    <li><a href="/royal-massia-aww.html#cabanas">Cabana's</a></li>
+    <li><a href="/royal-massia-aww.html#activiteiten">Activiteiten</a></li>
+    <li><a href="/royal-massia-aww.html#tarieven">Tarieven</a></li>
+    <li><a href="/ervaringen.html" class="nav-ervaringen">Ervaringen</a></li>
+    <li><a href="/royal-massia-aww.html#contact">Contact</a></li>
+  </ul>
+
+  <a href="/royal-massia-aww.html#boeken" class="nav-cta">Boek nu</a>
+
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu openen" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile overlay -->
+<div id="nav-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Navigatiemenu">
+  <a href="/royal-massia-aww.html#over" class="nav-overlay-link">Over</a>
+  <a href="/royal-massia-aww.html#cabanas" class="nav-overlay-link">Cabana's</a>
+  <a href="/royal-massia-aww.html#activiteiten" class="nav-overlay-link">Activiteiten</a>
+  <a href="/royal-massia-aww.html#tarieven" class="nav-overlay-link">Tarieven</a>
+  <a href="/ervaringen.html" class="nav-overlay-link nav-overlay-ervaringen">Ervaringen</a>
+  <a href="/royal-massia-aww.html#contact" class="nav-overlay-link">Contact</a>
+  <a href="/royal-massia-aww.html#boeken" class="nav-overlay-cta">Boek nu</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner" data-reveal>
+    <span class="label">Wat onze gasten zeggen</span>
+    <h1>Erva<span>ringen</span></h1>
+    <p>Ontdek wat andere gasten beleefden tijdens hun verblijf bij Royal Masia Resort — en deel uw eigen verhaal.</p>
+  </div>
+</div>
+
+<!-- REVIEWS SECTION -->
+<section id="ervaringen" class="section-pad">
+  <div class="container">
+
+    <div class="section-header" data-reveal>
+      <span class="label">Ervaringen</span>
+      <h2>Wat onze gasten <span>zeggen</span></h2>
+      <p>Ontdek wat andere gasten beleefden tijdens hun verblijf bij Royal Masia Resort.</p>
+    </div>
+
+    <div class="reviews-grid">
+      <!-- Review 1 -->
+      <div class="review-card" data-reveal>
+        <div class="review-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="review-text">"Een ongelofelijke ervaring! Het resort is prachtig gelegen en de rust die je hier vindt is onbetaalbaar. We komen zeker terug."</p>
+        <div class="review-author">
+          <div class="review-avatar">S</div>
+          <div>
+            <div class="review-name">Sophie V.</div>
+            <div class="review-date">Maart 2025</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 2 -->
+      <div class="review-card" data-reveal>
+        <div class="review-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="review-text">"De cabana's zijn adembenemend mooi en de faciliteiten zijn top. Perfect voor een romantisch weekend weg. Absolute aanrader!"</p>
+        <div class="review-author">
+          <div class="review-avatar">M</div>
+          <div>
+            <div class="review-name">Marc &amp; Lien</div>
+            <div class="review-date">Februari 2025</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="review-card" data-reveal>
+        <div class="review-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="review-text">"Geweldig voor het hele gezin. De kinderen hebben het naar hun zin gehad en wij konden eindelijk echt ontspannen. Fantastisch resort!"</p>
+        <div class="review-author">
+          <div class="review-avatar">J</div>
+          <div>
+            <div class="review-name">Jana D.</div>
+            <div class="review-date">April 2025</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Facebook video -->
+    <div class="reviews-fb-wrap" data-reveal>
+      <p class="reviews-fb-label">Bekijk ons <span>resort</span> in actie</p>
+      <div class="reviews-fb-video">
+        <iframe
+          src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Froyalresortmasia%2Fvideos%2F2843085239416896%2F&show_text=false&width=560&t=0"
+          width="560" height="314"
+          style="border:none;overflow:hidden"
+          scrolling="no" frameborder="0"
+          allowfullscreen="true"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- Share CTA -->
+    <div class="reviews-cta" data-reveal>
+      <h3>Deel uw ervaring</h3>
+      <p>Heeft u bij ons verbleven? We horen graag uw verhaal. Stuur ons uw beleving via WhatsApp en we plaatsen het met plezier!</p>
+      <a href="https://wa.me/5978900286?text=Hallo%2C%20ik%20wil%20graag%20mijn%20ervaring%20delen%20bij%20Royal%20Masia%20Resort!" class="btn-outline" target="_blank" rel="noopener noreferrer">Stuur uw ervaring</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <p class="footer-logo">Royal <span>Masia</span></p>
+        <p class="footer-tagline">
+          Een verborgen paradijs aan de oevers<br>van de Tapawatra rivier in Suriname.
+        </p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Navigatie</p>
+        <ul>
+          <li><a href="/royal-massia-aww.html#over">Over ons</a></li>
+          <li><a href="/royal-massia-aww.html#cabanas">Cabana's</a></li>
+          <li><a href="/royal-massia-aww.html#faciliteiten">Faciliteiten</a></li>
+          <li><a href="/royal-massia-aww.html#activiteiten">Activiteiten</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Informatie</p>
+        <ul>
+          <li><a href="/royal-massia-aww.html#tarieven">Tarieven</a></li>
+          <li><a href="/royal-massia-aww.html#boeken">Reserveren</a></li>
+          <li><a href="/royal-massia-aww.html#contact">Contact</a></li>
+          <li><a href="https://wa.me/5978900286" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Contact</p>
+        <ul>
+          <li><a href="https://wa.me/5978900286">+597 890-0286</a></li>
+          <li><a href="/royal-massia-aww.html#contact">Tapawatra Rivier</a></li>
+          <li><a href="/royal-massia-aww.html#contact">Suriname</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 Royal Masia Resort. Alle rechten voorbehouden.</p>
+      <div class="footer-socials">
+        <a href="https://www.facebook.com/royalresortmasia/" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+          <ion-icon name="logo-facebook" style="font-size:1rem; color:inherit"></ion-icon>
+        </a>
+        <a href="#" aria-label="Instagram" target="_blank" rel="noopener">
+          <ion-icon name="logo-instagram" style="font-size:1rem; color:inherit"></ion-icon>
+        </a>
+        <a href="https://wa.me/5978900286" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
+          <ion-icon name="logo-whatsapp" style="font-size:1rem; color:inherit"></ion-icon>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="back-top" aria-label="Terug naar boven">
+  <ion-icon name="arrow-up-outline" style="font-size:1.1rem; color:inherit"></ion-icon>
+</button>
+
+<!-- SCRIPTS -->
+<script>
+(function() {
+  // ── PAGE LOADER ───────────────────────────────
+  const loader = document.getElementById('loader');
+  const loaderBar = document.getElementById('loader-bar');
+  const loaderPct = document.getElementById('loader-pct');
+  const loaderLogo = document.getElementById('loader-logo');
+
+  let progress = 0;
+  const startTime = Date.now();
+
+  gsap.to(loaderLogo, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 0.1 });
+
+  const fakeLoad = setInterval(() => {
+    const elapsed = Date.now() - startTime;
+    progress = Math.min(95, (elapsed / 1800) * 100);
+    loaderBar.style.width = progress + '%';
+    loaderPct.textContent = Math.floor(progress) + '%';
+  }, 30);
+
+  function hideLoader() {
+    clearInterval(fakeLoad);
+    loaderBar.style.width = '100%';
+    loaderPct.textContent = '100%';
+    setTimeout(() => {
+      gsap.to(loader, {
+        yPercent: -100, duration: 0.85, ease: 'power3.inOut',
+        onComplete: () => { loader.style.display = 'none'; initPage(); }
+      });
+    }, 300);
+  }
+
+  if (document.readyState === 'complete') {
+    setTimeout(hideLoader, 600);
+  } else {
+    window.addEventListener('load', () => setTimeout(hideLoader, 400));
+    setTimeout(hideLoader, 2500);
+  }
+
+  // ── LENIS ─────────────────────────────────────
+  let lenis;
+  function initLenis() {
+    lenis = new Lenis({
+      duration: 1.3,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical', smoothWheel: true,
+    });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  // ── INIT ──────────────────────────────────────
+  function initPage() {
+    gsap.registerPlugin(ScrollTrigger);
+    initLenis();
+    initCursor();
+    initNavbar();
+    initScrollReveal();
+    initBackTop();
+  }
+
+  // ── CURSOR ────────────────────────────────────
+  function initCursor() {
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    const bound = new WeakSet();
+
+    const moveDot = gsap.quickTo(dot, 'x', { duration: 0.1, ease: 'none' });
+    const moveDotY = gsap.quickTo(dot, 'y', { duration: 0.1, ease: 'none' });
+    const moveRing = gsap.quickTo(ring, 'x', { duration: 0.45, ease: 'power3.out' });
+    const moveRingY = gsap.quickTo(ring, 'y', { duration: 0.45, ease: 'power3.out' });
+
+    window.addEventListener('mousemove', e => {
+      moveDot(e.clientX); moveDotY(e.clientY);
+      moveRing(e.clientX); moveRingY(e.clientY);
+    });
+
+    function bindHover(el) {
+      if (bound.has(el)) return;
+      bound.add(el);
+      el.addEventListener('mouseenter', () => { dot.classList.add('hovering'); ring.classList.add('hovering'); });
+      el.addEventListener('mouseleave', () => { dot.classList.remove('hovering'); ring.classList.remove('hovering'); });
+    }
+    function bindAll() {
+      document.querySelectorAll('a, button, [role="button"], input, select, textarea').forEach(bindHover);
+    }
+    bindAll();
+    new MutationObserver(bindAll).observe(document.body, { childList: true, subtree: true });
+  }
+
+  // ── NAVBAR ────────────────────────────────────
+  function initNavbar() {
+    const nav = document.getElementById('navbar');
+    const hamburger = document.getElementById('hamburger');
+    const overlay = document.getElementById('nav-overlay');
+    let menuOpen = false;
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    function toggleMenu(open) {
+      menuOpen = open;
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+      overlay.classList.toggle('open', open);
+      overlay.setAttribute('aria-hidden', String(!open));
+      if (open) { lenis && lenis.stop(); }
+      else { lenis && lenis.start(); }
+    }
+
+    hamburger.addEventListener('click', () => toggleMenu(!menuOpen));
+    overlay.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => toggleMenu(false));
+    });
+  }
+
+  // ── SCROLL REVEAL ─────────────────────────────
+  function initScrollReveal() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        if (el.hasAttribute('data-reveal'))       gsap.to(el, { opacity: 1, y: 0,    duration: 0.9, ease: 'power3.out' });
+        if (el.hasAttribute('data-reveal-left'))  gsap.to(el, { opacity: 1, x: 0,    duration: 0.9, ease: 'power3.out' });
+        if (el.hasAttribute('data-reveal-right')) gsap.to(el, { opacity: 1, x: 0,    duration: 0.9, ease: 'power3.out' });
+        if (el.hasAttribute('data-reveal-scale')) gsap.to(el, { opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out' });
+        io.unobserve(el);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('[data-reveal],[data-reveal-left],[data-reveal-right],[data-reveal-scale]').forEach(el => io.observe(el));
+  }
+
+  // ── BACK TO TOP ───────────────────────────────
+  function initBackTop() {
+    const btn = document.getElementById('back-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    btn.addEventListener('click', () => {
+      if (lenis) lenis.scrollTo(0, { duration: 1.4 });
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+})();
+</script>
+</body>
+</html>

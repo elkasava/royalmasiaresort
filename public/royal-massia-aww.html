@@ -44,6 +44,9 @@
   --c-wood:        #3c1a0a;
   --c-cream-dark:  #ead8cc;
   --c-white:       #fdf8f5;
+  --c-cream:       #f5ede4;
+  --c-forest:      #1a3a22;
+  --c-stone:       #7a6058;
 
   --f-display: 'Cormorant Garamond', Georgia, serif;
   --f-ui:      'Raleway', system-ui, sans-serif;
@@ -303,6 +306,20 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
 }
 .nav-links a:hover::after { width: 100%; }
 .nav-links a:hover { color: var(--c-accent) !important; }
+.nav-links .nav-ervaringen {
+  color: var(--c-accent) !important;
+  border: 1px solid rgba(184,52,40,0.45);
+  padding: 0.35rem 0.9rem;
+  border-radius: 2rem;
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+}
+.nav-links .nav-ervaringen:hover {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+  color: #fff !important;
+}
+.nav-links .nav-ervaringen::after { display: none; }
+.nav-overlay-ervaringen { color: var(--c-accent) !important; }
 .nav-cta {
   font-family: var(--f-ui);
   font-weight: 500;
@@ -581,7 +598,7 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
 .about-blob-main:hover video { transform: scale(1.05); }
 .about-blob-float {
   position: absolute; bottom: 0; right: -1.5rem;
-  width: 170px; height: 170px; overflow: hidden;
+  width: 212px; height: 212px; overflow: hidden;
   border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%;
   border: 4px solid var(--c-bg);
   box-shadow: 0 12px 30px rgba(26,58,34,0.2);
@@ -736,6 +753,38 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
 #activiteiten { background: var(--c-dark2); overflow: hidden; }
 #activiteiten h2 { color: #fff; margin: 1rem 0 4rem; }
 .act-list { display: flex; flex-direction: column; gap: 0; }
+.act-intro-wrap {
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 3rem;
+  padding: 130px 0 0;
+}
+.act-intro-text { flex: 1; min-width: 0; }
+.act-intro-blob {
+  flex-shrink: 0;
+  width: 300px; height: 340px;
+  border-radius: 62% 38% 55% 45% / 48% 52% 48% 52%;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  animation: blobMorph2 9s ease-in-out infinite;
+  margin-right: 2rem;
+}
+.act-intro-blob img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+  display: block;
+}
+@keyframes blobMorph2 {
+  0%,100% { border-radius: 62% 38% 55% 45% / 48% 52% 48% 52%; }
+  33%      { border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%; }
+  66%      { border-radius: 55% 45% 65% 35% / 40% 60% 45% 55%; }
+}
+@media (max-width: 900px) {
+  .act-intro-wrap { flex-direction: column; padding: 80px 0 0; gap: 2rem; }
+  .act-intro-blob { width: 240px; height: 270px; margin-right: 0; }
+}
+@media (max-width: 600px) {
+  .act-intro-blob { width: 200px; height: 225px; }
+}
 .act-item {
   display: grid; grid-template-columns: 1fr 1fr;
   min-height: 420px;
@@ -828,6 +877,33 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
 .review-date {
   font-family: var(--f-ui); font-weight: 300;
   font-size: 0.78rem; color: var(--c-stone);
+}
+.reviews-fb-wrap {
+  max-width: 680px;
+  margin: 0 auto 4rem;
+}
+.reviews-fb-label {
+  font-family: var(--f-display);
+  font-style: italic; font-weight: 400;
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  color: var(--c-dark);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.reviews-fb-label span { color: var(--c-accent); }
+.reviews-fb-video {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  box-shadow: 0 16px 48px rgba(26,58,34,0.14);
+}
+.reviews-fb-video iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: 0;
 }
 .reviews-cta {
   text-align: center;
@@ -1166,8 +1242,7 @@ footer {
 [data-reveal-right] { opacity: 0; transform: translateX(40px); }
 [data-reveal-scale] { opacity: 0; transform: scale(0.95); }
 
-/* Skew container for Lenis distortion */
-.skew-wrap { will-change: transform; }
+
 </style>
 </head>
 <body>
@@ -1192,7 +1267,7 @@ footer {
     <li><a href="#cabanas">Cabana's</a></li>
     <li><a href="#activiteiten">Activiteiten</a></li>
     <li><a href="#tarieven">Tarieven</a></li>
-    <li><a href="#ervaringen">Ervaringen</a></li>
+    <li><a href="/ervaringen.html" class="nav-ervaringen">Ervaringen</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 
@@ -1209,7 +1284,7 @@ footer {
   <a href="#cabanas" class="nav-overlay-link">Cabana's</a>
   <a href="#activiteiten" class="nav-overlay-link">Activiteiten</a>
   <a href="#tarieven" class="nav-overlay-link">Tarieven</a>
-  <a href="#ervaringen" class="nav-overlay-link">Ervaringen</a>
+  <a href="/ervaringen.html" class="nav-overlay-link nav-overlay-ervaringen">Ervaringen</a>
   <a href="#contact" class="nav-overlay-link">Contact</a>
   <a href="#boeken" class="nav-overlay-cta">Boek nu</a>
 </div>
@@ -1302,12 +1377,12 @@ footer {
           <div class="about-blob-deco"></div>
           <div class="about-blob-main">
             <video autoplay muted loop playsinline>
-              <source src="/images/vid2.mp4" type="video/mp4" />
+              <source src="/images/vid1.mp4" type="video/mp4" />
             </video>
           </div>
           <div class="about-blob-float">
             <video autoplay muted loop playsinline>
-              <source src="/images/vid1.mp4" type="video/mp4" />
+              <source src="/images/vid2.mp4" type="video/mp4" />
             </video>
           </div>
           <div class="about-img-badge">
@@ -1371,7 +1446,7 @@ footer {
       </p>
       <a href="#boeken" class="btn-cta" style="margin-top: 1.5rem; align-self: flex-start">Reserveer nu</a>
     </div>
-    <div class="story-image skew-wrap">
+    <div class="story-image">
       <img src="/images/resort2.jpg" alt="Panoramisch uitzicht Kikkenstein" loading="lazy" onerror="this.onerror=null;this.style.minHeight='300px';this.style.background='linear-gradient(135deg,#1a3a22,#0e1e12)';" />
     </div>
   </div>
@@ -1392,7 +1467,7 @@ footer {
     <div class="cabanas-grid">
       <!-- Amsterdam -->
       <div class="cabana-card" data-reveal>
-        <div class="cabana-img skew-wrap">
+        <div class="cabana-img">
           <img src="/images/resort1.jpg" alt="Cabana Amsterdam" loading="lazy" onerror="this.onerror=null;this.style.minHeight='288px';this.style.background='linear-gradient(135deg,#1a3a22,#0e1e12)';" />
           <div class="cabana-badge">Populair</div>
         </div>
@@ -1415,7 +1490,7 @@ footer {
 
       <!-- Kikkenstein -->
       <div class="cabana-card" data-reveal>
-        <div class="cabana-img skew-wrap">
+        <div class="cabana-img">
           <img src="/images/resort2.jpg" alt="Cabana Kikkenstein" loading="lazy" onerror="this.onerror=null;this.style.minHeight='288px';this.style.background='linear-gradient(135deg,#1a3a22,#0e1e12)';" />
           <div class="cabana-badge">Panorama</div>
         </div>
@@ -1488,19 +1563,24 @@ footer {
 
 <!-- ════════════════════ ACTIVITIES ════════════════════ -->
 <section id="activiteiten">
-  <div class="container" style="padding: 130px 0 0">
-    <div class="section-pad" style="padding-bottom: 0; padding-top: 0" data-reveal>
-      <span class="gold-line"></span>
-      <p class="label">Activiteiten</p>
-      <h2 class="display-lg" style="color:#fff; margin-top: 0.75rem; margin-bottom: 4rem">
-        Beleef de<br>wildernis
-      </h2>
+  <div class="container">
+    <div class="act-intro-wrap">
+      <div class="act-intro-text section-pad" style="padding-bottom: 0; padding-top: 0" data-reveal>
+        <span class="gold-line"></span>
+        <p class="label">Activiteiten</p>
+        <h2 class="display-lg" style="color:#fff; margin-top: 0.75rem; margin-bottom: 4rem">
+          Beleef de<br>wildernis
+        </h2>
+      </div>
+      <div class="act-intro-blob" data-reveal>
+        <img src="/images/guest-pineapple.jpg" alt="Genieten bij Royal Massia Resort" loading="lazy" />
+      </div>
     </div>
   </div>
   <div class="act-list">
     <!-- Activity 1 -->
     <div class="act-item">
-      <div class="act-img skew-wrap">
+      <div class="act-img">
         <img src="/images/river1.jpg" alt="Tapawatra rivier kanotocht" loading="lazy" onerror="this.onerror=null;this.style.minHeight='250px';this.style.background='linear-gradient(135deg,#1a3a22,#0e1e12)';" />
       </div>
       <div class="act-body">
@@ -1511,7 +1591,7 @@ footer {
     </div>
     <!-- Activity 2 -->
     <div class="act-item">
-      <div class="act-img skew-wrap">
+      <div class="act-img">
         <img src="/images/outlook.jpg" alt="Ananasberg wandeling" loading="lazy" onerror="this.onerror=null;this.style.minHeight='250px';this.style.background='linear-gradient(135deg,#1a3a22,#0e1e12)';" />
       </div>
       <div class="act-body">
@@ -1522,7 +1602,7 @@ footer {
     </div>
     <!-- Activity 3 -->
     <div class="act-item">
-      <div class="act-img skew-wrap">
+      <div class="act-img">
         <img src="/images/nature3.jpg" alt="Dorpswandeling in Suriname" loading="lazy" onerror="this.onerror=null;this.style.minHeight='250px';this.style.background='linear-gradient(135deg,#1a3a22,#0e1e12)';" />
       </div>
       <div class="act-body">
@@ -1533,71 +1613,6 @@ footer {
     </div>
   </div>
   <div style="padding-bottom: 130px"></div>
-</section>
-
-<!-- ════════════════════ EXPERIENCES / REVIEWS ════════════════════ -->
-<section id="ervaringen" class="section-pad">
-  <div class="container">
-    <div class="section-header" data-reveal>
-      <span class="label">Ervaringen</span>
-      <h2>Wat onze gasten <span>zeggen</span></h2>
-      <p>Ontdek wat andere gasten beleefden tijdens hun verblijf bij Royal Masia Resort.</p>
-    </div>
-
-    <div class="reviews-grid">
-      <!-- Review 1 -->
-      <div class="review-card" data-reveal>
-        <div class="review-stars">
-          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-        </div>
-        <p class="review-text">"Een ongelofelijke ervaring! Het resort is prachtig gelegen en de rust die je hier vindt is onbetaalbaar. We komen zeker terug."</p>
-        <div class="review-author">
-          <div class="review-avatar">S</div>
-          <div>
-            <div class="review-name">Sophie V.</div>
-            <div class="review-date">Maart 2025</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Review 2 -->
-      <div class="review-card" data-reveal>
-        <div class="review-stars">
-          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-        </div>
-        <p class="review-text">"De cabana's zijn adembenemend mooi en de faciliteiten zijn top. Perfect voor een romantisch weekend weg. Absolute aanrader!"</p>
-        <div class="review-author">
-          <div class="review-avatar">M</div>
-          <div>
-            <div class="review-name">Marc &amp; Lien</div>
-            <div class="review-date">Februari 2025</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Review 3 -->
-      <div class="review-card" data-reveal>
-        <div class="review-stars">
-          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-        </div>
-        <p class="review-text">"Geweldig voor het hele gezin. De kinderen hebben het naar hun zin gehad en wij konden eindelijk echt ontspannen. Fantastisch resort!"</p>
-        <div class="review-author">
-          <div class="review-avatar">J</div>
-          <div>
-            <div class="review-name">Jana D.</div>
-            <div class="review-date">April 2025</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Share your experience CTA -->
-    <div class="reviews-cta" data-reveal>
-      <h3>Deel uw ervaring</h3>
-      <p>Heeft u bij ons verbleven? We horen graag uw verhaal. Stuur ons uw beleving via WhatsApp en we plaatsen het met plezier!</p>
-      <a href="https://wa.me/5978900286?text=Hallo%2C%20ik%20wil%20graag%20mijn%20ervaring%20delen%20bij%20Royal%20Masia%20Resort!" class="btn-outline" target="_blank" rel="noopener noreferrer">Stuur uw ervaring</a>
-    </div>
-  </div>
 </section>
 
 <!-- ════════════════════ PRICING ════════════════════ -->
@@ -1947,7 +1962,6 @@ footer {
     initNavbar();
     initHeroAnim();
     initScrollReveal();
-    initSkewEffect();
     initBackTop();
     initBookingForm();
     initVideoFallback();
@@ -2067,24 +2081,7 @@ footer {
     document.querySelectorAll('[data-reveal],[data-reveal-left],[data-reveal-right],[data-reveal-scale]').forEach(el => io.observe(el));
   }
 
-  // ── LENIS SKEW DISTORTION ─────────────────────────────
-  function initSkewEffect() {
-    if (!lenis) return;
-    const proxy = { skew: 0 };
-    const setSkew = gsap.quickSetter('.skew-wrap', 'skewY', 'deg');
-    ScrollTrigger.create({
-      onUpdate: self => {
-        const skew = Math.min(Math.abs(self.getVelocity() / 300), 3) * Math.sign(self.getVelocity());
-        gsap.to(proxy, {
-          skew, duration: 0.5, ease: 'power3.out',
-          overwrite: true,
-          onUpdate: () => setSkew(proxy.skew)
-        });
-      }
-    });
-  }
-
-  // ── BACK TO TOP ───────────────────────────────────────
+// ── BACK TO TOP ───────────────────────────────────────
   function initBackTop() {
     const btn = document.getElementById('back-top');
     window.addEventListener('scroll', () => {
