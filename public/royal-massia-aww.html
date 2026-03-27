@@ -64,7 +64,7 @@
    RESET & BASE
    ═══════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: auto; font-size: 16px; }
+html { scroll-behavior: auto; font-size: 17.5px; }
 body {
   background: var(--c-bg);
   color: var(--c-text);
@@ -523,7 +523,7 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
 }
 .about-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
 .about-img-badge {
-  position: absolute; bottom: -1.5rem; right: -1.5rem;
+  position: absolute; bottom: -1.5rem; left: -1.5rem;
   width: 140px; height: 140px;
   background: var(--c-dark);
   display: flex; flex-direction: column;
@@ -568,6 +568,32 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
   font-size: 0.65rem; letter-spacing: 0.2em;
   text-transform: uppercase; color: var(--c-text-light);
   margin-top: 0.2rem;
+}
+
+/* About blob videos */
+.about-blob-wrap { position: relative; padding-bottom: 2.5rem; }
+.about-blob-main {
+  width: 100%; aspect-ratio: 4/5; overflow: hidden;
+  border-radius: 60% 40% 55% 45% / 45% 55% 45% 55%;
+  box-shadow: 0 24px 60px rgba(26,58,34,0.18);
+}
+.about-blob-main video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
+.about-blob-main:hover video { transform: scale(1.05); }
+.about-blob-float {
+  position: absolute; bottom: 0; right: -1.5rem;
+  width: 170px; height: 170px; overflow: hidden;
+  border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%;
+  border: 4px solid var(--c-bg);
+  box-shadow: 0 12px 30px rgba(26,58,34,0.2);
+}
+.about-blob-float video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
+.about-blob-float:hover video { transform: scale(1.05); }
+.about-blob-deco {
+  position: absolute; top: -2rem; left: -2rem;
+  width: 12rem; height: 12rem;
+  background: rgba(184,52,40,0.1);
+  border-radius: 70% 30% 50% 50% / 40% 60% 40% 60%;
+  z-index: -1; pointer-events: none;
 }
 
 /* ═══════════════════════════════════════════════
@@ -1187,8 +1213,18 @@ footer {
   <div class="container">
     <div class="about-inner">
       <div data-reveal-left>
-        <div class="about-img-wrap skew-wrap">
-          <img src="/images/resort1.jpg" alt="Royal Massia Resort omgeving" loading="lazy" onerror="this.onerror=null;this.style.minHeight='300px';this.style.background='linear-gradient(135deg,#1a3a22,#0e1e12)';" />
+        <div class="about-blob-wrap">
+          <div class="about-blob-deco"></div>
+          <div class="about-blob-main">
+            <video autoplay muted loop playsinline>
+              <source src="/images/vid1.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="about-blob-float">
+            <video autoplay muted loop playsinline>
+              <source src="/images/vid2.mp4" type="video/mp4" />
+            </video>
+          </div>
           <div class="about-img-badge">
             <span class="badge-num">€30</span>
             <span class="badge-txt">per persoon<br>per nacht</span>
