@@ -15,7 +15,6 @@
 <!-- GSAP CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
 
 <!-- Lenis smooth scroll -->
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
@@ -1756,7 +1755,7 @@ footer {
 
   // ── MAIN INIT ────────────────────────────────────────
   function initPage() {
-    gsap.registerPlugin(ScrollTrigger, SplitText);
+    gsap.registerPlugin(ScrollTrigger);
     initLenis();
     initCursor();
     initNavbar();
@@ -1867,45 +1866,19 @@ footer {
 
   // ── SCROLL REVEAL ─────────────────────────────────────
   function initScrollReveal() {
-    // Standard reveal (up)
-    gsap.utils.toArray('[data-reveal]').forEach(el => {
-      gsap.to(el, {
-        opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        if (el.hasAttribute('data-reveal'))       gsap.to(el, { opacity: 1, y: 0,    duration: 0.9, ease: 'power3.out' });
+        if (el.hasAttribute('data-reveal-left'))  gsap.to(el, { opacity: 1, x: 0,    duration: 0.9, ease: 'power3.out' });
+        if (el.hasAttribute('data-reveal-right')) gsap.to(el, { opacity: 1, x: 0,    duration: 0.9, ease: 'power3.out' });
+        if (el.hasAttribute('data-reveal-scale')) gsap.to(el, { opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out' });
+        io.unobserve(el);
       });
-    });
-    // Left reveal
-    gsap.utils.toArray('[data-reveal-left]').forEach(el => {
-      gsap.to(el, {
-        opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
-      });
-    });
-    // Right reveal
-    gsap.utils.toArray('[data-reveal-right]').forEach(el => {
-      gsap.to(el, {
-        opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
-      });
-    });
-    // Scale reveal
-    gsap.utils.toArray('[data-reveal-scale]').forEach(el => {
-      gsap.to(el, {
-        opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
-      });
-    });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-    // SplitText on h2 headings
-    document.querySelectorAll('h2.display-lg').forEach(el => {
-      try {
-        const split = new SplitText(el, { type: 'words' });
-        gsap.from(split.words, {
-          opacity: 0, rotationX: 45, y: 30, stagger: 0.05, duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true }
-        });
-      } catch(e) { /* SplitText may not be available in free GSAP */ }
-    });
+    document.querySelectorAll('[data-reveal],[data-reveal-left],[data-reveal-right],[data-reveal-scale]').forEach(el => io.observe(el));
   }
 
   // ── LENIS SKEW DISTORTION ─────────────────────────────
