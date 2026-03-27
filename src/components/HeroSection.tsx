@@ -110,9 +110,9 @@ export default function HeroSection() {
             style={{
               fontFamily: "Cormorant Garamond, Georgia, serif",
               fontStyle: "italic",
-              fontWeight: 300,
+              fontWeight: 500,
               fontSize: "clamp(3.5rem, 9vw, 8.5rem)",
-              letterSpacing: "0.04em",
+              letterSpacing: "0.02em",
             }}
           >
             {headline.map((word, i) => (

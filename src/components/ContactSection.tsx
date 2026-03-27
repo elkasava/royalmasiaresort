@@ -22,7 +22,7 @@ export default function ContactSection() {
               Wij reageren zo snel mogelijk — alles verloopt via mobiel.
             </p>
 
-            <div className="space-y-6">
+            <div className="space-y-8">
               {[
                 {
                   icon: "logo-whatsapp",
@@ -115,7 +115,7 @@ export default function ContactSection() {
           </div>
 
           {/* Right: info card + WhatsApp CTA */}
-          <div className="space-y-4" data-reveal data-delay="0.15">
+          <div className="space-y-6" data-reveal data-delay="0.15">
             <div className="bg-[#1a3a22] p-10 text-white">
               <p
                 style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300, fontSize: "1.5rem" }}

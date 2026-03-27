@@ -416,3 +416,9 @@ a, button, input, select, textarea, label, [role="button"] {
   opacity: 0;
   transform: translateY(60px);
 }
+
+/* ── Marquee ticker ── */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.333%); }
+}

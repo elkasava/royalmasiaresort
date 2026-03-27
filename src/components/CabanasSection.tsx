@@ -8,7 +8,7 @@ const cabanas = [
     description:
       "Direct aan het water, op de begane grond. Open concept met prachtig uitzicht op de rivier en het omringende regenwoud.",
     features: ["Open concept", "Wateruitzicht", "Pier toegang", "Privé sfeer"],
-    image: "/images/cabanas.jpg",
+    image: "/images/resort1.jpg",
     badge: "Populair",
   },
   {
@@ -18,7 +18,7 @@ const cabanas = [
     description:
       "Panoramisch uitzicht over de boomtoppen en de rivier. Word wakker met de geluiden van de jungle.",
     features: ["Panoramisch uitzicht", "Boven de boomtoppen", "Perfecte zonsopgang", "Rust & stilte"],
-    image: "/images/building.jpg",
+    image: "/images/resort2.jpg",
     badge: "Panorama",
   },
 ];

@@ -3,64 +3,99 @@
 import { useEffect, useRef } from "react";
 
 export default function CustomCursor() {
-  const cursorRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const cursor = cursorRef.current;
-    if (!cursor) return;
+    const dot = dotRef.current;
+    const ring = ringRef.current;
+    if (!dot || !ring) return;
 
-    let qx: ((v: number) => void) | null = null;
-    let qy: ((v: number) => void) | null = null;
+    let qdx: ((v: number) => void) | null = null;
+    let qdy: ((v: number) => void) | null = null;
+    let qrx: ((v: number) => void) | null = null;
+    let qry: ((v: number) => void) | null = null;
 
     import("gsap").then(({ gsap }) => {
-      gsap.set(cursor, { xPercent: -50, yPercent: -50 });
-      qx = gsap.quickTo(cursor, "x", { duration: 0.15, ease: "none" });
-      qy = gsap.quickTo(cursor, "y", { duration: 0.15, ease: "none" });
+      gsap.set([dot, ring], { xPercent: -50, yPercent: -50 });
+
+      qdx = gsap.quickTo(dot, "x", { duration: 0.08, ease: "none" });
+      qdy = gsap.quickTo(dot, "y", { duration: 0.08, ease: "none" });
+      qrx = gsap.quickTo(ring, "x", { duration: 0.5, ease: "power3.out" });
+      qry = gsap.quickTo(ring, "y", { duration: 0.5, ease: "power3.out" });
 
       const onMove = (e: MouseEvent) => {
-        qx!(e.clientX);
-        qy!(e.clientY);
+        qdx!(e.clientX);
+        qdy!(e.clientY);
+        qrx!(e.clientX);
+        qry!(e.clientY);
       };
       document.addEventListener("mousemove", onMove);
 
-      const grow = () =>
-        gsap.to(cursor, { width: 44, height: 44, duration: 0.3, ease: "power2.out" });
-      const shrink = () =>
-        gsap.to(cursor, { width: 10, height: 10, duration: 0.3, ease: "power2.out" });
-
-      const addListeners = () => {
-        document.querySelectorAll("a, button, [role='button'], input, select, textarea, label").forEach((el) => {
-          el.addEventListener("mouseenter", grow);
-          el.addEventListener("mouseleave", shrink);
-        });
+      const onEnter = () => {
+        gsap.to(ring, { width: 56, height: 56, opacity: 0.9, duration: 0.35, ease: "power2.out" });
+        gsap.to(dot, { scale: 0, duration: 0.2 });
       };
-      addListeners();
+      const onLeave = () => {
+        gsap.to(ring, { width: 30, height: 30, opacity: 0.6, duration: 0.35, ease: "power2.out" });
+        gsap.to(dot, { scale: 1, duration: 0.2 });
+      };
 
-      const observer = new MutationObserver(addListeners);
-      observer.observe(document.body, { childList: true, subtree: true });
+      const bind = () => {
+        document
+          .querySelectorAll("a, button, [role='button'], input, select, textarea, label")
+          .forEach((el) => {
+            el.addEventListener("mouseenter", onEnter);
+            el.addEventListener("mouseleave", onLeave);
+          });
+      };
+      bind();
+
+      const obs = new MutationObserver(bind);
+      obs.observe(document.body, { childList: true, subtree: true });
 
       return () => {
         document.removeEventListener("mousemove", onMove);
-        observer.disconnect();
+        obs.disconnect();
       };
     });
   }, []);
 
   return (
-    <div
-      ref={cursorRef}
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: 10,
-        height: 10,
-        borderRadius: "50%",
-        background: "var(--color-accent)",
-        pointerEvents: "none",
-        zIndex: 99999,
-        mixBlendMode: "difference",
-      }}
-    />
+    <>
+      {/* Lagging ring */}
+      <div
+        ref={ringRef}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: 30,
+          height: 30,
+          border: "1px solid rgba(184, 52, 40, 0.6)",
+          borderRadius: "50%",
+          pointerEvents: "none",
+          zIndex: 99998,
+          willChange: "transform",
+          opacity: 0.6,
+        }}
+      />
+      {/* Precise dot */}
+      <div
+        ref={dotRef}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: 5,
+          height: 5,
+          background: "var(--color-accent)",
+          borderRadius: "50%",
+          pointerEvents: "none",
+          zIndex: 99999,
+          willChange: "transform",
+        }}
+      />
+    </>
   );
 }

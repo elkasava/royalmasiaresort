@@ -57,7 +57,7 @@ export default function ActivitiesSection() {
         </div>
 
         {/* Activities */}
-        <div className="space-y-8">
+        <div className="space-y-12">
           {activities.map((a, i) => (
             <div
               key={a.id}
@@ -68,7 +68,7 @@ export default function ActivitiesSection() {
               }`}
             >
               {/* Image */}
-              <div className="relative h-64 md:h-auto overflow-hidden">
+              <div className="relative h-72 md:h-auto overflow-hidden">
                 <img
                   src={a.image}
                   alt={a.title}
@@ -76,7 +76,6 @@ export default function ActivitiesSection() {
                 />
                 <div className="absolute inset-0 bg-[#0e1e12]/25" />
 
-                {/* Blob decoratie over de afbeelding */}
                 <div
                   className="absolute -bottom-8 -right-8 w-40 h-40 bg-[#b83428]/15"
                   style={{ borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%" }}
@@ -93,33 +92,33 @@ export default function ActivitiesSection() {
               </div>
 
               {/* Content */}
-              <div className="p-10 flex flex-col justify-center">
+              <div className="p-12 md:p-16 flex flex-col justify-center">
                 <p
                   style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
-                  className="text-[#b83428] text-xs tracking-[0.2em] uppercase mb-2"
+                  className="text-[#b83428] text-xs tracking-[0.2em] uppercase mb-3"
                 >
                   {a.subtitle}
                 </p>
                 <h3
-                  style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300, fontSize: "clamp(1.6rem, 3vw, 2.2rem)" }}
-                  className="text-white mb-4"
+                  style={{ fontFamily: "var(--font-cormorant)", fontStyle: "italic", fontWeight: 300, fontSize: "clamp(2.2rem, 3.5vw, 3rem)" }}
+                  className="text-white mb-5"
                 >
                   {a.title}
                 </h3>
                 <p
-                  style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
-                  className="text-white/60 text-sm leading-relaxed mb-6"
+                  style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 400 }}
+                  className="text-white/70 text-base leading-relaxed mb-8"
                 >
                   {a.description}
                 </p>
-                <div className="flex gap-6">
+                <div className="flex gap-10">
                   <div>
-                    <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }} className="text-[#b83428] text-xs tracking-widest uppercase">Duur</p>
-                    <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }} className="text-white/80 text-sm mt-1">{a.duration}</p>
+                    <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }} className="text-[#b83428] text-xs tracking-widest uppercase mb-1">Duur</p>
+                    <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 400 }} className="text-white/80 text-sm">{a.duration}</p>
                   </div>
                   <div>
-                    <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }} className="text-[#b83428] text-xs tracking-widest uppercase">Niveau</p>
-                    <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }} className="text-white/80 text-sm mt-1">{a.difficulty}</p>
+                    <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }} className="text-[#b83428] text-xs tracking-widest uppercase mb-1">Niveau</p>
+                    <p style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 400 }} className="text-white/80 text-sm">{a.difficulty}</p>
                   </div>
                 </div>
               </div>

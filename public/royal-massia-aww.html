@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Royal Massia Resort — Suriname</title>
+<meta name="description" content="Ontsnap naar de wildernis van Suriname. Verblijf in een cabana aan het water, vaar in een kano en beleef de ongerepte natuur." />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Raleway:wght@200;300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<!-- GSAP CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
+
+<!-- Lenis smooth scroll -->
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+<!-- Ionicons -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+<style>
+/* ═══════════════════════════════════════════════
+   CSS CUSTOM PROPERTIES — EXTRACTED FROM GLOBALS
+   ═══════════════════════════════════════════════ */
+:root {
+  --c-bg:          #f5ede4;
+  --c-bg-rgb:      245, 237, 228;
+  --c-dark:        #1a3a22;
+  --c-dark2:       #0e1e12;
+  --c-accent:      #b83428;
+  --c-accent-light:#d4574a;
+  --c-accent-dark: #8b1e16;
+  --c-teal:        #b83428;
+  --c-text:        #1c0e08;
+  --c-text-light:  #7a6058;
+  --c-cta:         #b83428;
+  --c-border:      #dfc0b0;
+  --c-sand:        #dfc0b0;
+  --c-wood:        #3c1a0a;
+  --c-cream-dark:  #ead8cc;
+  --c-white:       #fdf8f5;
+
+  --f-display: 'Cormorant Garamond', Georgia, serif;
+  --f-ui:      'Raleway', system-ui, sans-serif;
+  --f-body:    'Inter', system-ui, sans-serif;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --sp-xs: 0.5rem;
+  --sp-sm: 1rem;
+  --sp-md: 2rem;
+  --sp-lg: 4rem;
+  --sp-xl: 8rem;
+  --sp-2xl:13rem;
+}
+
+/* ═══════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: auto; font-size: 16px; }
+body {
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--f-body);
+  font-weight: 300;
+  line-height: 1.8;
+  overflow-x: hidden;
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+button { border: none; background: none; font: inherit; cursor: none; }
+::selection { background: var(--c-accent); color: var(--c-bg); }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--c-bg); }
+::-webkit-scrollbar-thumb { background: var(--c-accent); }
+a, button, input, select, textarea, label, [role="button"] { cursor: none; }
+
+/* ═══════════════════════════════════════════════
+   PAGE LOADER
+   ═══════════════════════════════════════════════ */
+#loader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--c-dark2);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 2rem;
+}
+#loader-logo {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--c-white);
+  letter-spacing: 0.06em;
+  opacity: 0;
+}
+#loader-logo span { color: var(--c-accent); }
+#loader-bar-wrap {
+  width: 200px; height: 1px;
+  background: rgba(255,255,255,0.12);
+  position: relative;
+  overflow: hidden;
+}
+#loader-bar {
+  position: absolute; top: 0; left: 0;
+  height: 100%; width: 0%;
+  background: var(--c-accent);
+  transition: width 0.1s linear;
+}
+#loader-pct {
+  font-family: var(--f-ui);
+  font-weight: 200;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: rgba(255,255,255,0.4);
+}
+
+/* ═══════════════════════════════════════════════
+   CUSTOM CURSOR
+   ═══════════════════════════════════════════════ */
+#cursor-dot {
+  position: fixed; top: 0; left: 0;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: multiply;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+#cursor-ring {
+  position: fixed; top: 0; left: 0;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--c-accent);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 9997;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  transition: width 0.3s var(--ease), height 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+#cursor-ring.hovering { width: 56px; height: 56px; opacity: 0.9; }
+#cursor-dot.hovering { transform: translate(-50%, -50%) scale(0); }
+
+/* ═══════════════════════════════════════════════
+   LAYOUT UTILITIES
+   ═══════════════════════════════════════════════ */
+.section-pad { padding: 130px 8vw; }
+@media (max-width: 768px) { .section-pad { padding: 80px 6vw; } }
+.container { max-width: 1280px; margin: 0 auto; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+@media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; gap: 3rem; } }
+@media (max-width: 768px) { .grid-3 { grid-template-columns: 1fr; } }
+
+/* ═══════════════════════════════════════════════
+   TYPOGRAPHY
+   ═══════════════════════════════════════════════ */
+.display-xl {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(3.5rem, 9vw, 8.5rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+.display-lg {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  line-height: 1.1;
+}
+.display-md {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1.2;
+}
+.label {
+  font-family: var(--f-ui);
+  font-weight: 200;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+.body-sm {
+  font-family: var(--f-ui);
+  font-weight: 300;
+  font-size: 0.875rem;
+  line-height: 1.8;
+}
+.gold-line {
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--c-accent);
+  margin-bottom: 1rem;
+}
+
+/* ═══════════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════════ */
+.btn-cta {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--c-cta); color: #fff;
+  padding: 0.85rem 2rem;
+  font-family: var(--f-ui); font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  transition: background 0.25s var(--ease), transform 0.2s var(--ease), box-shadow 0.25s var(--ease);
+}
+.btn-cta:hover {
+  background: var(--c-accent-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(184,52,40,0.35);
+}
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: transparent; color: #fff;
+  padding: 0.85rem 2rem;
+  font-family: var(--f-ui); font-size: 0.8rem; font-weight: 400;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.6);
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.btn-outline:hover {
+  background: var(--c-cta);
+  border-color: var(--c-cta);
+}
+.btn-dark {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: transparent; color: var(--c-dark);
+  padding: 0.85rem 2rem;
+  font-family: var(--f-ui); font-size: 0.8rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  border: 1px solid var(--c-dark);
+  transition: background 0.3s var(--ease), color 0.3s var(--ease);
+}
+.btn-dark:hover { background: var(--c-dark); color: #fff; }
+
+/* ═══════════════════════════════════════════════
+   NAVBAR
+   ═══════════════════════════════════════════════ */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 900;
+  padding: 1.5rem 8vw;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.4s var(--ease), padding 0.4s var(--ease), backdrop-filter 0.4s;
+}
+#navbar.scrolled {
+  background: rgba(var(--c-bg-rgb), 0.92);
+  backdrop-filter: blur(12px);
+  padding-top: 1rem; padding-bottom: 1rem;
+  box-shadow: 0 1px 0 var(--c-border);
+}
+.nav-logo {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+  color: #fff;
+  transition: color 0.3s;
+}
+#navbar.scrolled .nav-logo { color: var(--c-dark); }
+#navbar.scrolled .nav-logo span { color: var(--c-accent); }
+.nav-logo span { color: var(--c-accent); }
+.nav-links {
+  display: flex; align-items: center; gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--f-ui);
+  font-weight: 300;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+  position: relative;
+  transition: color 0.3s;
+}
+#navbar.scrolled .nav-links a { color: var(--c-text-light); }
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: var(--c-accent);
+  transition: width 0.3s var(--ease);
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--c-accent) !important; }
+.nav-cta {
+  font-family: var(--f-ui);
+  font-weight: 500;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--c-cta);
+  padding: 0.6rem 1.4rem;
+  transition: background 0.25s, transform 0.2s;
+}
+.nav-cta:hover { background: var(--c-accent-dark); transform: translateY(-1px); }
+.nav-hamburger {
+  display: none; flex-direction: column;
+  gap: 5px; width: 28px;
+  background: none; border: none;
+  padding: 4px;
+}
+.nav-hamburger span {
+  display: block; height: 1px;
+  background: #fff;
+  transition: transform 0.35s var(--ease), opacity 0.25s, background 0.3s;
+  transform-origin: center;
+}
+#navbar.scrolled .nav-hamburger span { background: var(--c-dark); }
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+@media (max-width: 900px) {
+  .nav-links, .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+}
+
+/* Mobile overlay */
+#nav-overlay {
+  position: fixed; inset: 0; z-index: 850;
+  background: var(--c-dark2);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2.5rem;
+  transform: translateY(-100%);
+  transition: transform 0.55s var(--ease);
+}
+#nav-overlay.open { transform: translateY(0); }
+#nav-overlay a {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.04em;
+  transition: color 0.3s;
+}
+#nav-overlay a:hover { color: var(--c-accent); }
+#nav-overlay .nav-overlay-cta {
+  margin-top: 1rem;
+  font-family: var(--f-ui); font-size: 0.75rem;
+  font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--c-accent); border: 1px solid var(--c-accent);
+  padding: 0.75rem 2rem;
+}
+
+/* ═══════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════ */
+#hero {
+  position: relative; height: 100vh; min-height: 620px;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+#hero-bg {
+  position: absolute; inset: 0;
+  will-change: transform;
+}
+#hero-bg video, #hero-bg img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.5) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  text-align: center; padding: 0 6vw;
+  max-width: 1100px;
+}
+.hero-label {
+  font-family: var(--f-ui);
+  font-weight: 200;
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+}
+.hero-h1 {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(3.5rem, 9vw, 8.5rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+.hero-h1 .word { display: inline-block; opacity: 0; margin-right: 0.3em; }
+.hero-h1 .word:last-child { margin-right: 0; color: var(--c-accent); }
+.hero-subtitle {
+  font-family: var(--f-ui);
+  font-weight: 300;
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  color: rgba(255,255,255,0.72);
+  max-width: 540px; margin: 0 auto 2.5rem;
+  line-height: 1.85;
+  letter-spacing: 0.02em;
+  opacity: 0;
+}
+.hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; opacity: 0; }
+.hero-stats {
+  display: flex; align-items: center; justify-content: center;
+  gap: 3rem; margin-top: 4rem;
+  opacity: 0;
+}
+@media (max-width: 500px) { .hero-stats { gap: 1.5rem; } }
+.hero-stat-val {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  color: var(--c-accent);
+  line-height: 1;
+}
+.hero-stat-lbl {
+  font-family: var(--f-ui);
+  font-weight: 200;
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-top: 0.25rem;
+}
+.scroll-indicator {
+  position: absolute; bottom: 2rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  opacity: 0.45;
+  z-index: 2;
+}
+.scroll-indicator span {
+  font-family: var(--f-ui);
+  font-weight: 200;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.scroll-line {
+  width: 1px; height: 48px;
+  background: rgba(255,255,255,0.25);
+  position: relative; overflow: hidden;
+}
+.scroll-line::after {
+  content: '';
+  position: absolute;
+  width: 100%; height: 50%;
+  background: var(--c-accent);
+  animation: scrollPulse 1.8s ease-in-out infinite;
+}
+@keyframes scrollPulse { 0% { top: -50%; } 100% { top: 110%; } }
+
+/* ═══════════════════════════════════════════════
+   MARQUEE
+   ═══════════════════════════════════════════════ */
+.marquee-section {
+  background: var(--c-dark);
+  overflow: hidden;
+  padding: 1.2rem 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.marquee-track {
+  display: flex; gap: 0;
+  animation: ticker 20s linear infinite;
+  width: max-content;
+}
+.marquee-item {
+  display: flex; align-items: center; gap: 2rem;
+  padding-right: 3rem;
+  white-space: nowrap;
+  font-family: var(--f-ui);
+  font-weight: 200;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+.marquee-dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--c-accent); flex-shrink: 0;
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.333%); }
+}
+
+/* ═══════════════════════════════════════════════
+   ABOUT / STORY
+   ═══════════════════════════════════════════════ */
+#over { background: var(--c-bg); }
+.about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: center; }
+@media (max-width: 900px) { .about-inner { grid-template-columns: 1fr; gap: 3rem; } }
+.about-img-wrap {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+}
+.about-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.about-img-badge {
+  position: absolute; bottom: -1.5rem; right: -1.5rem;
+  width: 140px; height: 140px;
+  background: var(--c-dark);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0.25rem;
+}
+.about-img-badge .badge-num {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 2.8rem;
+  color: var(--c-accent);
+  line-height: 1;
+}
+.about-img-badge .badge-txt {
+  font-family: var(--f-ui);
+  font-weight: 200;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+}
+.about-text { padding-top: 1rem; }
+.about-text h2 { color: var(--c-dark); margin: 1rem 0 1.5rem; }
+.about-text p {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.9rem; color: var(--c-text-light);
+  line-height: 1.9; margin-bottom: 1.2rem;
+}
+.about-attrs {
+  display: flex; gap: 2rem; margin-top: 2rem;
+  flex-wrap: wrap;
+}
+.about-attr-val {
+  font-family: var(--f-display);
+  font-style: italic; font-weight: 300;
+  font-size: 2.2rem; color: var(--c-accent); line-height: 1;
+}
+.about-attr-lbl {
+  font-family: var(--f-ui); font-weight: 200;
+  font-size: 0.65rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--c-text-light);
+  margin-top: 0.2rem;
+}
+
+/* ═══════════════════════════════════════════════
+   STORY STRIP
+   ═══════════════════════════════════════════════ */
+#verhaal {
+  background: var(--c-dark2);
+  overflow: hidden;
+}
+.story-grid { display: grid; grid-template-columns: 1fr 1fr; }
+@media (max-width: 900px) { .story-grid { grid-template-columns: 1fr; } }
+.story-text {
+  padding: 130px 8vw 130px 8vw;
+  display: flex; flex-direction: column; justify-content: center;
+}
+@media (max-width: 768px) { .story-text { padding: 80px 6vw; } }
+.story-text h2 { color: #fff; margin: 1rem 0 1.5rem; }
+.story-text p {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.9rem; color: rgba(255,255,255,0.55);
+  line-height: 1.9; margin-bottom: 1.2rem;
+}
+.story-image {
+  position: relative; overflow: hidden;
+  min-height: 500px;
+}
+.story-image img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ═══════════════════════════════════════════════
+   CABANAS
+   ═══════════════════════════════════════════════ */
+#cabanas { background: var(--c-dark); }
+#cabanas .section-header { margin-bottom: 4rem; }
+#cabanas h2 { color: #fff; margin: 1rem 0 1rem; }
+.cabanas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+@media (max-width: 768px) { .cabanas-grid { grid-template-columns: 1fr; } }
+.cabana-card {
+  background: var(--c-dark2);
+  overflow: hidden;
+  position: relative;
+}
+.cabana-img {
+  position: relative; height: 300px; overflow: hidden;
+}
+.cabana-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.7s var(--ease);
+}
+.cabana-card:hover .cabana-img img { transform: scale(1.06); }
+.cabana-img::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(14,30,18,0.8) 0%, transparent 50%);
+}
+.cabana-badge {
+  position: absolute; top: 1.25rem; left: 1.25rem; z-index: 2;
+  background: var(--c-accent); color: #fff;
+  font-family: var(--f-ui); font-weight: 200;
+  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0.35rem 0.85rem;
+}
+.cabana-body { padding: 2rem 2rem 2.5rem; }
+.cabana-body .label { margin-bottom: 0.6rem; }
+.cabana-body h3 {
+  font-family: var(--f-display);
+  font-style: italic; font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: #fff; margin-bottom: 1rem;
+}
+.cabana-body p {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.875rem; color: rgba(255,255,255,0.5);
+  line-height: 1.8; margin-bottom: 1.5rem;
+}
+.cabana-features { list-style: none; margin-bottom: 2rem; }
+.cabana-features li {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.4rem 0;
+}
+.cabana-features li::before {
+  content: ''; flex-shrink: 0;
+  width: 20px; height: 1px; background: var(--c-accent);
+}
+.cabana-features li span {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.825rem; color: rgba(255,255,255,0.6);
+}
+.cabana-footer {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.cabana-price {
+  font-family: var(--f-display);
+  font-style: italic; font-weight: 300;
+  font-size: 2rem; color: var(--c-accent); line-height: 1;
+}
+.cabana-price small {
+  font-family: var(--f-ui); font-weight: 200;
+  font-size: 0.7rem; color: rgba(255,255,255,0.35);
+  margin-left: 0.3rem;
+}
+.cabanas-note {
+  text-align: center; margin-top: 2.5rem;
+  font-family: var(--f-ui); font-weight: 200;
+  font-size: 0.7rem; letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.25);
+}
+
+/* ═══════════════════════════════════════════════
+   FACILITIES
+   ═══════════════════════════════════════════════ */
+#faciliteiten { background: var(--c-bg); }
+#faciliteiten h2 { color: var(--c-dark); margin: 1rem 0 4rem; }
+.fac-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--c-border); }
+@media (max-width: 768px) { .fac-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .fac-grid { grid-template-columns: 1fr; } }
+.fac-item {
+  background: var(--c-bg);
+  padding: 2.5rem 2rem;
+  display: flex; flex-direction: column; gap: 1rem;
+  transition: background 0.3s var(--ease);
+}
+.fac-item:hover { background: var(--c-cream-dark); }
+.fac-icon { font-size: 1.6rem; color: var(--c-accent); }
+.fac-name {
+  font-family: var(--f-display);
+  font-style: italic; font-weight: 400;
+  font-size: 1.25rem; color: var(--c-dark);
+}
+.fac-desc {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.825rem; color: var(--c-text-light);
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════════
+   ACTIVITIES
+   ═══════════════════════════════════════════════ */
+#activiteiten { background: var(--c-dark2); overflow: hidden; }
+#activiteiten h2 { color: #fff; margin: 1rem 0 4rem; }
+.act-list { display: flex; flex-direction: column; gap: 0; }
+.act-item {
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 420px;
+  overflow: hidden;
+}
+@media (max-width: 768px) { .act-item { grid-template-columns: 1fr; } }
+.act-item:nth-child(even) .act-img { order: -1; }
+@media (max-width: 768px) { .act-item:nth-child(even) .act-img { order: 0; } }
+.act-img { position: relative; overflow: hidden; min-height: 300px; }
+.act-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease); }
+.act-item:hover .act-img img { transform: scale(1.05); }
+.act-body {
+  padding: 4rem;
+  background: var(--c-dark);
+  display: flex; flex-direction: column; justify-content: center;
+}
+@media (max-width: 768px) { .act-body { padding: 2.5rem 2rem; } }
+.act-body .label { margin-bottom: 1rem; }
+.act-body h3 {
+  font-family: var(--f-display);
+  font-style: italic; font-weight: 400;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  color: #fff; margin-bottom: 1rem;
+}
+.act-body p {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.875rem; color: rgba(255,255,255,0.5);
+  line-height: 1.85; max-width: 380px;
+}
+
+/* ═══════════════════════════════════════════════
+   PRICING
+   ═══════════════════════════════════════════════ */
+#tarieven { background: var(--c-bg); }
+#tarieven .section-header { text-align: center; margin-bottom: 5rem; }
+#tarieven h2 { color: var(--c-dark); margin: 1rem 0; }
+#tarieven h2 span { color: var(--c-accent); }
+.pricing-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; max-width: 1100px; margin: 0 auto; }
+@media (max-width: 900px) { .pricing-grid { grid-template-columns: 1fr; } }
+.pricing-main {
+  grid-column: 1 / 3;
+  background: var(--c-dark);
+  padding: 4rem;
+  position: relative; overflow: hidden;
+}
+@media (max-width: 900px) { .pricing-main { grid-column: 1; } }
+.pricing-main::before {
+  content: '€30';
+  position: absolute; bottom: -2rem; right: -1rem;
+  font-family: var(--f-display);
+  font-style: italic; font-weight: 300;
+  font-size: 14rem; line-height: 1;
+  color: rgba(255,255,255,0.025);
+  pointer-events: none; user-select: none;
+}
+.pricing-main .label { margin-bottom: 1rem; }
+.pricing-price-wrap { display: flex; align-items: flex-end; gap: 1rem; margin-bottom: 2.5rem; }
+.pricing-price {
+  font-family: var(--f-display);
+  font-style: italic; font-weight: 400;
+  font-size: 5.5rem; line-height: 1;
+  color: var(--c-accent);
+}
+.pricing-price-unit {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.8rem; color: rgba(255,255,255,0.5);
+  margin-bottom: 1.2rem; line-height: 1.5;
+}
+.pricing-note {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.825rem; color: rgba(255,255,255,0.6);
+  line-height: 1.8; margin-bottom: 2.5rem;
+}
+.pricing-features { list-style: none; margin-bottom: 3rem; }
+.pricing-features li {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 0.6rem 0;
+}
+.pricing-features li .check { color: var(--c-accent); font-size: 1rem; margin-top: 0.1rem; flex-shrink: 0; }
+.pricing-features li span {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.875rem; color: rgba(255,255,255,0.65); line-height: 1.7;
+}
+.pricing-extras { display: flex; flex-direction: column; gap: 1.5rem; }
+.pricing-extra-card {
+  background: #fff;
+  border: 1px solid var(--c-border);
+  padding: 2.5rem;
+}
+.pricing-extra-card .label { margin-bottom: 0.75rem; }
+.pricing-extra-card h3 {
+  font-family: var(--f-display);
+  font-style: italic; font-weight: 400;
+  font-size: 1.6rem; color: var(--c-dark); margin-bottom: 0.75rem;
+}
+.pricing-extra-card .extra-price {
+  font-family: var(--f-display);
+  font-style: italic; font-weight: 400;
+  font-size: 2.2rem; color: var(--c-accent); line-height: 1;
+}
+.pricing-extra-card .extra-unit {
+  font-family: var(--f-ui); font-weight: 200;
+  font-size: 0.7rem; color: var(--c-text-light);
+  margin-top: 0.2rem; margin-bottom: 1rem;
+}
+.pricing-extra-divider { height: 1px; background: var(--c-border); margin: 1rem 0; }
+.pricing-extra-card p {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.825rem; color: var(--c-text-light); line-height: 1.7;
+}
+.pricing-wa {
+  background: var(--c-dark2);
+  padding: 2.5rem;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.pricing-wa h3 {
+  font-family: var(--f-display);
+  font-style: italic; font-weight: 400;
+  font-size: 1.4rem; color: var(--c-accent);
+}
+.pricing-wa p {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.825rem; color: rgba(255,255,255,0.55); line-height: 1.7;
+}
+.btn-wa {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff; padding: 0.65rem 1.2rem;
+  font-family: var(--f-ui); font-size: 0.7rem; font-weight: 400;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  transition: border-color 0.3s, background 0.3s;
+}
+.btn-wa:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.6); }
+
+/* ═══════════════════════════════════════════════
+   BOOKING
+   ═══════════════════════════════════════════════ */
+#boeken { background: var(--c-dark); }
+#boeken h2 { color: #fff; margin: 1rem 0 3rem; }
+.booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+@media (max-width: 900px) { .booking-grid { grid-template-columns: 1fr; gap: 3rem; } }
+.booking-intro p {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.9rem; color: rgba(255,255,255,0.55);
+  line-height: 1.9; margin-bottom: 1.5rem;
+}
+.booking-perks { list-style: none; margin-top: 2rem; }
+.booking-perks li {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.5rem 0;
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.85rem; color: rgba(255,255,255,0.6);
+}
+.booking-perks li::before {
+  content: ''; width: 16px; height: 1px;
+  background: var(--c-accent); flex-shrink: 0;
+}
+.booking-form { display: flex; flex-direction: column; gap: 0; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+@media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+.form-group { margin-bottom: 1.5rem; position: relative; }
+.form-label-el {
+  display: block;
+  font-family: var(--f-ui); font-weight: 200;
+  font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); margin-bottom: 0.5rem;
+}
+.form-input-el {
+  width: 100%; background: transparent;
+  border: none; border-bottom: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.9);
+  font-family: var(--f-display);
+  font-size: 1rem; font-weight: 300;
+  padding: 0.65rem 0;
+  outline: none;
+  transition: border-color 0.25s var(--ease);
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+.form-input-el::-webkit-calendar-picker-indicator { filter: invert(0.6); cursor: none; }
+.form-input-el:focus { border-bottom-color: var(--c-accent); }
+.form-input-el::placeholder { color: rgba(255,255,255,0.25); font-size: 0.875rem; font-family: var(--f-ui); }
+select.form-input-el option { background: var(--c-dark2); color: var(--c-white); }
+.form-status {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.8rem; color: var(--c-accent);
+  margin-top: 1rem; min-height: 1.2rem;
+  opacity: 0; transition: opacity 0.3s;
+}
+.form-status.show { opacity: 1; }
+
+/* ═══════════════════════════════════════════════
+   CONTACT
+   ═══════════════════════════════════════════════ */
+#contact { background: var(--c-bg); }
+#contact h2 { color: var(--c-dark); margin: 1rem 0 3rem; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; }
+@media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 3rem; } }
+.contact-info-item {
+  display: flex; gap: 1.25rem; margin-bottom: 2rem;
+}
+.contact-info-item ion-icon { font-size: 1.2rem; color: var(--c-accent); margin-top: 0.1rem; flex-shrink: 0; }
+.contact-info-label {
+  font-family: var(--f-ui); font-weight: 200;
+  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--c-text-light); margin-bottom: 0.3rem;
+}
+.contact-info-value {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.9rem; color: var(--c-text); line-height: 1.6;
+}
+.contact-map-wrap {
+  aspect-ratio: 4/3;
+  background: var(--c-dark2);
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.contact-map-placeholder {
+  font-family: var(--f-display);
+  font-style: italic; font-weight: 300;
+  font-size: 1.2rem; color: rgba(255,255,255,0.2);
+  text-align: center;
+}
+.contact-map-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════ */
+footer {
+  background: var(--c-dark2);
+  padding: 5rem 8vw 2.5rem;
+}
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 4rem; padding-bottom: 4rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 2.5rem;
+}
+@media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
+@media (max-width: 550px) { .footer-top { grid-template-columns: 1fr; } }
+.footer-brand {}
+.footer-logo {
+  font-family: var(--f-display);
+  font-style: italic; font-weight: 500;
+  font-size: 1.5rem; color: #fff;
+  letter-spacing: 0.04em; margin-bottom: 1rem;
+}
+.footer-logo span { color: var(--c-accent); }
+.footer-tagline {
+  font-family: var(--f-ui); font-weight: 200;
+  font-size: 0.8rem; color: rgba(255,255,255,0.35);
+  line-height: 1.7;
+}
+.footer-col-title {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 1.25rem;
+}
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 0.65rem; }
+.footer-col ul li a {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.825rem; color: rgba(255,255,255,0.5);
+  transition: color 0.25s;
+}
+.footer-col ul li a:hover { color: var(--c-accent); }
+.footer-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-copy {
+  font-family: var(--f-ui); font-weight: 200;
+  font-size: 0.7rem; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.2);
+}
+.footer-socials { display: flex; gap: 1.25rem; }
+.footer-socials a {
+  width: 34px; height: 34px;
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.35);
+  transition: border-color 0.3s, color 0.3s;
+  font-size: 1rem;
+}
+.footer-socials a:hover { border-color: var(--c-accent); color: var(--c-accent); }
+
+/* ═══════════════════════════════════════════════
+   BACK TO TOP
+   ═══════════════════════════════════════════════ */
+#back-top {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 800;
+  width: 48px; height: 48px;
+  background: var(--c-dark);
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.6); font-size: 1.1rem;
+  opacity: 0; pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease), background 0.25s;
+}
+#back-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+#back-top:hover { background: var(--c-accent); color: #fff; }
+
+/* ═══════════════════════════════════════════════
+   GSAP REVEAL INIT
+   ═══════════════════════════════════════════════ */
+[data-reveal] { opacity: 0; transform: translateY(50px); }
+[data-reveal-left] { opacity: 0; transform: translateX(-40px); }
+[data-reveal-right] { opacity: 0; transform: translateX(40px); }
+[data-reveal-scale] { opacity: 0; transform: scale(0.95); }
+
+/* Skew container for Lenis distortion */
+.skew-wrap { will-change: transform; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ PAGE LOADER ════════════════════ -->
+<div id="loader">
+  <p id="loader-logo">Royal <span>Massia</span></p>
+  <div id="loader-bar-wrap"><div id="loader-bar"></div></div>
+  <p id="loader-pct">0%</p>
+</div>
+
+<!-- ════════════════════ CUSTOM CURSOR ════════════════════ -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- ════════════════════ NAVBAR ════════════════════ -->
+<nav id="navbar" aria-label="Hoofdnavigatie">
+  <a href="#" class="nav-logo" aria-label="Royal Massia Resort home">Royal <span>Massia</span></a>
+
+  <ul class="nav-links" role="list">
+    <li><a href="#over">Over</a></li>
+    <li><a href="#cabanas">Cabana's</a></li>
+    <li><a href="#activiteiten">Activiteiten</a></li>
+    <li><a href="#tarieven">Tarieven</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <a href="#boeken" class="nav-cta">Boek nu</a>
+
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu openen" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile overlay -->
+<div id="nav-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Navigatiemenu">
+  <a href="#over" class="nav-overlay-link">Over</a>
+  <a href="#cabanas" class="nav-overlay-link">Cabana's</a>
+  <a href="#activiteiten" class="nav-overlay-link">Activiteiten</a>
+  <a href="#tarieven" class="nav-overlay-link">Tarieven</a>
+  <a href="#contact" class="nav-overlay-link">Contact</a>
+  <a href="#boeken" class="nav-overlay-cta">Boek nu</a>
+</div>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section id="hero">
+  <div id="hero-bg">
+    <video autoplay muted loop playsinline poster="/images/outlook.jpg" id="hero-video">
+      <source src="/images/royal.mp4" type="video/mp4" />
+    </video>
+    <img src="/images/outlook.jpg" alt="Royal Massia Resort — Suriname" id="hero-fallback" style="display:none;" loading="eager" />
+  </div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <p class="hero-label">Suriname &bull; Natuur &bull; Rust</p>
+
+    <h1 class="hero-h1">
+      <span class="word">Royal</span>
+      <span class="word">Massia</span>
+      <span class="word">Resort</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Ontsnap naar de wildernis van Suriname. Verblijf in een cabana aan het water,
+      vaar in een kano en beleef de ongerepte natuur.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#boeken" class="btn-cta">Boek uw verblijf</a>
+      <a href="#over" class="btn-outline">Ontdek meer</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="text-center">
+        <p class="hero-stat-val">2</p>
+        <p class="hero-stat-lbl">Cabana's</p>
+      </div>
+      <div class="text-center">
+        <p class="hero-stat-val">€30</p>
+        <p class="hero-stat-lbl">p.p.p.n.</p>
+      </div>
+      <div class="text-center">
+        <p class="hero-stat-val">3+</p>
+        <p class="hero-stat-lbl">Activiteiten</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ════════════════════ MARQUEE ════════════════════ -->
+<div class="marquee-section" aria-hidden="true">
+  <div class="marquee-track">
+    <!-- repeat 3× for seamless loop -->
+    <div class="marquee-item">Tapawatra Rivier <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Cabana Amsterdam <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Cabana Kikkenstein <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Ananasberg Wandeling <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Kajaks &amp; Kano's <span class="marquee-dot"></span></div>
+    <div class="marquee-item">WiFi &amp; Pier <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Suriname Natuur <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Tapawatra Rivier <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Cabana Amsterdam <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Cabana Kikkenstein <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Ananasberg Wandeling <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Kajaks &amp; Kano's <span class="marquee-dot"></span></div>
+    <div class="marquee-item">WiFi &amp; Pier <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Suriname Natuur <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Tapawatra Rivier <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Cabana Amsterdam <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Cabana Kikkenstein <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Ananasberg Wandeling <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Kajaks &amp; Kano's <span class="marquee-dot"></span></div>
+    <div class="marquee-item">WiFi &amp; Pier <span class="marquee-dot"></span></div>
+    <div class="marquee-item">Suriname Natuur <span class="marquee-dot"></span></div>
+  </div>
+</div>
+
+<!-- ════════════════════ ABOUT ════════════════════ -->
+<section id="over" class="section-pad">
+  <div class="container">
+    <div class="about-inner">
+      <div data-reveal-left>
+        <div class="about-img-wrap skew-wrap">
+          <img src="/images/resort1.jpg" alt="Royal Massia Resort omgeving" loading="lazy" />
+          <div class="about-img-badge">
+            <span class="badge-num">€30</span>
+            <span class="badge-txt">per persoon<br>per nacht</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-text" data-reveal>
+        <span class="gold-line"></span>
+        <p class="label">Over Ons</p>
+        <h2 class="display-lg" style="color:var(--c-dark)">
+          Een oase van rust<br>in Suriname
+        </h2>
+        <p>
+          Royal Massia Resort is een verborgen paradijs gelegen aan de oevers van de Tapawatra rivier in Suriname.
+          Omgeven door tropisch regenwoud biedt het resort een unieke combinatie van comfort en ongerepte natuur.
+        </p>
+        <p>
+          Onze twee cabana's — Amsterdam en Kikkenstein — zijn elk vernoemd naar een Amsterdamse wijk.
+          Ze bieden ieder een eigen karakter en sfeer, met prachtig uitzicht op het water en de jungle.
+        </p>
+        <div class="about-attrs">
+          <div>
+            <p class="about-attr-val">2</p>
+            <p class="about-attr-lbl">Unieke cabana's</p>
+          </div>
+          <div>
+            <p class="about-attr-val">∞</p>
+            <p class="about-attr-lbl">Tropische natuur</p>
+          </div>
+          <div>
+            <p class="about-attr-val">100%</p>
+            <p class="about-attr-lbl">Authentiek Suriname</p>
+          </div>
+        </div>
+        <div style="margin-top: 2.5rem">
+          <a href="#cabanas" class="btn-dark">Bekijk cabana's</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ STORY ════════════════════ -->
+<section id="verhaal">
+  <div class="story-grid">
+    <div class="story-text" data-reveal>
+      <span class="gold-line"></span>
+      <p class="label" style="color:var(--c-accent)">Het Verhaal</p>
+      <h2 class="display-lg" style="color:#fff">
+        Diep in het<br>Surinaamse oerwoud
+      </h2>
+      <p>
+        Royal Massia Resort werd geboren vanuit een passie voor de Surinaamse natuur en de wens om gasten
+        een authentieke beleving te bieden, ver weg van het dagelijks leven.
+      </p>
+      <p>
+        Het resort ligt verscholen in het weelderige groen, met de Tapawatra rivier als levensader.
+        Hier ontmoet luxe de wildernis — in perfecte harmonie.
+      </p>
+      <a href="#boeken" class="btn-cta" style="margin-top: 1.5rem; align-self: flex-start">Reserveer nu</a>
+    </div>
+    <div class="story-image skew-wrap">
+      <img src="/images/resort2.jpg" alt="Panoramisch uitzicht Kikkenstein" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ CABANAS ════════════════════ -->
+<section id="cabanas" class="section-pad">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <span class="gold-line"></span>
+      <p class="label">Verblijf</p>
+      <h2 class="display-lg" style="color:#fff; margin-top: 0.75rem; margin-bottom: 0.75rem">Onze Cabana's</h2>
+      <p class="body-sm" style="color:rgba(255,255,255,0.4); max-width: 420px">
+        Elk vernoemd naar een Amsterdamse wijk — elk met een eigen karakter.
+      </p>
+    </div>
+
+    <div class="cabanas-grid">
+      <!-- Amsterdam -->
+      <div class="cabana-card" data-reveal>
+        <div class="cabana-img skew-wrap">
+          <img src="/images/resort1.jpg" alt="Cabana Amsterdam" loading="lazy" />
+          <div class="cabana-badge">Populair</div>
+        </div>
+        <div class="cabana-body">
+          <p class="label">Benedenverdieping</p>
+          <h3>Cabana Amsterdam</h3>
+          <p>Direct aan het water, op de begane grond. Open concept met prachtig uitzicht op de rivier en het omringende regenwoud.</p>
+          <ul class="cabana-features">
+            <li><span>Open concept</span></li>
+            <li><span>Wateruitzicht</span></li>
+            <li><span>Pier toegang</span></li>
+            <li><span>Privé sfeer</span></li>
+          </ul>
+          <div class="cabana-footer">
+            <p class="cabana-price">€30<small>p.p.p.n.</small></p>
+            <a href="#boeken" class="btn-cta" style="font-size:0.75rem; padding: 0.7rem 1.4rem">Reserveer</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kikkenstein -->
+      <div class="cabana-card" data-reveal>
+        <div class="cabana-img skew-wrap">
+          <img src="/images/resort2.jpg" alt="Cabana Kikkenstein" loading="lazy" />
+          <div class="cabana-badge">Panorama</div>
+        </div>
+        <div class="cabana-body">
+          <p class="label">Bovenverdieping</p>
+          <h3>Cabana Kikkenstein</h3>
+          <p>Panoramisch uitzicht over de boomtoppen en de rivier. Word wakker met de geluiden van de jungle.</p>
+          <ul class="cabana-features">
+            <li><span>Panoramisch uitzicht</span></li>
+            <li><span>Boven de boomtoppen</span></li>
+            <li><span>Perfecte zonsopgang</span></li>
+            <li><span>Rust &amp; stilte</span></li>
+          </ul>
+          <div class="cabana-footer">
+            <p class="cabana-price">€30<small>p.p.p.n.</small></p>
+            <a href="#boeken" class="btn-cta" style="font-size:0.75rem; padding: 0.7rem 1.4rem">Reserveer</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="cabanas-note">Keuken huur beschikbaar &nbsp;&middot;&nbsp; 1.000 SRD/dag &nbsp;&middot;&nbsp; Prijs ook in SRD op dagkoers</p>
+  </div>
+</section>
+
+<!-- ════════════════════ FACILITIES ════════════════════ -->
+<section id="faciliteiten" class="section-pad">
+  <div class="container">
+    <div data-reveal>
+      <span class="gold-line"></span>
+      <p class="label">Voorzieningen</p>
+      <h2 class="display-lg" style="color: var(--c-dark); margin-top: 0.75rem; margin-bottom: 4rem">
+        Alles voor een<br>perfect verblijf
+      </h2>
+    </div>
+    <div class="fac-grid">
+      <div class="fac-item" data-reveal>
+        <div class="fac-icon"><ion-icon name="wifi-outline"></ion-icon></div>
+        <p class="fac-name">Gratis WiFi</p>
+        <p class="fac-desc">Snelle internetverbinding in het gehele resort.</p>
+      </div>
+      <div class="fac-item" data-reveal>
+        <div class="fac-icon"><ion-icon name="boat-outline"></ion-icon></div>
+        <p class="fac-name">Kajaks &amp; Kano's</p>
+        <p class="fac-desc">Verken de rivier op eigen tempo in onze kajaks en kano's.</p>
+      </div>
+      <div class="fac-item" data-reveal>
+        <div class="fac-icon"><ion-icon name="restaurant-outline"></ion-icon></div>
+        <p class="fac-name">Gedeelde Keuken</p>
+        <p class="fac-desc">Volledig uitgeruste keuken voor eigen gebruik. Huur: 1.000 SRD/dag.</p>
+      </div>
+      <div class="fac-item" data-reveal>
+        <div class="fac-icon"><ion-icon name="sunny-outline"></ion-icon></div>
+        <p class="fac-name">Pier &amp; Hangmatten</p>
+        <p class="fac-desc">Ontspan op de pier of in een hangmat met uitzicht op het water.</p>
+      </div>
+      <div class="fac-item" data-reveal>
+        <div class="fac-icon"><ion-icon name="leaf-outline"></ion-icon></div>
+        <p class="fac-name">Tropische Natuur</p>
+        <p class="fac-desc">Direct omgeven door het weelderige Surinaamse regenwoud.</p>
+      </div>
+      <div class="fac-item" data-reveal>
+        <div class="fac-icon"><ion-icon name="water-outline"></ion-icon></div>
+        <p class="fac-name">Tapawatra Rivier</p>
+        <p class="fac-desc">Direct toegang tot de kristalheldere rivier voor zwemmen en vissen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ ACTIVITIES ════════════════════ -->
+<section id="activiteiten">
+  <div class="container" style="padding: 130px 0 0">
+    <div class="section-pad" style="padding-bottom: 0; padding-top: 0" data-reveal>
+      <span class="gold-line"></span>
+      <p class="label">Activiteiten</p>
+      <h2 class="display-lg" style="color:#fff; margin-top: 0.75rem; margin-bottom: 4rem">
+        Beleef de<br>wildernis
+      </h2>
+    </div>
+  </div>
+  <div class="act-list">
+    <!-- Activity 1 -->
+    <div class="act-item">
+      <div class="act-img skew-wrap">
+        <img src="/images/river1.jpg" alt="Tapawatra rivier kanotocht" loading="lazy" />
+      </div>
+      <div class="act-body">
+        <p class="label">Watersport</p>
+        <h3>Tapawatra Kanotocht</h3>
+        <p>Peddel door de stille wateren van de Tapawatra rivier. Ontdek verborgen kreken en geniet van de ongerepte natuur vanuit uw kajak of kano.</p>
+      </div>
+    </div>
+    <!-- Activity 2 -->
+    <div class="act-item">
+      <div class="act-img skew-wrap">
+        <img src="/images/outlook.jpg" alt="Ananasberg wandeling" loading="lazy" />
+      </div>
+      <div class="act-body">
+        <p class="label">Wandelen</p>
+        <h3>Ananasberg Uitzicht</h3>
+        <p>Beklim de Ananasberg voor een spectaculair panoramisch uitzicht over het regenwoud en de rivier. Een onvergetelijke ervaring voor elke wandelaar.</p>
+      </div>
+    </div>
+    <!-- Activity 3 -->
+    <div class="act-item">
+      <div class="act-img skew-wrap">
+        <img src="/images/nature3.jpg" alt="Dorpswandeling in Suriname" loading="lazy" />
+      </div>
+      <div class="act-body">
+        <p class="label">Cultuur</p>
+        <h3>Dorpswandeling</h3>
+        <p>Leer het leven kennen van de lokale gemeenschap. Een culturele wandeling door naburige dorpen geeft inzicht in de rijke Surinaamse tradities.</p>
+      </div>
+    </div>
+  </div>
+  <div style="padding-bottom: 130px"></div>
+</section>
+
+<!-- ════════════════════ PRICING ════════════════════ -->
+<section id="tarieven" class="section-pad">
+  <div class="container">
+    <div class="section-header text-center" data-reveal style="text-align:center; margin-bottom:5rem">
+      <span class="gold-line" style="margin: 0 auto 1rem"></span>
+      <p class="label">Tarieven</p>
+      <h2 class="display-lg" style="color:var(--c-dark); margin-top: 0.75rem">
+        Eenvoudige &amp; Transparante<br><span style="color:var(--c-accent)">Prijzen</span>
+      </h2>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Main rate -->
+      <div class="pricing-main" data-reveal>
+        <p class="label">Verblijf</p>
+        <div class="pricing-price-wrap">
+          <p class="pricing-price">€30</p>
+          <p class="pricing-price-unit">per persoon<br>per nacht</p>
+        </div>
+        <p class="pricing-note">
+          Of equivalent in SRD (Surinaamse Dollar) tegen de dagkoers.<br>
+          Vraag ons naar de actuele wisselkoers.
+        </p>
+        <ul class="pricing-features">
+          <li>
+            <span class="check">&#10003;</span>
+            <span>Verblijf in cabana Amsterdam of Kikkenstein</span>
+          </li>
+          <li>
+            <span class="check">&#10003;</span>
+            <span>Toegang tot pier, hangmatten, kajaks &amp; kano's</span>
+          </li>
+          <li>
+            <span class="check">&#10003;</span>
+            <span>Gratis WiFi</span>
+          </li>
+          <li>
+            <span class="check">&#10003;</span>
+            <span>Omgeving vol tropische natuur</span>
+          </li>
+        </ul>
+        <a href="#boeken" class="btn-cta">Boek nu</a>
+      </div>
+
+      <!-- Extras column -->
+      <div class="pricing-extras" data-reveal>
+        <!-- Kitchen card -->
+        <div class="pricing-extra-card">
+          <p class="label">Extra</p>
+          <h3>Keuken huur</h3>
+          <p class="extra-price">1.000 SRD</p>
+          <p class="extra-unit">per dag</p>
+          <div class="pricing-extra-divider"></div>
+          <p>Zelf koken in onze volledig uitgeruste gedeelde keuken.</p>
+        </div>
+
+        <!-- WhatsApp card -->
+        <div class="pricing-wa">
+          <h3>Reserveren?</h3>
+          <p>Boek direct via ons formulier of stuur een WhatsApp bericht. We bevestigen uw reservering zo snel mogelijk.</p>
+          <a href="https://wa.me/5978900286" target="_blank" rel="noopener noreferrer" class="btn-wa">
+            <ion-icon name="logo-whatsapp" style="font-size:1rem; color:inherit"></ion-icon>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ BOOKING ════════════════════ -->
+<section id="boeken" class="section-pad">
+  <div class="container">
+    <div data-reveal style="margin-bottom: 0.5rem">
+      <span class="gold-line"></span>
+      <p class="label">Reservering</p>
+      <h2 class="display-lg" style="color:#fff; margin-top: 0.75rem">
+        Boek uw verblijf
+      </h2>
+    </div>
+
+    <div class="booking-grid" style="margin-top: 3rem">
+      <div class="booking-intro" data-reveal-left>
+        <p>Wij maken uw verblijf bij Royal Massia Resort onvergetelijk. Vul het formulier in en wij bevestigen uw reservering zo spoedig mogelijk.</p>
+        <p>Voor directe hulp kunt u ook altijd via WhatsApp contact met ons opnemen.</p>
+        <ul class="booking-perks">
+          <li>Geen reserveringskosten</li>
+          <li>Directe bevestiging via WhatsApp</li>
+          <li>Flexibele annulering</li>
+          <li>Hulp bij activiteiten planning</li>
+        </ul>
+      </div>
+
+      <form class="booking-form" id="booking-form" data-reveal>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label-el" for="book-name">Naam</label>
+            <input class="form-input-el" type="text" id="book-name" name="name" placeholder="Uw volledige naam" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label-el" for="book-email">E-mail</label>
+            <input class="form-input-el" type="email" id="book-email" name="email" placeholder="uw@email.com" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label-el" for="book-checkin">Aankomst</label>
+            <input class="form-input-el" type="date" id="book-checkin" name="checkin" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label-el" for="book-checkout">Vertrek</label>
+            <input class="form-input-el" type="date" id="book-checkout" name="checkout" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label-el" for="book-guests">Aantal gasten</label>
+            <input class="form-input-el" type="number" id="book-guests" name="guests" min="1" max="20" placeholder="1" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label-el" for="book-cabana">Cabana</label>
+            <select class="form-input-el" id="book-cabana" name="cabana">
+              <option value="">Geen voorkeur</option>
+              <option value="amsterdam">Amsterdam</option>
+              <option value="kikkenstein">Kikkenstein</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label-el" for="book-message">Bericht (optioneel)</label>
+          <textarea class="form-input-el" id="book-message" name="message" rows="3" placeholder="Bijzondere wensen of vragen..." style="resize:vertical; min-height:80px"></textarea>
+        </div>
+        <div style="margin-top: 0.5rem">
+          <button type="submit" class="btn-cta" style="width:100%; justify-content:center">
+            Verstuur aanvraag
+          </button>
+        </div>
+        <p class="form-status" id="form-status"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ CONTACT ════════════════════ -->
+<section id="contact" class="section-pad">
+  <div class="container">
+    <div data-reveal>
+      <span class="gold-line"></span>
+      <p class="label">Contact</p>
+      <h2 class="display-lg" style="color: var(--c-dark); margin-top:0.75rem; margin-bottom:3rem">
+        Neem contact op
+      </h2>
+    </div>
+
+    <div class="contact-grid">
+      <div data-reveal-left>
+        <div class="contact-info-item">
+          <ion-icon name="location-outline"></ion-icon>
+          <div>
+            <p class="contact-info-label">Locatie</p>
+            <p class="contact-info-value">Tapawatra Rivier, Suriname</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <ion-icon name="logo-whatsapp"></ion-icon>
+          <div>
+            <p class="contact-info-label">WhatsApp</p>
+            <p class="contact-info-value">
+              <a href="https://wa.me/5978900286" target="_blank" rel="noopener noreferrer" style="color:var(--c-accent)">+597 890-0286</a>
+            </p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <ion-icon name="cash-outline"></ion-icon>
+          <div>
+            <p class="contact-info-label">Tarieven</p>
+            <p class="contact-info-value">€30 p.p.p.n. · ook in SRD</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <ion-icon name="time-outline"></ion-icon>
+          <div>
+            <p class="contact-info-label">Check-in / Check-out</p>
+            <p class="contact-info-value">Flexibel op afspraak</p>
+          </div>
+        </div>
+        <div style="margin-top: 2rem">
+          <a href="https://wa.me/5978900286" target="_blank" rel="noopener noreferrer" class="btn-dark">
+            <ion-icon name="logo-whatsapp" style="font-size:1rem; color:inherit; vertical-align:middle; margin-right:0.25rem"></ion-icon>
+            Stuur WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-map-wrap" data-reveal>
+        <img src="/images/outlook.jpg" alt="Resort locatie" loading="lazy" />
+        <div class="contact-map-placeholder">
+          <div style="position:relative; z-index:2; padding: 2rem;">
+            <p style="font-family:var(--f-display); font-style:italic; font-weight:400; font-size:1.4rem; color:rgba(255,255,255,0.6)">Tapawatra Rivier</p>
+            <p style="font-family:var(--f-ui); font-weight:200; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-top:0.5rem">Suriname</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <p class="footer-logo">Royal <span>Massia</span></p>
+        <p class="footer-tagline">
+          Een verborgen paradijs aan de oevers<br>van de Tapawatra rivier in Suriname.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-col-title">Navigatie</p>
+        <ul>
+          <li><a href="#over">Over ons</a></li>
+          <li><a href="#cabanas">Cabana's</a></li>
+          <li><a href="#faciliteiten">Faciliteiten</a></li>
+          <li><a href="#activiteiten">Activiteiten</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-col-title">Informatie</p>
+        <ul>
+          <li><a href="#tarieven">Tarieven</a></li>
+          <li><a href="#boeken">Reserveren</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="https://wa.me/5978900286" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-col-title">Contact</p>
+        <ul>
+          <li><a href="https://wa.me/5978900286">+597 890-0286</a></li>
+          <li><a href="#contact">Tapawatra Rivier</a></li>
+          <li><a href="#contact">Suriname</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 Royal Massia Resort. Alle rechten voorbehouden.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook" target="_blank" rel="noopener">
+          <ion-icon name="logo-facebook" style="font-size:1rem; color:inherit"></ion-icon>
+        </a>
+        <a href="#" aria-label="Instagram" target="_blank" rel="noopener">
+          <ion-icon name="logo-instagram" style="font-size:1rem; color:inherit"></ion-icon>
+        </a>
+        <a href="https://wa.me/5978900286" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
+          <ion-icon name="logo-whatsapp" style="font-size:1rem; color:inherit"></ion-icon>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ════════════════════ BACK TO TOP ════════════════════ -->
+<button id="back-top" aria-label="Terug naar boven">
+  <ion-icon name="arrow-up-outline" style="font-size:1.1rem; color:inherit"></ion-icon>
+</button>
+
+<!-- ════════════════════ SCRIPTS ════════════════════ -->
+<script>
+(function() {
+  // ── PAGE LOADER ──────────────────────────────────────
+  const loader = document.getElementById('loader');
+  const loaderBar = document.getElementById('loader-bar');
+  const loaderPct = document.getElementById('loader-pct');
+  const loaderLogo = document.getElementById('loader-logo');
+
+  let progress = 0;
+  const startTime = Date.now();
+
+  // Animate logo in
+  gsap.to(loaderLogo, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 0.1 });
+
+  const fakeLoad = setInterval(() => {
+    const elapsed = Date.now() - startTime;
+    // fast at start, slow at end
+    progress = Math.min(95, (elapsed / 1800) * 100);
+    loaderBar.style.width = progress + '%';
+    loaderPct.textContent = Math.floor(progress) + '%';
+  }, 30);
+
+  function hideLoader() {
+    clearInterval(fakeLoad);
+    loaderBar.style.width = '100%';
+    loaderPct.textContent = '100%';
+    setTimeout(() => {
+      gsap.to(loader, {
+        yPercent: -100,
+        duration: 0.85,
+        ease: 'power3.inOut',
+        onComplete: () => { loader.style.display = 'none'; initPage(); }
+      });
+    }, 300);
+  }
+
+  if (document.readyState === 'complete') {
+    setTimeout(hideLoader, 600);
+  } else {
+    window.addEventListener('load', () => setTimeout(hideLoader, 400));
+    setTimeout(hideLoader, 2500); // fallback
+  }
+
+  // ── LENIS SMOOTH SCROLL ──────────────────────────────
+  let lenis;
+  function initLenis() {
+    lenis = new Lenis({
+      duration: 1.3,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      smoothWheel: true,
+    });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // GSAP ScrollTrigger integration
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  // ── MAIN INIT ────────────────────────────────────────
+  function initPage() {
+    gsap.registerPlugin(ScrollTrigger, SplitText);
+    initLenis();
+    initCursor();
+    initNavbar();
+    initHeroAnim();
+    initScrollReveal();
+    initSkewEffect();
+    initBackTop();
+    initBookingForm();
+    initVideoFallback();
+  }
+
+  // ── CUSTOM CURSOR ─────────────────────────────────────
+  function initCursor() {
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    const bound = new WeakSet();
+
+    const moveDot = gsap.quickTo(dot, 'x', { duration: 0.1, ease: 'none' });
+    const moveDotY = gsap.quickTo(dot, 'y', { duration: 0.1, ease: 'none' });
+    const moveRing = gsap.quickTo(ring, 'x', { duration: 0.45, ease: 'power3.out' });
+    const moveRingY = gsap.quickTo(ring, 'y', { duration: 0.45, ease: 'power3.out' });
+
+    window.addEventListener('mousemove', e => {
+      moveDot(e.clientX); moveDotY(e.clientY);
+      moveRing(e.clientX); moveRingY(e.clientY);
+    });
+
+    function bindHover(el) {
+      if (bound.has(el)) return;
+      bound.add(el);
+      el.addEventListener('mouseenter', () => { dot.classList.add('hovering'); ring.classList.add('hovering'); });
+      el.addEventListener('mouseleave', () => { dot.classList.remove('hovering'); ring.classList.remove('hovering'); });
+    }
+
+    function bindAll() {
+      document.querySelectorAll('a, button, [role="button"], input, select, textarea').forEach(bindHover);
+    }
+    bindAll();
+
+    const obs = new MutationObserver(bindAll);
+    obs.observe(document.body, { childList: true, subtree: true });
+  }
+
+  // ── NAVBAR ────────────────────────────────────────────
+  function initNavbar() {
+    const nav = document.getElementById('navbar');
+    const hamburger = document.getElementById('hamburger');
+    const overlay = document.getElementById('nav-overlay');
+    let menuOpen = false;
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) { nav.classList.add('scrolled'); }
+      else { nav.classList.remove('scrolled'); }
+    }, { passive: true });
+
+    function toggleMenu(open) {
+      menuOpen = open;
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+      overlay.classList.toggle('open', open);
+      overlay.setAttribute('aria-hidden', String(!open));
+      if (open) { lenis && lenis.stop(); }
+      else { lenis && lenis.start(); }
+    }
+
+    hamburger.addEventListener('click', () => toggleMenu(!menuOpen));
+
+    overlay.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        toggleMenu(false);
+      });
+    });
+
+    // Smooth anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target && lenis) {
+          e.preventDefault();
+          lenis.scrollTo(target, { offset: -80, duration: 1.4 });
+        }
+      });
+    });
+  }
+
+  // ── HERO ANIMATION ────────────────────────────────────
+  function initHeroAnim() {
+    const words = document.querySelectorAll('.hero-word');
+    const label = document.querySelector('.hero-label');
+    const subtitle = document.querySelector('.hero-subtitle');
+    const ctas = document.querySelector('.hero-ctas');
+    const stats = document.querySelector('.hero-stats');
+
+    const tl = gsap.timeline({ delay: 0.2 });
+    tl.to(label, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
+      .to(words, { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: 'power3.out' }, '-=0.5')
+      .to(subtitle, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.6')
+      .to(ctas, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5')
+      .to(stats, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4');
+
+    // Hero parallax
+    gsap.to('#hero-bg', {
+      yPercent: 30,
+      ease: 'none',
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
+    });
+  }
+
+  // ── SCROLL REVEAL ─────────────────────────────────────
+  function initScrollReveal() {
+    // Standard reveal (up)
+    gsap.utils.toArray('[data-reveal]').forEach(el => {
+      gsap.to(el, {
+        opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+      });
+    });
+    // Left reveal
+    gsap.utils.toArray('[data-reveal-left]').forEach(el => {
+      gsap.to(el, {
+        opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+      });
+    });
+    // Right reveal
+    gsap.utils.toArray('[data-reveal-right]').forEach(el => {
+      gsap.to(el, {
+        opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+      });
+    });
+    // Scale reveal
+    gsap.utils.toArray('[data-reveal-scale]').forEach(el => {
+      gsap.to(el, {
+        opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+      });
+    });
+
+    // SplitText on h2 headings
+    document.querySelectorAll('h2.display-lg').forEach(el => {
+      try {
+        const split = new SplitText(el, { type: 'words' });
+        gsap.from(split.words, {
+          opacity: 0, rotationX: 45, y: 30, stagger: 0.05, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+        });
+      } catch(e) { /* SplitText may not be available in free GSAP */ }
+    });
+  }
+
+  // ── LENIS SKEW DISTORTION ─────────────────────────────
+  function initSkewEffect() {
+    if (!lenis) return;
+    const proxy = { skew: 0 };
+    const setSkew = gsap.quickSetter('.skew-wrap', 'skewY', 'deg');
+    ScrollTrigger.create({
+      onUpdate: self => {
+        const skew = Math.min(Math.abs(self.getVelocity() / 300), 3) * Math.sign(self.getVelocity());
+        gsap.to(proxy, {
+          skew, duration: 0.5, ease: 'power3.out',
+          overwrite: true,
+          onUpdate: () => setSkew(proxy.skew)
+        });
+      }
+    });
+  }
+
+  // ── BACK TO TOP ───────────────────────────────────────
+  function initBackTop() {
+    const btn = document.getElementById('back-top');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 600);
+    }, { passive: true });
+    btn.addEventListener('click', () => {
+      if (lenis) lenis.scrollTo(0, { duration: 1.4 });
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // ── BOOKING FORM ──────────────────────────────────────
+  function initBookingForm() {
+    const form = document.getElementById('booking-form');
+    const status = document.getElementById('form-status');
+    if (!form) return;
+
+    // Set min date for date inputs
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('book-checkin').setAttribute('min', today);
+    document.getElementById('book-checkout').setAttribute('min', today);
+
+    document.getElementById('book-checkin').addEventListener('change', function() {
+      document.getElementById('book-checkout').setAttribute('min', this.value);
+    });
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      status.textContent = 'Uw aanvraag wordt verwerkt...';
+      status.style.color = 'rgba(255,255,255,0.5)';
+      status.classList.add('show');
+
+      // Build WhatsApp message
+      const name = document.getElementById('book-name').value;
+      const email = document.getElementById('book-email').value;
+      const checkin = document.getElementById('book-checkin').value;
+      const checkout = document.getElementById('book-checkout').value;
+      const guests = document.getElementById('book-guests').value;
+      const cabana = document.getElementById('book-cabana').value || 'Geen voorkeur';
+      const message = document.getElementById('book-message').value;
+
+      const waMsg = encodeURIComponent(
+        `Hallo Royal Massia Resort!\n\n` +
+        `Reserveringsaanvraag:\n` +
+        `Naam: ${name}\n` +
+        `E-mail: ${email}\n` +
+        `Aankomst: ${checkin}\n` +
+        `Vertrek: ${checkout}\n` +
+        `Gasten: ${guests}\n` +
+        `Cabana: ${cabana}` +
+        (message ? `\nBericht: ${message}` : '')
+      );
+
+      setTimeout(() => {
+        status.textContent = 'Aanvraag ontvangen! U wordt doorgestuurd naar WhatsApp.';
+        status.style.color = 'var(--c-accent)';
+        setTimeout(() => {
+          window.open(`https://wa.me/5978900286?text=${waMsg}`, '_blank');
+          form.reset();
+          setTimeout(() => { status.classList.remove('show'); }, 4000);
+        }, 1000);
+      }, 800);
+    });
+  }
+
+  // ── VIDEO FALLBACK ────────────────────────────────────
+  function initVideoFallback() {
+    const video = document.getElementById('hero-video');
+    const fallback = document.getElementById('hero-fallback');
+    if (!video) return;
+    video.addEventListener('error', () => {
+      video.style.display = 'none';
+      fallback.style.display = 'block';
+    });
+    // If video hasn't started in 3s, show fallback
+    setTimeout(() => {
+      if (video.readyState < 2) {
+        video.style.display = 'none';
+        fallback.style.display = 'block';
+      }
+    }, 3000);
+  }
+
+})();
+</script>
+</body>
+</html>
