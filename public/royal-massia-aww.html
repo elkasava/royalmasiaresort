@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Royal Massia Resort — Suriname</title>
+<title>Royal Masia Resort — Suriname</title>
 <meta name="description" content="Ontsnap naar de wildernis van Suriname. Verblijf in een cabana aan het water, vaar in een kano en beleef de ongerepte natuur." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231a3a22'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='20' fill='%23b83428'>M</text></svg>" />
 
@@ -767,6 +767,89 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
 }
 
 /* ═══════════════════════════════════════════════
+   EXPERIENCES / REVIEWS
+   ═══════════════════════════════════════════════ */
+#ervaringen { background: var(--c-cream); }
+#ervaringen .section-header { text-align: center; margin-bottom: 4rem; }
+#ervaringen h2 { color: var(--c-dark); margin: 1rem 0; }
+#ervaringen h2 span { color: var(--c-accent); }
+#ervaringen .section-header p {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 1rem; color: var(--c-stone);
+  max-width: 540px; margin: 0 auto;
+  line-height: 1.8;
+}
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto 4rem;
+}
+@media (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr; } }
+@media (min-width: 600px) and (max-width: 900px) { .reviews-grid { grid-template-columns: 1fr 1fr; } }
+.review-card {
+  background: #fff;
+  border-radius: 1.5rem;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 8px 32px rgba(26,58,34,0.08);
+  display: flex; flex-direction: column; gap: 1rem;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.review-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(26,58,34,0.14);
+}
+.review-stars { display: flex; gap: 4px; }
+.review-stars span { color: #e8a020; font-size: 1.1rem; }
+.review-text {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.92rem; line-height: 1.85;
+  color: var(--c-stone); flex: 1;
+  font-style: italic;
+}
+.review-author {
+  display: flex; align-items: center; gap: 0.75rem;
+  border-top: 1px solid rgba(26,58,34,0.08);
+  padding-top: 1rem; margin-top: auto;
+}
+.review-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--c-forest);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-family: var(--f-display);
+  font-size: 1rem; font-style: italic;
+  flex-shrink: 0;
+}
+.review-name {
+  font-family: var(--f-ui); font-weight: 600;
+  font-size: 0.88rem; color: var(--c-dark);
+}
+.review-date {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.78rem; color: var(--c-stone);
+}
+.reviews-cta {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--c-forest);
+  border-radius: 2rem;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.reviews-cta h3 {
+  font-family: var(--f-display);
+  font-style: italic; font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: #fff; margin-bottom: 0.75rem;
+}
+.reviews-cta p {
+  font-family: var(--f-ui); font-weight: 300;
+  font-size: 0.92rem; color: rgba(255,255,255,0.65);
+  margin-bottom: 2rem; line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════════
    PRICING
    ═══════════════════════════════════════════════ */
 #tarieven { background: var(--c-bg); }
@@ -1091,7 +1174,7 @@ footer {
 
 <!-- ════════════════════ PAGE LOADER ════════════════════ -->
 <div id="loader">
-  <p id="loader-logo">Royal <span>Massia</span></p>
+  <p id="loader-logo">Royal <span>Masia</span></p>
   <div id="loader-bar-wrap"><div id="loader-bar"></div></div>
   <p id="loader-pct">0%</p>
 </div>
@@ -1102,13 +1185,14 @@ footer {
 
 <!-- ════════════════════ NAVBAR ════════════════════ -->
 <nav id="navbar" aria-label="Hoofdnavigatie">
-  <a href="#" class="nav-logo" aria-label="Royal Massia Resort home">Royal <span>Massia</span></a>
+  <a href="#" class="nav-logo" aria-label="Royal Masia Resort home">Royal <span>Masia</span></a>
 
   <ul class="nav-links" role="list">
     <li><a href="#over">Over</a></li>
     <li><a href="#cabanas">Cabana's</a></li>
     <li><a href="#activiteiten">Activiteiten</a></li>
     <li><a href="#tarieven">Tarieven</a></li>
+    <li><a href="#ervaringen">Ervaringen</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 
@@ -1125,6 +1209,7 @@ footer {
   <a href="#cabanas" class="nav-overlay-link">Cabana's</a>
   <a href="#activiteiten" class="nav-overlay-link">Activiteiten</a>
   <a href="#tarieven" class="nav-overlay-link">Tarieven</a>
+  <a href="#ervaringen" class="nav-overlay-link">Ervaringen</a>
   <a href="#contact" class="nav-overlay-link">Contact</a>
   <a href="#boeken" class="nav-overlay-cta">Boek nu</a>
 </div>
@@ -1135,7 +1220,7 @@ footer {
     <video autoplay muted loop playsinline poster="/images/outlook.jpg" id="hero-video">
       <source src="/images/royal.mp4" type="video/mp4" />
     </video>
-    <img src="/images/outlook.jpg" alt="Royal Massia Resort — Suriname" id="hero-fallback" style="display:none;" loading="eager" onerror="this.onerror=null;this.style.background='linear-gradient(135deg,#1a3a22,#0e1e12)';" />
+    <img src="/images/outlook.jpg" alt="Royal Masia Resort — Suriname" id="hero-fallback" style="display:none;" loading="eager" onerror="this.onerror=null;this.style.background='linear-gradient(135deg,#1a3a22,#0e1e12)';" />
   </div>
   <div class="hero-overlay"></div>
 
@@ -1144,7 +1229,7 @@ footer {
 
     <h1 class="hero-h1">
       <span class="word">Royal</span>
-      <span class="word">Massia</span>
+      <span class="word">Masia</span>
       <span class="word">Resort</span>
     </h1>
 
@@ -1217,12 +1302,12 @@ footer {
           <div class="about-blob-deco"></div>
           <div class="about-blob-main">
             <video autoplay muted loop playsinline>
-              <source src="/images/vid1.mp4" type="video/mp4" />
+              <source src="/images/vid2.mp4" type="video/mp4" />
             </video>
           </div>
           <div class="about-blob-float">
             <video autoplay muted loop playsinline>
-              <source src="/images/vid2.mp4" type="video/mp4" />
+              <source src="/images/vid1.mp4" type="video/mp4" />
             </video>
           </div>
           <div class="about-img-badge">
@@ -1238,7 +1323,7 @@ footer {
           Een oase van rust<br>in Suriname
         </h2>
         <p>
-          Royal Massia Resort is een verborgen paradijs gelegen aan de oevers van de Tapawatra rivier in Suriname.
+          Royal Masia Resort is een verborgen paradijs gelegen aan de oevers van de Tapawatra rivier in Suriname.
           Omgeven door tropisch regenwoud biedt het resort een unieke combinatie van comfort en ongerepte natuur.
         </p>
         <p>
@@ -1277,7 +1362,7 @@ footer {
         Diep in het<br>Surinaamse oerwoud
       </h2>
       <p>
-        Royal Massia Resort werd geboren vanuit een passie voor de Surinaamse natuur en de wens om gasten
+        Royal Masia Resort werd geboren vanuit een passie voor de Surinaamse natuur en de wens om gasten
         een authentieke beleving te bieden, ver weg van het dagelijks leven.
       </p>
       <p>
@@ -1450,6 +1535,71 @@ footer {
   <div style="padding-bottom: 130px"></div>
 </section>
 
+<!-- ════════════════════ EXPERIENCES / REVIEWS ════════════════════ -->
+<section id="ervaringen" class="section-pad">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <span class="label">Ervaringen</span>
+      <h2>Wat onze gasten <span>zeggen</span></h2>
+      <p>Ontdek wat andere gasten beleefden tijdens hun verblijf bij Royal Masia Resort.</p>
+    </div>
+
+    <div class="reviews-grid">
+      <!-- Review 1 -->
+      <div class="review-card" data-reveal>
+        <div class="review-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="review-text">"Een ongelofelijke ervaring! Het resort is prachtig gelegen en de rust die je hier vindt is onbetaalbaar. We komen zeker terug."</p>
+        <div class="review-author">
+          <div class="review-avatar">S</div>
+          <div>
+            <div class="review-name">Sophie V.</div>
+            <div class="review-date">Maart 2025</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 2 -->
+      <div class="review-card" data-reveal>
+        <div class="review-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="review-text">"De cabana's zijn adembenemend mooi en de faciliteiten zijn top. Perfect voor een romantisch weekend weg. Absolute aanrader!"</p>
+        <div class="review-author">
+          <div class="review-avatar">M</div>
+          <div>
+            <div class="review-name">Marc &amp; Lien</div>
+            <div class="review-date">Februari 2025</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="review-card" data-reveal>
+        <div class="review-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="review-text">"Geweldig voor het hele gezin. De kinderen hebben het naar hun zin gehad en wij konden eindelijk echt ontspannen. Fantastisch resort!"</p>
+        <div class="review-author">
+          <div class="review-avatar">J</div>
+          <div>
+            <div class="review-name">Jana D.</div>
+            <div class="review-date">April 2025</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Share your experience CTA -->
+    <div class="reviews-cta" data-reveal>
+      <h3>Deel uw ervaring</h3>
+      <p>Heeft u bij ons verbleven? We horen graag uw verhaal. Stuur ons uw beleving via WhatsApp en we plaatsen het met plezier!</p>
+      <a href="https://wa.me/5978900286?text=Hallo%2C%20ik%20wil%20graag%20mijn%20ervaring%20delen%20bij%20Royal%20Masia%20Resort!" class="btn-outline" target="_blank" rel="noopener noreferrer">Stuur uw ervaring</a>
+    </div>
+  </div>
+</section>
+
 <!-- ════════════════════ PRICING ════════════════════ -->
 <section id="tarieven" class="section-pad">
   <div class="container">
@@ -1533,7 +1683,7 @@ footer {
 
     <div class="booking-grid" style="margin-top: 3rem">
       <div class="booking-intro" data-reveal-left>
-        <p>Wij maken uw verblijf bij Royal Massia Resort onvergetelijk. Vul het formulier in en wij bevestigen uw reservering zo spoedig mogelijk.</p>
+        <p>Wij maken uw verblijf bij Royal Masia Resort onvergetelijk. Vul het formulier in en wij bevestigen uw reservering zo spoedig mogelijk.</p>
         <p style="color:var(--c-text-light)">Voor directe hulp kunt u ook altijd via WhatsApp contact met ons opnemen.</p>
         <ul class="booking-perks">
           <li>Geen reserveringskosten</li>
@@ -1669,7 +1819,7 @@ footer {
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <p class="footer-logo">Royal <span>Massia</span></p>
+        <p class="footer-logo">Royal <span>Masia</span></p>
         <p class="footer-tagline">
           Een verborgen paradijs aan de oevers<br>van de Tapawatra rivier in Suriname.
         </p>
@@ -1706,9 +1856,9 @@ footer {
     </div>
 
     <div class="footer-bottom">
-      <p class="footer-copy">&copy; 2025 Royal Massia Resort. Alle rechten voorbehouden.</p>
+      <p class="footer-copy">&copy; 2025 Royal Masia Resort. Alle rechten voorbehouden.</p>
       <div class="footer-socials">
-        <a href="#" aria-label="Facebook" target="_blank" rel="noopener">
+        <a href="https://www.facebook.com/royalresortmasia/" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
           <ion-icon name="logo-facebook" style="font-size:1rem; color:inherit"></ion-icon>
         </a>
         <a href="#" aria-label="Instagram" target="_blank" rel="noopener">
@@ -1978,7 +2128,7 @@ footer {
       const keuken = document.getElementById('book-keuken').checked;
 
       const waMsg = encodeURIComponent(
-        `Hallo Royal Massia Resort!\n\n` +
+        `Hallo Royal Masia Resort!\n\n` +
         `Reserveringsaanvraag:\n` +
         `Naam: ${name}\n` +
         `E-mail: ${email}\n` +
