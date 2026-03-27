@@ -126,7 +126,7 @@ export default function CabanasSection() {
                     }}
                     className="text-[#b83428]"
                   >
-                    €30
+                    €30{" "}
                     <span
                       style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 200 }}
                       className="text-white/40 text-xs ml-1"

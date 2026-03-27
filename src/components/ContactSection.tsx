@@ -27,9 +27,9 @@ export default function ContactSection() {
                 {
                   icon: "logo-whatsapp",
                   label: "WhatsApp / Mobiel",
-                  value: "8900286",
+                  value: "+597 890-0286",
                   href: "https://wa.me/5978900286",
-                  sub: "+597 890 0286 (Suriname)",
+                  sub: "Suriname — bereikbaar elke dag",
                 },
                 {
                   icon: "location-outline",

@@ -78,7 +78,7 @@ export default function PricingSection() {
                 "Omgeving vol tropische natuur",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-4">
-                  <span className="text-[#b83428] mt-0.5 text-base">✓</span>
+                  <svg className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#b83428]" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="2.5,8.5 6.5,12.5 13.5,4.5"/></svg>
                   <span
                     style={{ fontFamily: "Raleway, var(--font-sans)", fontWeight: 300 }}
                     className="text-white/70 text-sm leading-relaxed"
