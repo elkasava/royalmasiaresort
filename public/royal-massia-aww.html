@@ -429,7 +429,9 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
   overflow: hidden;
 }
 .hero-h1 .word { display: inline-block; opacity: 0; margin-right: 0.3em; }
-.hero-h1 .word:last-child { margin-right: 0; color: var(--c-accent); }
+.hero-h1 .word:last-child { margin-right: 0; }
+.hero-row { display: block; white-space: nowrap; line-height: 1.05; }
+.hero-h1 .word-resort { color: var(--c-accent); margin-right: 0; }
 .hero-subtitle {
   font-family: var(--f-ui);
   font-weight: 300;
@@ -1342,9 +1344,8 @@ footer {
     <p class="hero-label">Suriname &bull; Natuur &bull; Rust</p>
 
     <h1 class="hero-h1">
-      <span class="word">Royal</span>
-      <span class="word">Masia</span>
-      <span class="word">Resort</span>
+      <span class="hero-row"><span class="word">Royal</span><span class="word">Masia</span></span>
+      <span class="hero-row"><span class="word word-resort">Resort</span></span>
     </h1>
 
     <p class="hero-subtitle">
