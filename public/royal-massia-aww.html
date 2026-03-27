@@ -184,6 +184,7 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
   font-weight: 400;
   font-size: clamp(2.4rem, 5vw, 4.2rem);
   line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 .display-md {
   font-family: var(--f-display);
@@ -208,7 +209,7 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
 }
 .gold-line {
   display: block;
-  width: 60px;
+  width: 55px;
   height: 2px;
   background: var(--c-accent);
   margin-bottom: 1rem;
@@ -442,7 +443,7 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
 .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; opacity: 0; }
 .hero-stats {
   display: flex; align-items: center; justify-content: center;
-  gap: 3rem; margin-top: 4rem;
+  gap: 4.854rem; margin-top: 4rem;
   opacity: 0;
 }
 @media (max-width: 500px) { .hero-stats { gap: 1.5rem; } }
@@ -531,7 +532,7 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
    ABOUT / STORY
    ═══════════════════════════════════════════════ */
 #over { background: var(--c-bg); }
-.about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 8rem; align-items: center; }
+.about-inner { display: grid; grid-template-columns: 1fr 1.618fr; gap: 8rem; align-items: center; }
 @media (max-width: 900px) { .about-inner { grid-template-columns: 1fr; gap: 3rem; } }
 .about-img-wrap {
   position: relative;
@@ -572,7 +573,7 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
   line-height: 1.9; margin-bottom: 1.2rem;
 }
 .about-attrs {
-  display: flex; gap: 2rem; margin-top: 2rem;
+  display: flex; gap: 3.236rem; margin-top: 2rem;
   flex-wrap: wrap;
 }
 .about-attr-val {
@@ -635,9 +636,47 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
 }
 .story-image {
   position: relative; overflow: hidden;
-  min-height: 500px;
+  min-height: 618px;
 }
 .story-image img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Story slideshow */
+.story-slider {
+  position: relative;
+  width: 100%; height: 100%; min-height: 618px;
+  overflow: hidden;
+}
+.story-slide {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.story-slide img {
+  width: 100%; height: 100%; object-fit: cover;
+  transform: scale(1.06);
+  transition: transform 6s ease, opacity 1.4s ease;
+}
+.story-slide.active {
+  opacity: 1;
+}
+.story-slide.active img {
+  transform: scale(1);
+}
+.story-dots {
+  position: absolute; bottom: 1.618rem; right: 1.618rem;
+  display: flex; gap: 0.5rem; z-index: 2;
+}
+.story-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  border: none; padding: 0;
+}
+.story-dot.active {
+  background: var(--c-accent);
+  transform: scale(1.4);
+}
 
 /* ═══════════════════════════════════════════════
    CABANAS
@@ -761,7 +800,7 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
 .act-intro-text { flex: 1; min-width: 0; }
 .act-intro-blob {
   flex-shrink: 0;
-  width: 300px; height: 340px;
+  width: 420px; height: 476px;
   border-radius: 62% 38% 55% 45% / 48% 52% 48% 52%;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0,0,0,0.45);
@@ -780,10 +819,10 @@ a, button, input, select, textarea, label, [role="button"] { cursor: none; }
 }
 @media (max-width: 900px) {
   .act-intro-wrap { flex-direction: column; padding: 80px 0 0; gap: 2rem; }
-  .act-intro-blob { width: 240px; height: 270px; margin-right: 0; }
+  .act-intro-blob { width: 336px; height: 378px; margin-right: 0; }
 }
 @media (max-width: 600px) {
-  .act-intro-blob { width: 200px; height: 225px; }
+  .act-intro-blob { width: 280px; height: 315px; }
 }
 .act-item {
   display: grid; grid-template-columns: 1fr 1fr;
@@ -1447,7 +1486,26 @@ footer {
       <a href="#boeken" class="btn-cta" style="margin-top: 1.5rem; align-self: flex-start">Reserveer nu</a>
     </div>
     <div class="story-image">
-      <img src="/images/resort2.jpg" alt="Panoramisch uitzicht Kikkenstein" loading="lazy" onerror="this.onerror=null;this.style.minHeight='300px';this.style.background='linear-gradient(135deg,#1a3a22,#0e1e12)';" />
+      <div class="story-slider" id="story-slider">
+        <div class="story-slide active">
+          <img src="/images/resort2.jpg" alt="Panoramisch uitzicht Kikkenstein" loading="eager" />
+        </div>
+        <div class="story-slide">
+          <img src="/images/resort1.jpg" alt="Cabana Amsterdam" loading="lazy" />
+        </div>
+        <div class="story-slide">
+          <img src="/images/nature1.jpg" alt="Tropisch regenwoud Suriname" loading="lazy" />
+        </div>
+        <div class="story-slide">
+          <img src="/images/cabanas.jpg" alt="Cabana's aan de rivier" loading="lazy" />
+        </div>
+        <div class="story-dots" id="story-dots">
+          <button class="story-dot active" aria-label="Dia 1"></button>
+          <button class="story-dot" aria-label="Dia 2"></button>
+          <button class="story-dot" aria-label="Dia 3"></button>
+          <button class="story-dot" aria-label="Dia 4"></button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1965,6 +2023,7 @@ footer {
     initBackTop();
     initBookingForm();
     initVideoFallback();
+    initStorySlider();
   }
 
   // ── CUSTOM CURSOR ─────────────────────────────────────
@@ -2079,6 +2138,33 @@ footer {
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('[data-reveal],[data-reveal-left],[data-reveal-right],[data-reveal-scale]').forEach(el => io.observe(el));
+  }
+
+// ── STORY SLIDER ──────────────────────────────────────
+  function initStorySlider() {
+    const slides = document.querySelectorAll('#story-slider .story-slide');
+    const dots = document.querySelectorAll('#story-dots .story-dot');
+    if (slides.length < 2) return;
+    let cur = 0;
+    let timer;
+
+    function goTo(n) {
+      slides[cur].classList.remove('active');
+      dots[cur].classList.remove('active');
+      cur = (n + slides.length) % slides.length;
+      slides[cur].classList.add('active');
+      dots[cur].classList.add('active');
+    }
+
+    function start() {
+      timer = setInterval(() => goTo(cur + 1), 4500);
+    }
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => { clearInterval(timer); goTo(i); start(); });
+    });
+
+    start();
   }
 
 // ── BACK TO TOP ───────────────────────────────────────
